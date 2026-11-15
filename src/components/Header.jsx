@@ -1,4 +1,5 @@
-import { Link, NavLink } from 'react-router'
+import { useEffect, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router'
 import logoDark from '../assets/logo-dark.png'
 import logoLight from '../assets/logo-light.png'
 import { LANGS, useLang, useText } from '../i18n.jsx'
@@ -44,8 +45,55 @@ export default function Header() {
   const [theme, toggleTheme] = useTheme()
   const dark = theme === 'dark'
   const [sound, setSound] = useSoundOn()
+  // Slides away gently when scrolling down, and in a game once the player starts playing (first
+  // press on the page); comes back on scroll up, when the pointer reaches the small tab, or on focus.
+  const [hidden, setHidden] = useState(false)
+  const { pathname } = useLocation()
+  const inGame = /^\/topics\/[^/]+\/[^/]+/.test(pathname)
+  const [hover, setHover] = useState(false)
+  // In a game, hide again 2 s after the pointer leaves the header (or the tab that revealed it).
+  useEffect(() => {
+    if (!inGame || hidden || hover) return
+    const t = setTimeout(() => setHidden(true), 2000)
+    return () => clearTimeout(t)
+  }, [inGame, hidden, hover])
+  useEffect(() => {
+    setHidden(inGame) // in a game the header starts hidden and the game gets the whole screen
+    if (inGame) document.documentElement.setAttribute('data-game', '')
+    let last = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      if (inGame) return
+      if (y < 80) setHidden(false)
+      else if (y > last + 6) setHidden(true)
+      else if (y < last - 6) setHidden(false)
+      last = y
+    }
+    const onDown = (e) => { if (inGame && !e.target.closest?.('.header')) setHidden(true) }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('pointerdown', onDown)
+    return () => {
+      document.documentElement.removeAttribute('data-game')
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('pointerdown', onDown)
+    }
+  }, [inGame, pathname])
   return (
-    <header className="header">
+    <>
+    <button
+      type="button"
+      className={'header-handle' + (hidden ? ' is-shown' : '')}
+      aria-label={tx.nav}
+      title={tx.nav}
+      tabIndex={hidden ? 0 : -1}
+      onMouseEnter={() => setHidden(false)}
+      onClick={() => setHidden(false)}
+    />
+    <header
+      className={'header' + (hidden ? ' is-hidden' : '')}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
       <div className="header-inner">
         <Link to="/" className="brand">
           <Logo />
@@ -93,5 +141,6 @@ export default function Header() {
         </div>
       </div>
     </header>
+    </>
   )
 }

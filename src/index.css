@@ -137,6 +137,7 @@
   --ease-out: cubic-bezier(0.2, 0, 0, 1);
 
   --header-h: 76px;
+  --header-full: 76px;
   --gutter: 24px;
 
   color-scheme: light;
@@ -230,12 +231,27 @@ code {
   position: sticky;
   top: 0;
   z-index: 10;
-  height: var(--header-h);
+  height: var(--header-full);
   background: color-mix(in srgb, var(--header-bg) var(--header-alpha), transparent);
   box-shadow: 0 1px 0 color-mix(in srgb, var(--border) var(--header-line), transparent);
   backdrop-filter: blur(26px) saturate(1.5);
   -webkit-backdrop-filter: blur(26px) saturate(1.5);
+  transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.7s ease;
 }
+:root[data-game] { --header-h: 0px !important; }
+:root[data-game] .header { position: fixed; left: 0; right: 0; }
+.header.is-hidden:not(:focus-within) { transform: translateY(-60%); opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .header { transition: none; } }
+/* A small pill at the top edge: tap it to bring the hidden header back (works on touch screens). */
+.header-handle {
+  position: fixed; top: 0; left: 50%; z-index: 9;
+  width: 56px; height: 18px; margin-left: -28px; padding: 0;
+  border: 0; border-radius: 0 0 12px 12px; cursor: pointer;
+  background: color-mix(in srgb, var(--muted) 45%, transparent);
+  opacity: 0; pointer-events: none; transition: opacity 0.7s ease 0.4s;
+}
+.header-handle::after { content: ''; position: absolute; left: 18px; right: 18px; top: 7px; height: 3px; border-radius: 2px; background: var(--header-bg); }
+.header-handle.is-shown { opacity: 0.8; pointer-events: auto; }
 @media (prefers-reduced-transparency: reduce) {
   .header { background: var(--header-bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
@@ -261,7 +277,7 @@ code {
 /* Logo: the version for the current theme */
 .brand-logo { display: block; height: 62px; width: auto; }
 @media (max-width: 700px) {
-  :root { --header-h: 64px; }
+  :root { --header-h: 64px; --header-full: 64px; }
   .brand-logo { height: 50px; }
 }
 .brand-logo.is-dark,

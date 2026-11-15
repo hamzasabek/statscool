@@ -1665,3 +1665,12 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 
 ## 2026-11-15 — Step 96: search placement decided (Claude)
 - Owner decision: keep BOTH the header search (button + palette, Ctrl/⌘ + K or "/") and the visible search field on the topics page. Nothing to remove; the "open decision" of Step 93 is closed. No code change.
+
+## 2026-11-15 — Step 97: header that hides, games with the whole screen, more elegant sounds (Claude)
+- Owner: the header should disappear gently on scroll down and in games (games get the space), come back only from a small grey tab, hide again after 2 s; game sounds "more elegant, with some pep".
+- `Header.jsx` + `index.css`: the header slides up 60 % and fades (0.8 s, soft easing; none with reduced motion) when scrolling down (after 80 px, 6 px dead zone) and returns on scroll up.
+  In a game route (`/topics/:slug/:game`) `<html data-game>` is set: `--header-h` becomes 0 and the header is `position: fixed` (an overlay), so the stage gets the full height; it starts hidden.
+  A 56×18 px grey tab (`.header-handle`, top centre) reveals it on hover or tap; it hides again 2 s after the pointer leaves it (also after a tap on touch screens); a press on the game hides it at once; keyboard focus keeps it visible.
+  New variable `--header-full` (real header height) next to `--header-h`.
+- `sound.js`: bell-like notes (sine + two fast-decaying partials), master low-pass + short quiet echo. `tick` climbs a pentatonic ladder in quick runs (resets after 0.9 s); `right` bright rising fifth + sparkle; `wrong` soft falling two notes (no buzzer); `chime` four-note rising arpeggio. API and when sounds play are unchanged.
+- Not yet checked: the guided tour's `headerBottom()` while the header is hidden; the sounds were not heard by me (owner approved them). Tested: build; `npm run check` on quiz, normal-distribution, mean-median (EN/FR, desktop/phone): no problems.

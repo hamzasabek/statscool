@@ -60,7 +60,7 @@ src/
     Search.jsx             SearchProvider (Ctrl/⌘ + K, or "/" outside a field), SearchButton (header), Palette (combobox dialog),
                            SearchField (visible field of the topics page; the owner kept both it and the header search, Step 96: its results replace the plan while something is typed)
     Header.jsx             logo (links to /) + Topics / About links (NavLink, yellow dot when active;
-                           Topics stays active inside a game) + EN | FR switch + sound on/off + light/dark button
+                           Topics stays active inside a game) + EN | FR switch + sound on/off + light/dark button. Hides on scroll down; in a game (`<html data-game>`) it is a hidden overlay revealed by the grey tab `.header-handle` (hides again after 2 s)
     TrainShell.jsx         the shell of every "Train your eye" game: rounds, one gesture answers, grade
                            (spot / close / off) + why, Enter or the button goes on, right / wrong sounds
                            and an end chime, end screen (score, mastery, dots per round, the game's own
