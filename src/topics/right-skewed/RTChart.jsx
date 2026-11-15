@@ -4,6 +4,7 @@ import { MotionConfig, motion } from 'motion/react'
 import { useText } from '../../i18n.jsx'
 import { CEIL, FLOOR, fmtMs, logNormalPdf, mean, median, normalPdf } from './rt.js'
 import { RT } from './text.js'
+import { DROP } from '../../motion.js'
 
 // Stacked dot plot of reaction times with a fitted log-normal curve (a bell on the log scale).
 //   scale   : 'linear' (milliseconds) or 'log' (every doubling gets the same width)
@@ -16,7 +17,6 @@ const M = { top: 10, right: 18, left: 18 }
 const BIN_CHOICES = [40, 32, 24, 20, 16]
 const MIN_COL_PX = 16
 const CURVE_STEPS = 200
-const DROP = { type: 'spring', stiffness: 380, damping: 26, mass: 0.9 }
 const ROW = 15
 const LOG_TICKS = [100, 200, 400, 800, 1600, 3200]
 

@@ -1523,3 +1523,22 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   (2.9 MB, gitignored: each machine rebuilds it). No site code changed.
 - Tested: `graphify query "where are topic games registered"` returns `src/topics/games.jsx`; `npm run build` passes.
 - To remove: `graphify uninstall --purge` (skill, hooks, CLAUDE.md section, graph) and delete `.claude/skills/apple-design/`.
+
+## 2026-11-15 — Step 89 (in progress, branch `redesign-lab-notebook`, not on main): design refresh "Lab notebook" (Claude)
+- Owner: after a design audit, chose direction A (paper and ink, hairline rules, few cards), motion level 2 (+ physical dots in
+  the playgrounds) and a playable Home hero, done so that it is easy to undo: all of it is on this branch only.
+- Foundation (`src/index.css`): one token block (7 type sizes, 3 weights + display, 3 surface radii, 3 durations + one curve),
+  every literal size / weight / radius / transition mapped onto it; warm paper `--bg`, white sheets `--surface`, flat hairlines
+  instead of shadows; gradient cards, coloured top borders, glows, hover lifts and endless pulses removed; press feedback on
+  pointer-down; logo 62 → 40 px; text contrast re-checked by script (two colours darkened).
+- Pages: `.split` layout (margin column + content) on Home, Topics, topic pages, About (tabs in the margin), References;
+  topics and activities as ruled rows; Home hero is playable (hold a button for 2 s: your dot lands among 47 simulated tries,
+  labelled as simulated); "How it works" and the end banner removed, texts in `src/pages/text.js` (en + fr).
+- Motion: `src/motion.js` (two springs DROP / SETTLE, FADE) replaces eight local settings; `hooks/useSprung.js` replaces
+  `useTweened.js` (interruptible spring); page fades and the topic drawing travelling between pages (View Transitions, `App.jsx`,
+  `TopicGlyph` `name`); tour hole and ring on springs (`Tour.jsx`); `PlayChart.jsx`: grab offset, soft edges, velocity on release.
+- Tested: `npm run build`; full `npm run check` (34 pages × 2 sizes × en / fr): no problems; screenshots of Home, Topics, a topic
+  page, About, playground, live calculation, inner clock, quiz looked at in light and dark.
+- NOT tested yet: the interactions themselves (holding the hero button, dragging and flicking a dot, the page fade, the tour
+  moving between steps), phones for real, and `/topics/mean-median/playground` in French at 1366×768 now scrolls 19 px.
+- Not done yet: `context/project.md` (new files, tokens, layout), the uppercase table head of the recap sheets.

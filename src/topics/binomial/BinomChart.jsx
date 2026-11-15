@@ -4,6 +4,7 @@ import { MotionConfig, motion } from 'motion/react'
 import { useText } from '../../i18n.jsx'
 import { binomPmf } from './binom.js'
 import { BIN } from './text.js'
+import { DROP } from '../../motion.js'
 
 // Dot plot of scores 0…n (one column per score). Dots: 'you' (yellow, ringed) at the bottom of
 // each column, 'class' (sky) above. Wide columns hold several dots per row so dots stay big.
@@ -12,7 +13,6 @@ import { BIN } from './text.js'
 //   tail     : { from, to } → shade the columns from…to (scores at least as extreme as yours)
 
 const M = { top: 14, right: 18, left: 18 }
-const DROP = { type: 'spring', stiffness: 380, damping: 26, mass: 0.9 }
 
 export default function BinomChart({ n, points, curve, refCurve = null, tail = null }) {
   const tx = useText(BIN)

@@ -1,4 +1,6 @@
 // A small drawing of a distribution, used on the home page and the topics timeline.
+// name : when given, the drawing travels from one page to the next (the same name on both pages:
+//        a view transition, see App.jsx)
 // shape: 'normal' | 'meanMedian' (bell with mean and median lines) | 'spread' (a wide and a narrow bell,
 // same centre) | 'skewed' | 'exponential' | 'binomial'
 
@@ -28,7 +30,7 @@ const skewed = (u) => {
 }
 const expo = (u) => Math.exp(-u * 4.2)
 
-export default function TopicGlyph({ shape }) {
+export default function TopicGlyph({ shape, name }) {
   const xOf = (u) => PAD + u * (GW - 2 * PAD)
   let body
   if (shape === 'binomial') {
@@ -60,7 +62,7 @@ export default function TopicGlyph({ shape }) {
     )
   }
   return (
-    <svg className="tl-glyph" width={GW} height={GH} viewBox={`0 0 ${GW} ${GH}`} aria-hidden="true">
+    <svg className="tl-glyph" width={GW} height={GH} viewBox={`0 0 ${GW} ${GH}`} aria-hidden="true" style={name ? { viewTransitionName: name } : undefined}>
       <line className="tl-glyph-axis" x1={PAD} x2={GW - PAD} y1={GH - PAD + 0.5} y2={GH - PAD + 0.5} />
       {body}
     </svg>

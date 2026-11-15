@@ -10,6 +10,7 @@ import PlayChart from './PlayChart.jsx'
 import { snap, stats } from './play.js'
 import { CALC } from './calcText.js'
 import WhyCentres from './WhyCentres.jsx'
+import { SETTLE } from '../../motion.js'
 
 // Topic 01's "Live calculation", on one screen: the playground's dots (they fall and drag like the
 // clock game's), the explanation of the last change, and three cards. Each card shows the real
@@ -24,7 +25,6 @@ const SC = { key: 'calc', domain: [0, 10], step: 1, unit: '' }
 const START = [2, 4, 4, 5, 9]
 const MAX = 12 // more dots would make the formulas too long
 const TOUR_TARGETS = [null, 'chart', 'mean', 'median', 'mode', 'feedback', 'views']
-const SLIDE = { type: 'spring', stiffness: 380, damping: 30 }
 
 // A number as written in a formula: whole, one decimal, or ≈ two decimals.
 function fmtNum(v) {
@@ -152,7 +152,7 @@ export default function CalcLab() {
     <motion.span
       key={d.id}
       layout
-      transition={SLIDE}
+      transition={SETTLE}
       className={`cl-chip${d.id === lastId ? ' is-new' : ''}${d.id === hover ? ' is-hover' : ''}${extra}`}
       onMouseEnter={() => setHover(d.id)}
       onMouseLeave={() => setHover(null)}
@@ -303,7 +303,7 @@ export default function CalcLab() {
                 <>
                   <div className="cl-tally" aria-label={tx.tallyLabel}>
                     {tally.map((r) => (
-                      <motion.div key={r.v} layout transition={SLIDE} className={`cl-col${r.c === topCount && topCount > 1 ? ' is-top' : ''}`}>
+                      <motion.div key={r.v} layout transition={SETTLE} className={`cl-col${r.c === topCount && topCount > 1 ? ' is-top' : ''}`}>
                         <span className="cl-col-dots" aria-hidden="true">
                           {Array.from({ length: r.c }, (_, k) => (
                             <i key={k} />

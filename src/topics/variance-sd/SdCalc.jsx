@@ -11,6 +11,7 @@ import SpreadMarks from './SpreadMarks.jsx'
 import { snap, spread } from './spreadPlay.js'
 import WhyN1 from './WhyN1.jsx'
 import { SDCALC } from './sdCalcText.js'
+import { SETTLE } from '../../motion.js'
 
 // Topic 02's "Live calculation", on one screen: the dots (same chart as the playground, with the
 // mean and the ±1 SD band), the explanation of the last change, and three cards with the real
@@ -26,7 +27,6 @@ const SC = { key: 'sdcalc', domain: [0, 10], step: 1, unit: '' }
 const START = [2, 4, 4, 5, 10] // mean 5, SS 36, s² 9, s 3
 const MAX = 10 // more dots would make the table too wide
 const TOUR_TARGETS = [null, 'chart', 'dev', 'var', 'sd', 'feedback', 'views']
-const SLIDE = { type: 'spring', stiffness: 380, damping: 30 }
 const CARDS = ['dev', 'var', 'sd']
 
 function fmtNum(v) {
@@ -235,7 +235,7 @@ export default function SdCalc() {
                     <div className="sc-table" style={{ gridTemplateColumns: `auto repeat(${n}, minmax(34px, 1fr)) auto` }} aria-label={tx.tableLabel}>
                       <Tex math="x_i" className="sc-head" />
                       {devs.map((d) => (
-                        <motion.span key={d.id} layout transition={SLIDE} className={`cl-chip sc-x${d.id === lastId ? ' is-new' : ''}${d.id === hover ? ' is-hover' : ''}`} {...ring(d)}>
+                        <motion.span key={d.id} layout transition={SETTLE} className={`cl-chip sc-x${d.id === lastId ? ' is-new' : ''}${d.id === hover ? ' is-hover' : ''}`} {...ring(d)}>
                           {f(d.v)}
                         </motion.span>
                       ))}

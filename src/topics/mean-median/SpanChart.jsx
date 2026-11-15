@@ -3,6 +3,7 @@ import { MotionConfig, motion } from 'motion/react'
 import { useText } from '../../i18n.jsx'
 import { RANGE, counts, fmtSpan, isWhole, mean, median, modes } from './span.js'
 import { SPAN } from './spanText.js'
+import { DROP, SETTLE } from '../../motion.js'
 
 // Spans as columns, one per whole number (2 … 10 digits).
 //   you   : the student's spans, as stacked yellow dots
@@ -12,7 +13,6 @@ import { SPAN } from './spanText.js'
 
 const M = { top: 10, right: 14, bottom: 30, left: 14 }
 const ROW = 15 // marker labels sit on three rows above the plot
-const DROP = { type: 'spring', stiffness: 420, damping: 26, mass: 0.9 }
 
 export default function SpanChart({ you, crowd = null, marks = null }) {
   const tx = useText(SPAN)
@@ -89,7 +89,7 @@ export default function SpanChart({ you, crowd = null, marks = null }) {
                   rx="4"
                   initial={{ height: 0, y: base }}
                   animate={{ height: barH(c), y: base - barH(c) }}
-                  transition={{ type: 'spring', stiffness: 160, damping: 22 }}
+                  transition={SETTLE}
                 />
                 <text className="ds-bar-count" x={xOf(+v)} y={base - barH(c) - 5} textAnchor="middle">
                   {c}

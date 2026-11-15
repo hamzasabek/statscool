@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { MotionConfig, motion } from 'motion/react'
 import { scaleLinear } from 'd3'
 import { SCENARIOS, snapGuess } from './spot.js'
+import { DROP } from '../../motion.js'
 
 // The chart of "Spot the centre": the round's values as stacked dots on an axis. Before the answer,
 // a guide follows the pointer (or ← → on the focused chart); a tap or a click (Enter) answers.
@@ -121,7 +122,7 @@ export default function SpotChart({ round, guess, onGuess, fmt, labels, aria }) 
               cy={cy(d.k)}
               initial={{ r: 0 }}
               animate={{ r }}
-              transition={{ type: 'spring', stiffness: 380, damping: 22, delay: d.i * 0.012 }}
+              transition={{ ...DROP, delay: d.i * 0.012 }}
             />
           ))}
 

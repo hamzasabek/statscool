@@ -4,6 +4,7 @@ import { MotionConfig, motion } from 'motion/react'
 import { useText } from '../../i18n.jsx'
 import { fmtS, normalPdf, stats } from './clock.js'
 import { CLOCK } from './text.js'
+import { DROP } from '../../motion.js'
 
 // Stacked dot plot of one or more series of presses, each with its own fitted normal curve
 // and ±1 SD bracket. During a game it shows one series on its own axis (0 to 2 × target);
@@ -14,7 +15,6 @@ const M = { top: 18, right: 18, left: 18 }
 const BIN_CHOICES = [32, 24, 20, 16]
 const MIN_COL_PX = 14
 const CURVE_STEPS = 160
-const DROP = { type: 'spring', stiffness: 420, damping: 24, mass: 0.9 }
 
 export default function ClockChart({ series, domain, relative = false, highlightLast = false, axisTitle }) {
   const tx = useText(CLOCK)

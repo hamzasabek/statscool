@@ -5,6 +5,7 @@ import { pct, useText } from '../../i18n.jsx'
 import { BIAS_SMALL, CLASS, SD_SMALL, fmtSignedPct } from './bisect.js'
 import { mean } from './sd.js'
 import { BIS } from './bisectText.js'
+import { FADE } from '../../motion.js'
 
 // "Find the middle", step 3: every person is one dot, placed by two numbers.
 //   x = the bias (mean error, % of the line): left of 0 = leans left, right of 0 = leans right
@@ -76,10 +77,10 @@ export default function BiasMap({ you }) {
               r={5}
               initial={{ opacity: 0, scale: 0.4 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.15 + i * 0.02, duration: 0.25 }}
+              transition={{ ...FADE, delay: 0.15 + i * 0.02 }}
             />
           ))}
-          <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1, duration: 0.3 }}>
+          <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...FADE, delay: 1.1 }}>
             <circle className="ck-dot is-a is-last bis-you" cx={x(you.bias)} cy={y(you.sd)} r={8} />
             <text className="bis-you-label" x={x(you.bias) + (x(you.bias) > W - 70 ? -13 : 13)} y={y(you.sd) + 4} textAnchor={x(you.bias) > W - 70 ? 'end' : 'start'}>
               {off ? tx.mapYouEdge : tx.mapYou}

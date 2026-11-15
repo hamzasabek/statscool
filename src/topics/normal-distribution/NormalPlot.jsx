@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
-import { useTweened } from '../../hooks/useTweened.js'
+import { useSprung } from '../../hooks/useSprung.js'
 import { clamp, fmtV, pdf, snapTo } from './normal.js'
 
 // A normal curve N(mu, sigma) on a fixed axis, for topic 03's playground and live calculation.
@@ -31,7 +31,7 @@ export default function NormalPlot({ sc, domain, mu, sigma, yMax, shade, handles
     return () => ro.disconnect()
   }, [])
   // The curve glides when mu or sigma change (not while dragging).
-  const [m, s] = useTweened([mu, sigma], { duration: 220 })
+  const [m, s] = useSprung([mu, sigma])
 
   const [lo, hi] = domain
   const M = { top: 12, right: 16, bottom: small ? 26 : zAxis ? 66 : 42, left: 16 }

@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
 import { MotionConfig, motion } from 'motion/react'
 import { normalPdf, stats } from './clock.js'
+import { DROP } from '../../motion.js'
 
 // A dot plot (or bar chart) of values on fixed columns, with an optional fitted normal curve,
 // the mean, ±1 SD and ±2 SD bands, and an optional "predicted range" band. Used by topic 03's
@@ -18,7 +19,6 @@ import { normalPdf, stats } from './clock.js'
 //   labels    : { empty, axis, sd1, sd2, range, mean(m) }
 //   small     : a small multiple (no axis title, smaller margins)
 
-const DROP = { type: 'spring', stiffness: 420, damping: 24, mass: 0.9 }
 const STEPS = 160
 
 export default function BellChart({ series, domain, bin, ticks, tickFmt, fit = false, bands = false, range, bars = false, lastKey, labels = {}, small = false, aria }) {

@@ -7,6 +7,7 @@ import { num, useLang, useText } from '../i18n.jsx'
 import { QUIZ_UI } from './quizText.js'
 import { sfx, useChime } from '../sound.js'
 import { celebrate } from '../celebrate.js'
+import { DROP } from '../motion.js'
 
 // A topic's quiz: one question at a time, multiple choice. After an answer the right option turns
 // green (yours red if wrong) and a short explanation appears; the dots at the bottom keep the score.
@@ -22,7 +23,6 @@ import { celebrate } from '../celebrate.js'
 //   guideId   : the id of the guided tour (seen once per browser)
 
 const LETTERS = ['A', 'B', 'C', 'D']
-const DROP = { type: 'spring', stiffness: 420, damping: 24, mass: 0.9 }
 
 const shuffle = (a) => {
   const b = [...a]
