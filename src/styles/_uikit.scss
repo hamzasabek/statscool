@@ -1,0 +1,18 @@
+// UIkit 3: only the components StatsCool uses (all classes start with uk-), no base, no JavaScript.
+// Loaded inside @layer uikit by frameworks.scss; colours are overridden from our tokens in bridge.css.
+$global-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+$global-primary-background: #111fa2;
+$global-link-color: #111fa2;
+$global-emphasis-color: #101a30;
+$global-color: #565c6b;
+$global-border: #dfe4ee;
+
+@import 'uikit/src/scss/variables-theme.scss';
+@import 'uikit/src/scss/mixins-theme.scss';
+@import 'uikit/src/scss/components/mixin.scss';
+@import 'uikit/src/scss/components/card.scss';
+@import 'uikit/src/scss/components/offcanvas.scss';
+@import 'uikit/src/scss/components/subnav.scss';
+@import 'uikit/src/scss/components/accordion.scss';
+@import 'uikit/src/scss/components/totop.scss';
+@import 'uikit/src/scss/components/tooltip.scss';

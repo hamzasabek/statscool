@@ -1,0 +1,35 @@
+// The four CSS frameworks, each in its own cascade layer (redesign-frameworks branch).
+// Layered styles always lose to unlayered ones, so src/styles/bridge.css and src/index.css (both
+// unlayered) win over every framework: the frameworks give structure, StatsCool keeps its look.
+// Each kind of element belongs to ONE framework (context/project.md, "Styles"):
+//   HiQ       reading text inside .hiq (type scale, lists, tables, code, kbd)
+//   Bootstrap buttons, breadcrumb, list group, badge, modal, range and switch
+//   UIkit     cards, off-canvas menu, subnav, accordion, to-top, tooltip
+//   Carbon    progress indicator, notifications, progress bar, tabs, content switcher, tags, tiles,
+//             structured list, popover / toggletip
+@use 'sass:meta';
+
+@layer hiq, bootstrap, uikit, carbon;
+
+@layer hiq {
+  // Scoped: HiQ only styles what is inside an element with class "hiq" (prose pages).
+  .hiq {
+    @include meta.load-css('hiq/dist/hiq.css');
+  }
+  // Controls inside prose (citation buttons, links styled as buttons, inputs) keep their own styles.
+  .hiq :is(button, [role='button'], input, select, textarea, label) {
+    all: revert-layer;
+  }
+}
+
+@layer bootstrap {
+  @include meta.load-css('bootstrap');
+}
+
+@layer uikit {
+  @include meta.load-css('uikit');
+}
+
+@layer carbon {
+  @include meta.load-css('carbon');
+}

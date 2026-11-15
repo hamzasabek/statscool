@@ -1674,3 +1674,19 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   New variable `--header-full` (real header height) next to `--header-h`.
 - `sound.js`: bell-like notes (sine + two fast-decaying partials), master low-pass + short quiet echo. `tick` climbs a pentatonic ladder in quick runs (resets after 0.9 s); `right` bright rising fifth + sparkle; `wrong` soft falling two notes (no buzzer); `chime` four-note rising arpeggio. API and when sounds play are unchanged.
 - Not yet checked: the guided tour's `headerBottom()` while the header is hidden; the sounds were not heard by me (owner approved them). Tested: build; `npm run check` on quiz, normal-distribution, mean-median (EN/FR, desktop/phone): no problems.
+
+## 2026-11-15 — Step 98 (branch `redesign-frameworks`): CSS frameworks wired in, no visible change yet (Claude)
+- Owner: restyle the site with IBM Carbon, UIkit, HiQ and Bootstrap, keeping its colours (navy / blue / sky / sun yellow) and the fluorescent logo colours;
+  plan first, then a test branch. Plan approved: one StatsCool look, each kind of element owned by ONE framework, CSS only (no framework JavaScript),
+  frameworks in cascade layers so our unlayered CSS always wins, a token bridge, pilot on four pages before the rest.
+- Branch `redesign-frameworks`, worktree `.claude/worktrees/redesign3/` (own `npm install`). New exact dependencies: `@carbon/styles` 1.119.0,
+  `bootstrap` 5.3.9, `uikit` 3.25.31, `hiq` 4.2.11; dev `sass` 1.108.2, `purgecss` 9.1.0.
+- `src/styles/frameworks.scss` loads each framework inside `@layer hiq, bootstrap, uikit, carbon` (HiQ scoped to `.hiq`, controls inside it reverted);
+  `_carbon.scss` (no reset, no IBM Plex, no body styles; g10 / g100 tokens), `_bootstrap.scss` (core + buttons, breadcrumb, list group, badge, modal,
+  range, switch; no reboot / grid / utilities), `_uikit.scss` (card, off-canvas, subnav, accordion, to-top, tooltip; no base). `src/styles/bridge.css`
+  (unlayered) feeds `--bs-*`, `--cds-*`, `--hiq-*` from our tokens.
+- Size: the four compiled whole = 521 KB of CSS (Carbon alone 271 KB: each component drags its dependencies). So `tools/frameworks-css.mjs`, a Vite plugin
+  serving `virtual:frameworks.css`: Sass compile, then PurgeCSS against `index.html` + `src/**/*.{js,jsx}`, only on the framework CSS (never on ours).
+  Framework class names must therefore be written in full in the sources. Result now: 135.6 KB (was 130.6 KB), since almost no framework class is used yet.
+- Tested: build; `npm run check` on Home, a topic page, inner clock, quiz, playground, About (desktop + phone): no problems; screenshots compared with
+  `main` pixel by pixel: identical (the quiz differs only by its random question).

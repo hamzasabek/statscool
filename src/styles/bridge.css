@@ -1,0 +1,62 @@
+/* ==========================================================================================
+   Token bridge (redesign-frameworks branch): every framework reads StatsCool's tokens (src/index.css,
+   :root and [data-theme='dark']), so the frameworks follow our colours, fonts, corners and light / dark.
+   Unlayered: it wins over the framework layers (src/styles/frameworks.scss).
+   ========================================================================================== */
+
+/* ---------- Bootstrap (--bs-*) ---------- */
+:root {
+  --bs-body-font-family: var(--font-ui);
+  --bs-body-color: var(--text);
+  --bs-body-bg: var(--bg);
+  --bs-secondary-color: var(--muted);
+  --bs-tertiary-bg: var(--hover);
+  --bs-border-color: var(--border);
+  --bs-border-radius: var(--r-md);
+  --bs-border-radius-sm: var(--r-sm);
+  --bs-border-radius-lg: var(--r-lg);
+  --bs-border-radius-pill: var(--r-pill);
+  --bs-link-color: var(--accent);
+  --bs-link-hover-color: var(--accent);
+  --bs-emphasis-color: var(--text);
+  --bs-focus-ring-color: color-mix(in srgb, var(--focus) 40%, transparent);
+}
+
+/* ---------- IBM Carbon (--cds-*) ---------- */
+:root {
+  --cds-interactive: var(--accent);
+  --cds-focus: var(--focus);
+  --cds-text-primary: var(--text);
+  --cds-text-secondary: var(--muted);
+  --cds-text-helper: var(--muted);
+  --cds-background: var(--bg);
+  --cds-layer-01: var(--surface);
+  --cds-layer-02: var(--hover);
+  --cds-layer-hover-01: var(--hover);
+  --cds-border-subtle-01: var(--border);
+  --cds-border-strong-01: var(--border-strong);
+  --cds-link-primary: var(--accent);
+  --cds-support-success: var(--lime-text);
+  --cds-support-error: var(--danger);
+  --cds-support-info: var(--cyan-text);
+  --cds-support-warning: var(--sun);
+}
+/* Carbon components use our text font, not IBM Plex. */
+:where([class^='cds--'], [class*=' cds--']) { font-family: var(--font-ui); }
+
+/* ---------- UIkit (uk-*) ---------- */
+:where([class^='uk-'], [class*=' uk-']) { font-family: var(--font-ui); }
+
+/* ---------- HiQ (--hiq-*), only inside .hiq ---------- */
+.hiq {
+  --hiq-font-family-base: var(--font-ui);
+  --hiq-text-color: var(--text);
+  --hiq-heading-font-weight: var(--fw-display);
+  --hiq-link-color: var(--accent);
+  --hiq-link-hover-color: var(--accent);
+  --hiq-color-primary: var(--navy);
+  --hiq-table-cell-border-color: var(--border);
+  --hiq-table-heading-background-color: var(--hover);
+  --hiq-table-heading-text-color: var(--muted);
+  --hiq-outline-color: var(--focus);
+}
