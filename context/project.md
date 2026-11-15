@@ -58,7 +58,7 @@ src/
   components/
     Footer.jsx             slim line at the foot of every page except games (3+ path segments): Privacy and legal notice · About
     Search.jsx             SearchProvider (Ctrl/⌘ + K, or "/" outside a field), SearchButton (header), Palette (combobox dialog),
-                           SearchField (visible field of the topics page: its results replace the plan while something is typed)
+                           SearchField (visible field of the topics page; the owner kept both it and the header search, Step 96: its results replace the plan while something is typed)
     Header.jsx             logo (links to /) + Topics / About links (NavLink, yellow dot when active;
                            Topics stays active inside a game) + EN | FR switch + sound on/off + light/dark button
     TrainShell.jsx         the shell of every "Train your eye" game: rounds, one gesture answers, grade

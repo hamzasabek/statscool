@@ -1662,3 +1662,6 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Owner: add hamza.sabek.campus@gmail.com to the About page and to the privacy page. About, tab "Author", card "Contact": "…, or write to <mailto link>" (texts `contactAfter`, `contactEnd`);
   /privacy: the legal notice's Contact line names the address and it is a mailto link in "Links" (the "no personal email is published" wording is gone, "no postal address" stays).
   The address is now in the page source, so spam is possible: that was the owner's choice. Tested: build, `npm run check -- about?tab=author privacy`.
+
+## 2026-11-15 — Step 96: search placement decided (Claude)
+- Owner decision: keep BOTH the header search (button + palette, Ctrl/⌘ + K or "/") and the visible search field on the topics page. Nothing to remove; the "open decision" of Step 93 is closed. No code change.
