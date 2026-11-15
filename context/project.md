@@ -64,7 +64,9 @@ src/
     _carbon.scss, _bootstrap.scss, _uikit.scss   the modules taken from each (no resets, no IBM Plex, no Bootstrap reboot /
                            grid / utilities, no UIkit base); `_carbon.scss` also maps our `.segmented` onto Carbon's content
                            switcher with Sass @extend (the games keep their markup)
-    bridge.css             unlayered: --bs-* / --cds-* / --hiq-* fed from our tokens, then how each framework piece looks here
+    bridge.css             unlayered, loaded AFTER index.css (main.jsx): --bs-* / --cds-* / --hiq-* fed from our tokens, then how
+                           each framework piece looks here, then "Step 100: the rectangular look" (Carbon + UIkit + a little
+                           OpenCode: monospace headings, [1] [2] header links, Carbon buttons, square markers, hairline sections)
   (tools/frameworks-css.mjs: Vite plugin `virtual:frameworks.css` = frameworks.scss compiled by Sass, then trimmed by PurgeCSS
    to the selectors found in index.html + src/**/*.{js,jsx}. Write framework class names in FULL in the sources, e.g. an
    object of class strings, never 'cds--x--' + state, or they are dropped.)
@@ -496,7 +498,11 @@ A new game: tick when a trial becomes a dot, `useChime(n, MIN_TRIALS, TRIALS)` a
   may scroll on phones (`flowOnNarrow`).
 - Frameworks (branch redesign-frameworks): use the framework piece that owns an element (src/styles/frameworks.scss
   header) and restyle it in src/styles/bridge.css from our tokens; never load a whole framework or its JavaScript.
-- Visual style (owner's wish): elegant, no boxed/rectangle panels. Use soft lifted cards,
+- Visual style (Step 100, branch redesign-frameworks): rectangular and flat as IBM Carbon / UIkit, a little OpenCode:
+  0 px corners (tokens), hairlines, IBM Plex Mono for headings / labels / numbers (`--font-display`, `--font-mono`), Inter for
+  text. Round only for data dots, step rings and the games' big press buttons. (Before Step 100: "elegant, no boxed/rectangle panels,
+  pills".)
+- Visual style (owner's wish before Step 100): elegant, no boxed/rectangle panels. Use soft lifted cards,
   pill buttons, segmented pills, whitespace. Fonts: Fraunces (headings), Inter (UI), both self-hosted (Latin + Latin-ext variable woff2 in src/assets/fonts; no Google Fonts).
 
 - Topics are games: the student makes the data, each action is a dot. Psychology themes.

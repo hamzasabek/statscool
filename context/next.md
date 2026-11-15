@@ -4,8 +4,9 @@
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
 - Restyling with CSS frameworks (Carbon, Bootstrap, UIkit, HiQ), branch `redesign-frameworks`, worktree `.claude/worktrees/redesign3/`
-  (Steps 98-99 in progress.md). Done: spike (layers, bridge, PurgeCSS plugin) and the PILOT (switches, game steps, breadcrumb,
-  quiz, phone menu, topic page section bar and tags). Waiting for the owner's go / no-go on the pilot. If go, left: About (Carbon
+  (Steps 98-100 in progress.md). Done: spike (layers, bridge, PurgeCSS plugin), the PILOT (switches, game steps, breadcrumb,
+  quiz, phone menu, topic page section bar and tags) and, at the owner's request, the RECTANGULAR LOOK on every page (Step 100:
+  square corners, IBM Plex Mono headings, Carbon buttons, UIkit cards, [1] [2] header links). Waiting for the owner's review. If go, left: About (Carbon
   vertical tabs, UIkit accordion), References (Bootstrap list group), search palette (Bootstrap modal + list group), playgrounds and
   live calculations (Carbon tiles, Bootstrap range), Train shell (Carbon progress bar), tour and citation bubbles (Carbon popover),
   Privacy (HiQ prose in `.hiq`), icon tooltips (UIkit), Bootstrap-owned buttons, cleanup of dead rules in index.css (`.back-link`, ...).

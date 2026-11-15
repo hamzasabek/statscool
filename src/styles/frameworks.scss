@@ -9,6 +9,8 @@
 //             structured list, popover / toggletip
 @use 'sass:meta';
 
+/*! StatsCool styles include parts of: IBM Carbon (@carbon/styles, Apache-2.0, (c) IBM Corp.), Bootstrap 5.3 (MIT, (c) The Bootstrap Authors), UIkit 3 (MIT, (c) YOOtheme GmbH), HiQ (MIT, (c) Jonathan Harrell). */
+
 @layer hiq, bootstrap, uikit, carbon;
 
 @layer hiq {

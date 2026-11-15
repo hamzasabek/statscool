@@ -16,3 +16,15 @@ $global-border: #dfe4ee;
 @import 'uikit/src/scss/components/accordion.scss';
 @import 'uikit/src/scss/components/totop.scss';
 @import 'uikit/src/scss/components/tooltip.scss';
+
+// StatsCool's cards are UIkit cards (Sass @extend on the module above): topic and activity cards, the quiz card,
+// the playground and live-calculation panels, the recap sheet, the Home figure. bridge.css draws them flat and square.
+.rule-list > li,
+.qz-card,
+.pg-card,
+.cl-card,
+.rc,
+.hero-sheet {
+  @extend .uk-card;
+  @extend .uk-card-default;
+}

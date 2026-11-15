@@ -1,5 +1,5 @@
 /* Fonts, served from this site (Step 94): no request to Google, so no visitor address is sent to a third party.
-   Inter (text) and Fraunces (headings) are variable fonts under the SIL Open Font License (licences next to the files
+   Inter (text) and Fraunces (the old headings, unused since Step 100 but kept to switch back) are variable fonts under the SIL Open Font License (licences next to the files
    in src/assets/fonts). Only the Latin subsets are kept: they cover English and French. */
 @font-face {
   font-family: 'Inter';
@@ -32,6 +32,24 @@
   font-display: swap;
   src: url(./assets/fonts/fraunces-latin-opsz-normal.woff2) format('woff2-variations');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* IBM Plex Mono (Carbon's monospace, SIL OFL, licence beside the files): headings, numbers, labels and the
+   header links (Step 100, rectangular "OpenCode x Carbon" look). The complete files cover French (œ, ’, « », narrow
+   space) and the arrows and maths signs used in the texts (→ ≈ ≤ ≥ −). */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-400.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-600.woff2) format('woff2');
 }
 
 /* ==========================================================================================
@@ -109,7 +127,10 @@
 
   /* Type: seven sizes, three weights (+ one for the display serif) */
   --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  /* Step 100 (branch redesign-frameworks): headings in a monospace, as on OpenCode and in IBM Carbon; body text stays
+     Inter. To go back to the serif headings: --font-display: 'Fraunces', Georgia, 'Times New Roman', serif. */
+  --font-display: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
   --fs-xs: 0.78rem;               /* labels, axis text */
   --fs-sm: 0.875rem;              /* buttons, captions, dense panels */
   --fs-md: 1rem;                  /* body */
@@ -122,12 +143,14 @@
   --fw-bold: 700;
   --fw-display: 600;
 
-  /* Corners: three for surfaces, one for small marks, pills for buttons */
-  --r-xs: 3px;
-  --r-sm: 6px;
-  --r-md: 12px;
-  --r-lg: 20px;
-  --r-pill: 999px;
+  /* Corners (Step 100): square, as in IBM Carbon, UIkit and OpenCode: cards, buttons, switches, tags, panels
+     are flat rectangles. Round stays only where it means something: the dots (data), the step rings, the
+     big press buttons of the games. The old values were 3 / 6 / 12 / 20 px and pills. */
+  --r-xs: 0;
+  --r-sm: 0;
+  --r-md: 0;
+  --r-lg: 0;
+  --r-pill: 0;
 
   /* Motion: three durations and one curve for CSS; springs live in src/motion.js.
      --dur-1 answers a press, --dur-2 a hover or a colour change, --dur-3 something arriving. */

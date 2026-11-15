@@ -71,9 +71,8 @@
    Components: how each framework's piece looks on StatsCool (pilot, Step 99)
    ========================================================================================== */
 
-/* ---------- Carbon content switcher = every .segmented switch (EN | FR, views, modes) ----------
-   Carbon's structure and its clear selected state (a filled segment), drawn as a hairline pill track
-   with a navy pill for the choice: the same switch everywhere on the site. */
+/* ---------- Carbon content switcher = every .segmented switch (EN | FR, game views and modes) ----------
+   Carbon's own shape: a rectangle with a hairline edge, segments split by hairlines, the choice filled in navy. */
 .segmented {
   --cds-border-inverse: var(--border-strong);
   --cds-border-subtle: var(--border);
@@ -83,9 +82,9 @@
   inline-size: auto;
   max-inline-size: 100%;
   block-size: auto;
-  gap: 2px;
-  padding: 2px;
-  border-radius: var(--r-pill);
+  gap: 0;
+  padding: 0;
+  border-radius: 0;
   background: var(--surface);
   box-shadow: inset 0 0 0 1px var(--border-strong);
 }
@@ -94,13 +93,13 @@
 .segmented > button:last-child {
   flex: 1 1 auto;
   inline-size: auto;
-  block-size: 28px;
+  block-size: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 0 12px;
-  border-radius: var(--r-pill);
+  padding: 0 14px;
+  border-radius: 0;
   box-shadow: none;
   overflow: visible;
   font-family: var(--font-ui);
@@ -110,20 +109,21 @@
   white-space: nowrap;
   color: var(--muted);
   -webkit-tap-highlight-color: transparent;
-  transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), transform var(--dur-1) var(--ease-out);
+  transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
 }
+.segmented > button + button { box-shadow: inset 1px 0 0 var(--border-strong); }
 .segmented > button:hover:not(:disabled) { background-color: var(--hover); color: var(--text); }
-.segmented > button:active:not(:disabled) { transform: scale(0.97); }
 .segmented > button.is-active,
-.segmented > button.is-active:hover { background-color: var(--accent); color: var(--on-accent); }
-/* Carbon draws the selected fill and the dividers with ::after / ::before above plain text: not needed here. */
+.segmented > button.is-active:hover { background-color: var(--accent); color: var(--on-accent); box-shadow: none; }
+.segmented > button.is-active + button { box-shadow: none; }
+/* Carbon draws the selected fill and the dividers with ::after / ::before above plain text: drawn here instead. */
 .segmented > button::after,
 .segmented > button::before { display: none; }
-.segmented > button:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.segmented > button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 .segmented > button:disabled { opacity: 0.4; }
 .lang-switch > button,
 .lang-switch > button:first-child,
-.lang-switch > button:last-child { block-size: 26px; padding: 0 10px; font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.04em; }
+.lang-switch > button:last-child { block-size: 30px; padding: 0 10px; font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.02em; }
 
 /* ---------- Carbon progress indicator = the steps of a game (Stage.jsx) ----------
    A line on top of each step (navy when done or current), a ring per step: ✓ done, a yellow core for
@@ -145,7 +145,8 @@
 
 /* ---------- Bootstrap breadcrumb = "Topics › Mean, median and mode" (Breadcrumb.jsx) ---------- */
 .breadcrumb {
-  --bs-breadcrumb-divider: '›';
+  --bs-breadcrumb-divider: '/';
+  font-family: var(--font-mono);
   --bs-breadcrumb-margin-bottom: 0;
   --bs-breadcrumb-item-padding-x: 0.45rem;
   --bs-breadcrumb-divider-color: var(--axis);
@@ -261,3 +262,125 @@
   font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.01em; white-space: nowrap;
 }
 .topic-crumbs { margin-bottom: 16px; }
+
+
+/* ==========================================================================================
+   Step 100: the rectangular look (IBM Carbon + UIkit, a little OpenCode)
+   Owner: "the rectangular simple style of Carbon and UIkit, for cards, buttons..., a little like OpenCode".
+   Square corners come from the radius tokens (index.css, all 0). Here: type, buttons, cards, markers, tabs,
+   grids. Kept: the palette, the logo's fluorescent colours, round data dots and the games' round press buttons.
+   ========================================================================================== */
+
+/* ---------- Type: page titles light and tight in the monospace (OpenCode), titles of sections and cards semi-bold ---------- */
+.page h1 { font-weight: 400; letter-spacing: -0.035em; }
+.page .home-hero h1 { font-size: clamp(2.3rem, 1.1rem + 3vw, 3.6rem); line-height: 1.05; letter-spacing: -0.045em; max-width: 17ch; }
+.eyebrow, .tl-part-label, .topic-role-extra, .home-topic-game, .sr-kind, .site-foot, .hero-tick-label, .tick-label, .control-count,
+.pg-stats dd, .qz-score-num, .qz-letter, .tl-node, .home-topic-num { font-family: var(--font-mono); }
+.eyebrow, .tl-part-label { font-weight: 400; letter-spacing: 0; }
+.tick-label, .hero-tick-label { font-size: 0.74rem; }
+
+/* ---------- Header: OpenCode's numbered links "[1] Topics  [2] About", square edges ---------- */
+.main-nav { counter-reset: nav; gap: 2px; }
+.main-nav a { counter-increment: nav; padding: 6px 10px; font-family: var(--font-mono); font-size: var(--fs-sm); font-weight: 400; color: var(--muted); }
+.main-nav a::before { content: '[' counter(nav) ']\00a0' / ''; color: var(--axis); }
+.main-nav a.active { color: var(--text); }
+.main-nav a.active::before { color: var(--pink-text); }
+.main-nav a:nth-child(2).active::before { color: var(--cyan-text); }
+.main-nav a.active::after { display: none; }
+.header .btn-ghost { color: var(--muted); }
+.header-handle, .header-handle::after { border-radius: 0; }
+
+/* ---------- Buttons (Bootstrap .btn drawn as Carbon buttons): flat rectangles, three kinds ----------
+   primary   = the student's yellow, navy text (the main action of a screen)
+   secondary = an ink rectangle (light text on ink; in dark mode a light rectangle, as OpenCode's)
+   ghost     = text in the link colour, a tint on hover (Carbon's ghost button) */
+.btn { height: 40px; padding: 0 16px; gap: 8px; border-radius: 0; font-weight: 500; letter-spacing: 0; }
+.btn-sm { height: 32px; padding: 0 12px; }
+.btn-lg { height: 48px; padding: 0 22px; font-size: var(--fs-md); }
+.btn-primary { font-weight: 600; box-shadow: inset 0 0 0 1px var(--dot-stroke); }
+.btn-primary:hover:not(:disabled) { background: color-mix(in oklab, var(--sun) 88%, #000); box-shadow: inset 0 0 0 1px var(--on-cta); }
+.btn:not(.btn-primary):not(.btn-ghost):not(.btn-danger):not(.nr-choice) { background: var(--text); color: var(--bg); }
+.btn:not(.btn-primary):not(.btn-ghost):not(.btn-danger):not(.nr-choice):hover:not(:disabled) { background: color-mix(in oklab, var(--text) 82%, var(--bg)); }
+.btn-ghost { color: var(--accent); }
+.btn-ghost:hover:not(:disabled) { color: var(--accent); background: var(--hover); }
+.btn:active:not(:disabled) { transform: none; filter: brightness(0.94); }
+.btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.guide-icon { border-radius: 0; font-family: var(--font-mono); }
+
+/* ---------- Cards (UIkit cards, src/styles/_uikit.scss): flat squares on a hairline, ink text ---------- */
+.rule-list > li, .qz-card, .pg-card, .cl-card, .rc, .hero-sheet { color: var(--text); }
+.rule-list { gap: 8px; }
+.chart-fill { box-shadow: 0 0 0 1px var(--border); }
+a.row:hover .tl-cta { transform: translateX(4px); }
+.tl-cta { font-family: var(--font-mono); font-weight: 400; }
+
+/* ---------- Markers: the logo colours as small squares (steps, links of the topics page, tabs) ---------- */
+.step-dot::before { border-radius: 0; width: 9px; height: 9px; }
+.sr-dot { border-radius: 0; }
+.topic-sections .uk-subnav-pill > [class*='is-'] > :first-child::before { border-radius: 0; }
+.home-path h3::before,
+.about-step-card::before {
+  content: counter(step, decimal-leading-zero);
+  border-radius: 0;
+  width: 30px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+}
+
+/* ---------- Sections divided by full-width hairlines (OpenCode) ---------- */
+.topic-role-group + .topic-role-group { margin-top: 36px; padding-top: 30px; border-top: 1px solid var(--border); }
+.topic-refs { padding-top: 30px; border-top: 1px solid var(--border); }
+.tl-part + .tl-part { padding-top: 40px; border-top: 1px solid var(--border); }
+.home-section { margin-top: 72px; padding-top: 36px; border-top: 1px solid var(--border); }
+
+/* ---------- Tags: square, monospace ---------- */
+.topic-tag.cds--tag { border-radius: 0; font-family: var(--font-mono); font-weight: 600; font-size: 0.72rem; letter-spacing: 0; }
+
+/* ---------- "On this page" bar: Carbon line tabs (a hairline under the bar, 2 px under the section in view) ---------- */
+.topic-sections {
+  padding: 0;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--bg) 95%, transparent);
+  box-shadow: inset 0 -1px 0 var(--border);
+}
+.topic-sections .uk-subnav { gap: 0; }
+.topic-sections .uk-subnav-pill > * > :first-child { padding: 12px 16px; border-radius: 0; font-family: var(--font-mono); font-weight: 400; }
+.topic-sections .uk-subnav-pill > * > :first-child:hover { background: var(--hover); }
+.topic-sections .uk-subnav-pill > .uk-active > :first-child { background: transparent; color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); }
+
+/* ---------- Grids with shared hairlines (OpenCode's grid, Carbon's structured list) ---------- */
+.pg-stats { gap: 1px; padding: 1px; background: var(--border); }
+.pg-stats div { border-radius: 0; background: var(--surface); padding: 8px 6px; }
+.rc-table thead th { background: var(--hover); font-family: var(--font-mono); font-weight: 600; }
+
+/* ---------- Quiz: square letters and marks (the score dots stay round: they are dots) ---------- */
+.qz-letter, .qz-review-mark { border-radius: 0; }
+
+/* ---------- About: Carbon vertical tabs in the margin (a rail, 2 px on the open tab) ---------- */
+.about-tabs { gap: 0; box-shadow: inset 2px 0 0 var(--border); }
+.about-tabs button { border-radius: 0; padding: 10px 16px; font-family: var(--font-mono); font-weight: 400; }
+.about-tabs button::before { display: none; }
+.about-tabs button[aria-selected='true'] { background: var(--hover); box-shadow: inset 2px 0 0 var(--accent); }
+@media (max-width: 900px) {
+  .about-tabs { box-shadow: inset 0 -1px 0 var(--border); }
+  .about-tabs button[aria-selected='true'] { box-shadow: inset 0 -2px 0 var(--accent); }
+}
+
+/* ---------- Search field of the topics page: Carbon text input (a filled field with a line under it) ---------- */
+.sr-fieldrow { border-radius: 0; background: var(--hover); box-shadow: inset 0 -1px 0 var(--axis); }
+.sr-fieldrow:focus-within { box-shadow: inset 0 0 0 2px var(--focus); }
+
+/* ---------- Phone menu: square panel, numbered links ---------- */
+.menu-bar.uk-offcanvas-bar { border-radius: 0; }
+.menu-nav { counter-reset: nav; }
+.menu-nav a { counter-increment: nav; border-radius: 0; font-family: var(--font-mono); font-weight: 400; }
+.menu-nav a::before { content: '[' counter(nav) ']' / ''; width: auto; height: auto; border-radius: 0; background: none; color: var(--axis); font-size: var(--fs-md); }
+.menu-nav a.active::before { background: none; color: var(--pink-text); }
+.menu-nav a:nth-child(2).active::before { background: none; color: var(--cyan-text); }
+
+/* ---------- Charts: their highlight bands, stimulus boxes and bars are square too (CSS rx overrides the SVG attribute) ---------- */
+.page svg rect { rx: 0; ry: 0; }
+
+/* ---------- Answer keys are keys, not dots: square, with monospace digits (Pick a random number) ---------- */
+.bs-num { border-radius: 0; font-family: var(--font-mono); font-weight: 600; }

@@ -190,7 +190,7 @@ export const ABOUT = {
     ccAfter: ': you may copy, translate and adapt it, even commercially, as long as you give credit, for example “Adapted from StatsCool by Hamza Sabek, CC BY 4.0”.',
     reserved: 'The StatsCool name and logo and the author’s photo are not covered by these licences (all rights reserved).',
     builtTitle: 'Built with',
-    built: 'React, Vite, D3 and Motion. Fonts: Fraunces and Inter.',
+    built: 'React, Vite, D3 and Motion; styles built on IBM Carbon, Bootstrap and UIkit. Fonts: IBM Plex Mono and Inter.',
     ai: 'The code was written with the help of AI coding assistants (Claude by Anthropic and Gemini by Google). Hamza Sabek designed the games, chose the experiments and is responsible for the scientific content.',
     contactTitle: 'Contact',
     contactBefore: 'Found a bug, or have an idea for a game? ',
@@ -292,7 +292,7 @@ export const ABOUT = {
     ccAfter: ' : vous pouvez le copier, le traduire et l’adapter, même à des fins commerciales, à condition de citer la source, par exemple « Adapté de StatsCool, de Hamza Sabek, CC BY 4.0 ».',
     reserved: 'Le nom et le logo StatsCool ainsi que la photo de l’auteur ne sont pas couverts par ces licences (tous droits réservés).',
     builtTitle: 'Construit avec',
-    built: 'React, Vite, D3 et Motion. Polices : Fraunces et Inter.',
+    built: 'React, Vite, D3 et Motion ; styles construits sur IBM Carbon, Bootstrap et UIkit. Polices : IBM Plex Mono et Inter.',
     ai: 'Le code a été écrit avec l’aide d’assistants de programmation par IA (Claude d’Anthropic et Gemini de Google). Hamza Sabek a conçu les jeux, choisi les expériences et est responsable du contenu scientifique.',
     contactTitle: 'Contact',
     contactBefore: 'Vous avez trouvé un bug, ou une idée de jeu ? ',
@@ -342,7 +342,7 @@ export const PRIVACY_PAGE = {
         'Who can see your visit',
         [
           'The site is hosted by GitHub (GitHub Pages). Like any web host, GitHub receives your IP address and the technical details of each request (page, browser, time) when your browser loads a page, and it may keep them in its server logs. The author does not receive them: there is no analytics tool and no way to see who visits. GitHub’s own rules are in its privacy statement.',
-          'The fonts (Inter and Fraunces) are served by this site itself, not by Google or any other company. The site loads nothing else from a third party. Links to other sites (ResearchGate, LinkedIn, GitHub, article DOIs) are only followed if you click them; those sites have their own policies.',
+          'The fonts (Inter and IBM Plex Mono) are served by this site itself, not by Google or any other company. The site loads nothing else from a third party. Links to other sites (ResearchGate, LinkedIn, GitHub, article DOIs) are only followed if you click them; those sites have their own policies.',
         ],
       ],
       [
@@ -387,7 +387,7 @@ export const PRIVACY_PAGE = {
         'Qui peut voir votre visite',
         [
           'Le site est hébergé par GitHub (GitHub Pages). Comme tout hébergeur, GitHub reçoit votre adresse IP et les détails techniques de chaque requête (page, navigateur, heure) lorsque votre navigateur charge une page, et peut les conserver dans ses journaux de serveur. L’auteur ne les reçoit pas : il n’y a aucun outil de statistiques ni moyen de voir qui visite le site. Les règles de GitHub figurent dans sa politique de confidentialité.',
-          'Les polices (Inter et Fraunces) sont servies par ce site lui-même, et non par Google ou une autre société. Le site ne charge rien d’autre auprès d’un tiers. Les liens vers d’autres sites (ResearchGate, LinkedIn, GitHub, DOI des articles) ne sont suivis que si vous cliquez dessus ; ces sites ont leurs propres politiques.',
+          'Les polices (Inter et IBM Plex Mono) sont servies par ce site lui-même, et non par Google ou une autre société. Le site ne charge rien d’autre auprès d’un tiers. Les liens vers d’autres sites (ResearchGate, LinkedIn, GitHub, DOI des articles) ne sont suivis que si vous cliquez dessus ; ces sites ont leurs propres politiques.',
         ],
       ],
       [

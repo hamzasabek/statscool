@@ -27,4 +27,6 @@ function cites() {
 export default defineConfig({
   plugins: [react(), cites(), frameworksCss(import.meta.url)],
   base: './',
+  // Keep /*! licence */ comments (the CSS frameworks' notice, src/styles/frameworks.scss) at the end of the built files.
+  esbuild: { legalComments: 'eof' },
 })

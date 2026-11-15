@@ -1723,3 +1723,43 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   - Interactions in headless Chrome (scratch script): the menu opens (bar at right: 0, focus on the close button); the dark switch sets
     data-theme and data-bs-theme; Escape closes the menu; a link navigates and closes it; a quiz answer shows the notification and
     the selected tile; the section bar marks "Train your eye" after a jump.
+
+## 2026-11-16 — Step 100 (branch `redesign-frameworks`): the rectangular look, Carbon + UIkit + a little OpenCode (Claude)
+- Owner, after the pilot: "I don't see a lot of changes; the most important thing is the rectangular simple style of Carbon and UIkit,
+  use it a lot, especially for cards, buttons...; a style a little like OpenCode".
+- Research: opencode.ai photographed in headless Chrome and its computed styles read (scratch script): near-black page, a monospace
+  for headings / nav / numbers ("[1] Docs", "01 02 03"), Inter for body text, 0 px corners everywhere, flat rectangles with 1 px
+  hairlines (#2e2e2e), solid rectangular buttons (light fill or dark grey with ›), sections split by full-width hairlines with a bold
+  monospace label in a left column, bordered grids with shared lines.
+- What changed (index.css tokens + `src/styles/bridge.css`, now loaded AFTER index.css so the framework look wins):
+  - Shapes: `--r-xs/sm/md/lg/pill` all 0. Cards, buttons, switches, tags, panels, tour and citation bubbles, the search field and the
+    phone menu are rectangles; SVG highlight bands and stimulus boxes too (CSS `rx: 0` on `.page svg rect`). Still round: the data
+    dots, the step rings, the games' big press buttons (Start, Tap to start), colour swatches, the quiz score dots, the switches' knob.
+  - Type: headings in IBM Plex Mono (Carbon's monospace, SIL OFL, self-hosted: `src/assets/fonts/ibm-plex-mono-400/600.woff2` + licence;
+    the complete files cover French and the arrows / maths signs). Page titles 400 with tight tracking (OpenCode), section and card titles
+    600, body text stays Inter. New token `--font-mono` for labels and numbers (eyebrows, "Part 1", counts, axis ticks, stat values, the
+    breadcrumb, tags, tabs). Fraunces is no longer used (its @font-face stays: one token switches back, see the comment on --font-display).
+  - Header: OpenCode's numbered links "[1] Topics  [2] About" in the monospace (the number takes the step colour when the page is
+    open; the brackets are hidden from screen readers with CSS alt text); the phone menu numbers its links the same way.
+  - Buttons (Bootstrap .btn drawn as Carbon buttons): 40 px rectangles (32 small, 48 large); primary = flat yellow with navy text and a
+    hairline; secondary = an ink rectangle (light in dark mode, as OpenCode); ghost = text in the link colour (Carbon's ghost button).
+  - Cards: UIkit cards (`_uikit.scss` maps `.rule-list > li`, `.qz-card`, `.pg-card`, `.cl-card`, `.rc`, `.hero-sheet` onto `.uk-card
+    .uk-card-default` with @extend), drawn flat and square on a hairline; the step tints of Step 90 are kept.
+  - Markers: the logo colours as small squares (steps, activities on the topics page, section bar, search results); the four steps on
+    Home / About numbered 01-04 in square tinted boxes.
+  - Sections split by full-width hairlines (topic page groups, topics page parts, Home sections, references).
+  - Switches: Carbon's own rectangular content switcher (hairline edge, hairline dividers, navy fill for the choice).
+  - "On this page" bar: Carbon line tabs (hairline under the bar, 2 px under the section in view). About tabs: Carbon vertical tabs
+    (a rail with 2 px on the open tab; a line under them on phones). Topics page search field: Carbon text input (filled, line under it).
+  - Grids with shared hairlines: the playground's three centres (Mode / Median / Mean), the recap table head (monospace, tinted).
+  - Breadcrumb as a path: "Topics / Mean, median and mode" in the monospace. Quiz letters and review marks square; answer keys of
+    "Pick a random number" square with monospace digits.
+- Texts kept true: About "built" line (EN / FR) now names IBM Carbon, Bootstrap and UIkit and the fonts IBM Plex Mono and Inter; the
+  privacy page names Inter and IBM Plex Mono as the self-hosted fonts.
+- Licences: `frameworks.scss` starts with a /*! */ notice (Carbon Apache-2.0, Bootstrap / UIkit / HiQ MIT); `vite.config.js` keeps legal
+  comments at the end of the built files (`esbuild.legalComments: 'eof'`), so the libraries' own notices ship too (JS +8 KB raw).
+- Size: CSS 176.7 KB (gzip 36.2 KB), main 130.6 KB; fonts +93 KB (two Plex Mono weights, loaded only when used).
+- Tested: `npm run build`; full `npm run check` (35 pages x 2 sizes x EN / FR: no problems, every game one screen on desktop); `--theme`
+  light and dark screenshots of every kind of page (Home, Topics, topic page, About, References, Privacy, 14 games and extras, quiz
+  answered, tour bubble, search palette, citation bubble, phone menu); the interaction script again (menu, Escape, dark switch, quiz
+  notification, section bar): all as before, no console errors.
