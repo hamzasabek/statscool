@@ -1565,3 +1565,6 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   #0f1013, `--surface` #1f2227 (one step above the page so sheets still read), `--border` #2d3138, `--muted` #a7acb7, `--text` #eef0f4;
   dot outline colours follow the page colour; dark grain 0.07 → 0.05. Order of depth: header darkest (dark) / lightest (light), page,
   sheets lifted from the page in both. Full `npm run check` run. Not merged: the owner wants to compare first.
+- Colours, third round (owner: light page whiter, dark page blacker, header edge discreet and more transparent). Light `--bg` #f6f8fc;
+  dark `--bg` #101216, `--header-bg` #08090b, `--surface` #1a1d22. New tokens `--header-alpha` (62% light / 55% dark: lower = more
+  see-through) and `--header-line` (35% / 45%: strength of the hairline under the header). Checked by screenshot, light and dark.

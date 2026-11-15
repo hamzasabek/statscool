@@ -13,8 +13,10 @@
   --sky: #53cbf3;
   --sun: #ffde42;
 
-  --bg: #eef1f6;                  /* cool white, a touch of grey */
-  --header-bg: #fbfcfe;           /* the bar on top: almost pure white */
+  --bg: #f6f8fc;                  /* cool white, a very light grey */
+  --header-bg: #fcfdff;           /* the bar on top: almost pure white */
+  --header-alpha: 62%;            /* how opaque the bar is (lower = more see-through) */
+  --header-line: 35%;             /* strength of the hairline under it (0% = none) */
   --surface: #ffffff;             /* a sheet on the paper: charts, panels */
   --text: #12151d;                /* ink */
   --muted: #565c6b;
@@ -111,13 +113,15 @@
 /* Dark mode: set on <html data-theme="dark"> (system setting by default, or the header switch). */
 :root[data-theme='dark'] {
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.05 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --bg: #17191d;                /* soft charcoal, cool */
-  --header-bg: #0f1013;         /* the bar on top: nearly black, a trace of grey */
-  --surface: #1f2227;
+  --bg: #101216;                /* near-black, cool */
+  --header-bg: #08090b;         /* the bar on top: black with a trace of grey */
+  --header-alpha: 55%;
+  --header-line: 45%;
+  --surface: #1a1d22;
   --text: #eef0f4;
   --muted: #a7acb7;
-  --border: #2d3138;
-  --hover: #23272d;
+  --border: #2a2e35;
+  --hover: #1f2329;
   --hover-strong: #2e323a;
   --seg-active: #383d46;
   --accent: #8ea4ff;
@@ -128,14 +132,14 @@
   --on-cta: var(--navy);
   --bar: #2b3c9a;
   --bar-mode: var(--blue);
-  --grid: #262a30;
+  --grid: #22262c;
   --axis: #747985;
   --mean: #8ea4ff;
   --median: var(--sky);
   --median-line: var(--sky);
   --mode: var(--sun);
   --added: var(--sun);
-  --dot-stroke: #17191d;
+  --dot-stroke: #101216;
   --danger: #ff6b6b;
   --real: var(--sky);
   --real-soft: #0e2733;
@@ -151,7 +155,7 @@
   --focus: var(--logo-pink);
   --ck-b-line: var(--sky);
   --ck-b-text: var(--sky);
-  --ck-b-stroke: #17191d;
+  --ck-b-stroke: #101216;
   --shadow: 0 0 0 1px var(--border);
   --shadow-hover: 0 0 0 1px var(--axis);
   --shadow-pop: 0 0 0 1px var(--border), 0 16px 40px rgb(0 0 0 / 0.55);
@@ -189,8 +193,8 @@ code {
   top: 0;
   z-index: 10;
   height: var(--header-h);
-  background: color-mix(in srgb, var(--header-bg) 88%, transparent);
-  box-shadow: 0 1px 0 var(--border);
+  background: color-mix(in srgb, var(--header-bg) var(--header-alpha), transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--border) var(--header-line), transparent);
   backdrop-filter: blur(14px) saturate(1.6);
   -webkit-backdrop-filter: blur(14px) saturate(1.6);
 }
