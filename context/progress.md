@@ -1559,3 +1559,9 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   `--muted` #565c6b, `--border` #dbe1ec, `--hover`, `--grid`, `--axis`; `--text` #12151d). New token `--grain`: a very faint SVG noise
   (feTurbulence data URI, dark specks at alpha ≈ 0.05 in light, white specks ≈ 0.07 in dark) layered on `body` background; white sheets and
   charts cover it, so it only shows on the page background. Checked by screenshot in both modes.
+- Colours, second round (owner: light = white with a little cold grey for the page and an almost white header; dark = a little grey page and a
+  header slightly darker). New token `--header-bg`; the header gets a hairline under it. Light: `--bg` #eef1f6, `--header-bg` #fbfcfe, sheets stay
+  #fff (so charts and panels stand out), `--border` #d8dee9. Dark: `--bg` #17191d (soft cool charcoal, no longer near-black), `--header-bg`
+  #0f1013, `--surface` #1f2227 (one step above the page so sheets still read), `--border` #2d3138, `--muted` #a7acb7, `--text` #eef0f4;
+  dot outline colours follow the page colour; dark grain 0.07 → 0.05. Order of depth: header darkest (dark) / lightest (light), page,
+  sheets lifted from the page in both. Full `npm run check` run. Not merged: the owner wants to compare first.
