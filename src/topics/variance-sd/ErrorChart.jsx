@@ -4,6 +4,7 @@ import { MotionConfig, motion } from 'motion/react'
 import { useText } from '../../i18n.jsx'
 import { DOMAIN, fmtDeg, fmtSigned, fmtSignedDeg, mean, sd } from './sd.js'
 import { MEM } from './text.js'
+import { DROP } from '../../motion.js'
 
 // The errors of each round as stacked dots on one axis (−90° … +90°, 0 = exact), one lane per
 // round, the first round on top.
@@ -25,7 +26,6 @@ const DEG = {
   val: (v) => fmtDeg(v),
   signed: (v) => fmtSignedDeg(v),
 }
-const DROP = { type: 'spring', stiffness: 420, damping: 26, mass: 0.9 }
 
 export default function ErrorChart({ series, showStats = false, lastKey, scale = DEG, labels }) {
   const tx = useText(MEM)

@@ -1,4 +1,4 @@
-import { useTweened } from '../../hooks/useTweened.js'
+import { useSprung } from '../../hooks/useSprung.js'
 import { mean, spread } from './spreadPlay.js'
 
 // Topic 02's marks on the shared dot chart (PlayChart's Overlay): the ±1 SD band around the mean,
@@ -11,7 +11,7 @@ export default function SpreadMarks({ xOf, top, base, plotL, plotR, placed, cy, 
   const st = spread(values)
   const ok = st.n > 0
   const sd = st.n > 1 ? st.sd : 0
-  const [m, s] = useTweened([ok ? st.mean : 0, sd], { duration: 260, immediate: dragging || !ok })
+  const [m, s] = useSprung([ok ? st.mean : 0, sd], { immediate: dragging || !ok })
   if (!ok) return null
   const clampX = (x) => Math.min(plotR, Math.max(plotL, x))
   const labelX = (x) => Math.min(plotR - 50, Math.max(plotL + 50, x))

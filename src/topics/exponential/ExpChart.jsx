@@ -4,6 +4,7 @@ import { MotionConfig, motion } from 'motion/react'
 import { useText } from '../../i18n.jsx'
 import { expPdf, fmtS, mean, median } from './exp.js'
 import { EXP } from './text.js'
+import { DROP } from '../../motion.js'
 
 // Stacked dot plot of the waits between spikes, with the fitted exponential curve.
 //   fit     : expFit(values) or null
@@ -16,7 +17,6 @@ const BIN_CHOICES = [40, 32, 24, 20, 16]
 const MIN_COL_PX = 16
 const CURVE_STEPS = 200
 const ROW = 15
-const DROP = { type: 'spring', stiffness: 380, damping: 26, mass: 0.9 }
 const HALVES = ['½', '¼', '⅛']
 
 export default function ExpChart({ points, fit, markers = [], halving = false, highlightLast = false }) {

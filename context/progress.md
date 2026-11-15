@@ -1523,3 +1523,79 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   (2.9 MB, gitignored: each machine rebuilds it). No site code changed.
 - Tested: `graphify query "where are topic games registered"` returns `src/topics/games.jsx`; `npm run build` passes.
 - To remove: `graphify uninstall --purge` (skill, hooks, CLAUDE.md section, graph) and delete `.claude/skills/apple-design/`.
+
+## 2026-11-15 — Step 89 (in progress, branch `redesign-lab-notebook`, not on main): design refresh "Lab notebook" (Claude)
+- Owner: after a design audit, chose direction A (paper and ink, hairline rules, few cards), motion level 2 (+ physical dots in
+  the playgrounds) and a playable Home hero, done so that it is easy to undo: all of it is on this branch only.
+- Foundation (`src/index.css`): one token block (7 type sizes, 3 weights + display, 3 surface radii, 3 durations + one curve),
+  every literal size / weight / radius / transition mapped onto it; warm paper `--bg`, white sheets `--surface`, flat hairlines
+  instead of shadows; gradient cards, coloured top borders, glows, hover lifts and endless pulses removed; press feedback on
+  pointer-down; logo 62 → 40 px; text contrast re-checked by script (two colours darkened).
+- Pages: `.split` layout (margin column + content) on Home, Topics, topic pages, About (tabs in the margin), References;
+  topics and activities as ruled rows; Home hero is playable (hold a button for 2 s: your dot lands among 47 simulated tries,
+  labelled as simulated); "How it works" and the end banner removed, texts in `src/pages/text.js` (en + fr).
+- Motion: `src/motion.js` (two springs DROP / SETTLE, FADE) replaces eight local settings; `hooks/useSprung.js` replaces
+  `useTweened.js` (interruptible spring); page fades and the topic drawing travelling between pages (View Transitions, `App.jsx`,
+  `TopicGlyph` `name`); tour hole and ring on springs (`Tour.jsx`); `PlayChart.jsx`: grab offset, soft edges, velocity on release.
+- Tested: `npm run build`; full `npm run check` (34 pages × 2 sizes × en / fr): no problems; screenshots of Home, Topics, a topic
+  page, About, playground, live calculation, inner clock, quiz looked at in light and dark.
+- NOT tested yet: the interactions themselves (holding the hero button, dragging and flicking a dot, the page fade, the tour
+  moving between steps), phones for real, and `/topics/mean-median/playground` in French at 1366×768 now scrolls 19 px.
+- Not done yet: `context/project.md` (new files, tokens, layout), the uppercase table head of the recap sheets.
+- Finished later the same day (Claude, after the first session stopped at the token limit): playground side column tightened (card
+  padding, gaps) so `/topics/mean-median/playground` in French fits one screen at 1366×768 again; uppercase table head of the recap
+  sheets removed (`.rc-table thead th`); `context/project.md` updated (motion.js, useSprung, tokens, `.split`).
+  Interactions tested in headless Chrome with synthetic mouse input (scratch script): holding the hero button 2 s lands a dot and
+  gives the gap, a short hold gives the hint; dragging a dot in the playground changes the three centres, a click adds a dot; the
+  guided tour moves from step to step; no console errors. Still NOT tested: a real phone (touch lift, latency).
+- Owner's review (2026-11-15), comparing old and new side by side: KEEP cards without shadows or gradients (2), the new type scale (3) but
+  with the OLD fonts, press feedback (5), no pulses (6), margin column (7), plain recap table head (9), playable hero (10), Home sections
+  removed (11), page transitions (12), springs (13), playground dots (14), tour (15). DROP: smaller logo (4) and ruled rows (8). Item 1
+  (paper-and-ink colours) was not mentioned: kept for now, to confirm.
+- Done: logo back to 62 / 50 / 40 px and `--header-h` 76 / 64 px; old Google Fonts link (Inter 400–700, Fraunces 500 / 600, no italic) and
+  `--fw-display` 600 (hero `em` no longer italic: no Fraunces italic is loaded); topics, activities and Home topics are hairline cards
+  again (`.rule-list` grid of `li` cards); playground side column tightened again for the taller header. Full `npm run check`: no problems.
+- Owner's colour decision (item 1): keep the dark colours; light mode changed from warm paper to a cold white (`--bg` #f6f8fc, bluish greys for
+  `--muted` #565c6b, `--border` #dbe1ec, `--hover`, `--grid`, `--axis`; `--text` #12151d). New token `--grain`: a very faint SVG noise
+  (feTurbulence data URI, dark specks at alpha ≈ 0.05 in light, white specks ≈ 0.07 in dark) layered on `body` background; white sheets and
+  charts cover it, so it only shows on the page background. Checked by screenshot in both modes.
+- Colours, second round (owner: light = white with a little cold grey for the page and an almost white header; dark = a little grey page and a
+  header slightly darker). New token `--header-bg`; the header gets a hairline under it. Light: `--bg` #eef1f6, `--header-bg` #fbfcfe, sheets stay
+  #fff (so charts and panels stand out), `--border` #d8dee9. Dark: `--bg` #17191d (soft cool charcoal, no longer near-black), `--header-bg`
+  #0f1013, `--surface` #1f2227 (one step above the page so sheets still read), `--border` #2d3138, `--muted` #a7acb7, `--text` #eef0f4;
+  dot outline colours follow the page colour; dark grain 0.07 → 0.05. Order of depth: header darkest (dark) / lightest (light), page,
+  sheets lifted from the page in both. Full `npm run check` run. Not merged: the owner wants to compare first.
+- Colours, third round (owner: light page whiter, dark page blacker, header edge discreet and more transparent). Light `--bg` #f6f8fc;
+  dark `--bg` #101216, `--header-bg` #08090b, `--surface` #1a1d22. New tokens `--header-alpha` (62% light / 55% dark: lower = more
+  see-through) and `--header-line` (35% / 45%: strength of the hairline under the header). Checked by screenshot, light and dark.
+- Design polish (owner: "a very elegant design, cards in harmony with the background"). Light and dark colours rebuilt as ONE cool hue in three
+  steps: page (`--bg`) → card (`--surface`, a half-step lighter, no longer pure white) → inner tile (`--hover`: quiz options, stat tiles,
+  chips, a few grey tones lighter than before and in the same hue). Light `--bg` #f5f7fb, `--surface` #fdfdff, `--hover` #eff2f8, `--border`
+  #dfe4ee; dark `--bg` #101216, `--surface` #181c22, `--hover` #1e232a, `--border` #252a32. New `--border-strong` (hover edge of a card, thin
+  scrollbar thumb). Details: header blur 14 → 26 px (what scrolls under it melts into a soft smear), cards answer the pointer with a
+  darker hairline (`.rule-list > li:has(a.row:hover)`), thin tinted scrollbars, `text-wrap: balance` on headings and `pretty` on text,
+  font smoothing. End of `src/index.css`, block "Finishing touches". Checked by screenshots (Home, Topics, topic page, playground, quiz,
+  game, About) in both modes.
+
+## 2026-11-15 — Step 90 (in progress, branch `redesign-learning-sites`, not on main): style research on learning sites, applied (Claude)
+- Owner: "I don't like this style" (the grey tonal one): study the styles of learning / statistics sites and get inspired by them, in a new
+  branch. Branch made from `redesign-lab-notebook`, worktree `.claude/worktrees/redesign2/` (node_modules is a junction to the main folder's).
+- Research (a script read the public HTML + CSS of ten sites as text and counted fonts, colours and radii; WebFetch alone returns no CSS):
+  Brilliant (near-black #141414, yellow #f7c325, periwinkle #7491ff, pink #ff90e0; radii 10–16 px, pills; reading column 640 px, page
+  1100–1200 px), Khan Academy (Inter; blue #0069d6; radii 4–8; dark #1b1b1f), Seeing Theory (Brown; Assistant 300–700; a pastel
+  tint per chapter: #d6effa #e9f5ed #fef9d4 #fff2e8 #ffe9e7 #fff1f9; radii 20 / 35), Distill (serif, radii 2–3, column ≈ 500 px), Mathigon
+  (Source Sans; blue #0f82f2, magenta #cd0e66; purple-tinted dark #22212e), Our World in Data (Lato + Playfair Display, navy #1d3d63 on
+  #dbe5f0 / #f0f4fa tints, radii 2–4), rpsychologist (IBM Plex Sans, #fcfcfc / dark #161616, teal accent), Setosa (Lato 100–300),
+  3Blue1Brown (Source Serif 4 + Figtree), Duolingo (radii 12–16). Shared traits: one strong accent and neutral ground; a serif for
+  headings with a clean sans; ink with a hue (navy / aubergine) not pure black; colour carries the category (Seeing Theory, Brilliant,
+  Duolingo); soft 12–20 px corners on the app-like sites, 2–4 px on the editorial ones; a narrow reading column; tinted dark modes.
+- Applied (end of `src/index.css`, section "Colour by topic and by step"): every topic has a hue (blue, green, yellow, orange, red, pink:
+  `--hue-1..6`, classes `.tint-N` on the cards of Topics and Home), every step keeps its logo colour (`.topic-role-group.is-discover /
+  play / train / quiz`); a card = that hue mixed into the card colour (`--tint` 9 % light, 7 % dark, mixed in oklab for dark), with a
+  hairline and a number in the same hue; hover thickens the edge in the hue. Ink is now deep navy `--text` #101a30; radii `--r-md` 12,
+  `--r-lg` 20; the Home hero sheet has a light blue tint. Fonts unchanged (the owner kept the old ones).
+- Tested so far: build; screenshots of Home, Topics, a topic page, in light and dark.
+- Owner kept this version, with one change: the themes (topic cards on Home and Topics) must not have different colours. Now all share one
+  neutral slate-blue tint (`--hue-neutral` #6f7f9e, `.tint-N` all point to it); the colours per type of game (Discover, Explore, Train,
+  Check) inside a theme page stay. `--hue-2..6` removed. Checked by screenshots (Topics, Home, a theme page, light and dark) and
+  `npm run check`.

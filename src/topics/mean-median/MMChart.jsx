@@ -4,6 +4,7 @@ import { MotionConfig, motion } from 'motion/react'
 import { useText } from '../../i18n.jsx'
 import { fmtPct, mean, median, normalPdf } from './mm.js'
 import { MM } from './text.js'
+import { DROP, INSTANT } from '../../motion.js'
 
 // Stacked dot plot of the tries (% too long), with the real length at 0, the mean (a line plus a
 // ▲ balance point under the axis) and the median (dashed line).
@@ -16,8 +17,6 @@ import { MM } from './text.js'
 const M = { top: 12, right: 18, left: 18 }
 const BIN_WIDTHS = [2.5, 4, 5, 10, 20] // in % points; the smallest that gives wide-enough columns
 const MIN_COL_PX = 14
-const DROP = { type: 'spring', stiffness: 420, damping: 26, mass: 0.9 }
-const INSTANT = { duration: 0 }
 const CURVE_STEPS = 200
 
 export default function MMChart({ points, domain, ranks = false, draggable = false, onDrag, ghost, bell, highlightLast = false }) {

@@ -19,9 +19,11 @@ export default function References() {
   }, [hash])
 
   return (
-    <article className="about prose">
-      <h1>{tx.title}</h1>
-      <p className="lead">{tx.lead}</p>
+    <article className="refs split">
+      <header className="split-aside">
+        <h1>{tx.title}</h1>
+        <p className="lead">{tx.lead}</p>
+      </header>
       <RefList keys={cites.all} />
     </article>
   )

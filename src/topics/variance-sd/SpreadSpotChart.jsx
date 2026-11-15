@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { MotionConfig, motion } from 'motion/react'
 import { scaleLinear } from 'd3'
 import { axisOf, snapGuess } from './spotSpread.js'
+import { DROP } from '../../motion.js'
 
 // The chart of "Spot the spread".
 //   'sd' round      : one pile and its mean (▲, always shown). A guide follows the pointer (or ← →);
@@ -78,7 +79,7 @@ export default function SpreadSpotChart({ round, answer, onAnswer, fmt, fmtTick,
         cy={floor - r - (d.k - 1) * r * 2.05}
         initial={{ r: 0 }}
         animate={{ r }}
-        transition={{ type: 'spring', stiffness: 380, damping: 22, delay: d.i * 0.01 }}
+        transition={{ ...DROP, delay: d.i * 0.01 }}
       />
     ))
   }

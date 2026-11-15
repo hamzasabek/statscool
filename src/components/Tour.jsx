@@ -1,5 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { motion, useSpring, useTransform } from 'motion/react'
+import { usePrefersReducedMotion } from '../hooks/useSprung.js'
+import { SETTLE } from '../motion.js'
 import { useText } from '../i18n.jsx'
 import { COMMON } from '../text.js'
 
@@ -8,6 +11,8 @@ import { COMMON } from '../text.js'
 // bubble points at it with a small arrow. A step without a target (or whose target is missing)
 // shows the bubble in the middle of the screen, with everything behind it blurred. The site header
 // (logo, language, theme) is never covered: it stays sharp and usable during a tour.
+// From one step to the next the hole and its ring travel with a spring (so a quick "Next, Next"
+// bends the movement instead of queueing it); when the page scrolls or is resized they follow at once.
 //   steps     : [{ target: CSS selector | null, title, text, place?: 'bottom'|'top'|'right'|'left' }]
 //   onClose   : called when the tour ends (last "Next", Skip, or Escape)
 //   doneLabel : text of the last button (default "Got it")
@@ -17,6 +22,7 @@ const PAD = 8 // space between the target and the ring
 const GAP = 14 // space between the ring and the bubble (room for the arrow)
 const EDGE = 12 // minimum distance from the window edges
 const SIDES = ['bottom', 'top', 'right', 'left']
+const GLIDE = { stiffness: SETTLE.stiffness, damping: SETTLE.damping }
 
 const storageKey = (id) => `statscool-tour-${id}`
 const oldKey = (id) => `statcool-tour-${id}` // before the repo was renamed: still read
@@ -117,6 +123,13 @@ export default function Tour({ steps, onClose, doneLabel }) {
   const bubbleRef = useRef(null)
   const nextRef = useRef(null)
   const targetRef = useRef(null)
+  const reduced = usePrefersReducedMotion()
+  // The four edges of the hole, as springs (window pixels).
+  const holeL = useSpring(0, GLIDE)
+  const holeT = useSpring(0, GLIDE)
+  const holeR = useSpring(0, GLIDE)
+  const holeB = useSpring(0, GLIDE)
+  const glide = useRef({ first: true, follow: false, last: '' }) // follow: the page moved under the same step
   const step = steps[Math.min(i, steps.length - 1)]
   const last = i >= steps.length - 1
 
@@ -152,21 +165,43 @@ export default function Tour({ steps, onClose, doneLabel }) {
         none: false,
       })
     }
+    // The page moved under the same step (scroll, resize, layout): the hole follows at once.
+    function follow() {
+      glide.current.follow = true
+      measure()
+    }
     el?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+    glide.current.follow = false // a new step: the hole travels there
     measure()
-    const ro = new ResizeObserver(measure)
+    const ro = new ResizeObserver(follow)
     if (el) ro.observe(el)
     ro.observe(document.body)
-    window.addEventListener('resize', measure)
-    window.addEventListener('scroll', measure, true)
-    const again = setTimeout(measure, 900) // once more when the dots have finished dropping in
+    window.addEventListener('resize', follow)
+    window.addEventListener('scroll', follow, true)
+    const again = setTimeout(follow, 900) // once more when the dots have finished dropping in
     return () => {
       clearTimeout(again)
       ro.disconnect()
-      window.removeEventListener('resize', measure)
-      window.removeEventListener('scroll', measure, true)
+      window.removeEventListener('resize', follow)
+      window.removeEventListener('scroll', follow, true)
     }
   }, [step.target])
+
+  // Send the hole to its new place: with a spring between two steps, at once otherwise (the first
+  // time, when the page moved under the same step, or with reduced motion).
+  useLayoutEffect(() => {
+    if (!hole) return
+    const g = glide.current
+    const key = [hole.l, hole.t, hole.r, hole.b].join(',')
+    if (key === g.last) return
+    g.last = key
+    const jump = g.first || g.follow || reduced
+    g.first = false
+    for (const [edge, v] of [[holeL, hole.l], [holeT, hole.t], [holeR, hole.r], [holeB, hole.b]]) {
+      if (jump) edge.jump(v)
+      else edge.set(v)
+    }
+  }, [hole, reduced, holeL, holeT, holeR, holeB])
 
   // Place the bubble once its size is known (before the browser paints, so it never jumps).
   useLayoutEffect(() => {
@@ -228,23 +263,24 @@ export default function Tour({ steps, onClose, doneLabel }) {
   })
 
   const h = hole ?? { l: 0, r: 0, t: 0, b: 0, vw: 0, vh: 0, top0: 0, none: true }
-  const shades = [
-    { left: 0, top: h.top0, width: h.vw, height: Math.max(0, h.t - h.top0) }, // above (under the header)
-    { left: 0, top: h.b, width: h.vw, height: Math.max(0, h.vh - h.b) }, // below
-    { left: 0, top: h.t, width: h.l, height: h.b - h.t }, // left
-    { left: h.r, top: h.t, width: Math.max(0, h.vw - h.r), height: h.b - h.t }, // right
-  ]
+  // One blurred layer under the header, with the hole cut out of it (an "even-odd" polygon: the
+  // outer rectangle, then the hole).
+  const top0 = h.top0
+  const top0Ref = useRef(0)
+  top0Ref.current = top0
+  const cut = useTransform([holeL, holeT, holeR, holeB], ([l, t, r, b]) => {
+    const y0 = Math.max(0, t - top0Ref.current)
+    const y1 = Math.max(y0, b - top0Ref.current)
+    return `polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${l}px ${y0}px, ${r}px ${y0}px, ${r}px ${y1}px, ${l}px ${y1}px, ${l}px ${y0}px)`
+  })
+  const ringW = useTransform([holeL, holeR], ([l, r]) => Math.max(0, r - l))
+  const ringH = useTransform([holeT, holeB], ([t, b]) => Math.max(0, b - t))
 
   return createPortal(
     <div className="tour">
       <div className="tour-block" style={{ top: h.top0 }} onPointerDown={(e) => e.preventDefault()} />
-      {shades.map((s, k) => (
-        <div key={k} className="tour-shade" style={s} />
-      ))}
-      <div
-        className={`tour-ring${h.none ? ' is-hidden' : ''}`}
-        style={{ left: h.l, top: h.t, width: h.r - h.l, height: h.b - h.t }}
-      />
+      <motion.div className="tour-shade" style={{ top: top0, clipPath: cut }} />
+      <motion.div className={`tour-ring${h.none ? ' is-hidden' : ''}`} style={{ x: holeL, y: holeT, width: ringW, height: ringH }} />
       <div
         key={i}
         ref={bubbleRef}

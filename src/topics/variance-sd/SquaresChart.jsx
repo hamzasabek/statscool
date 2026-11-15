@@ -4,6 +4,7 @@ import { MotionConfig, motion } from 'motion/react'
 import { useText } from '../../i18n.jsx'
 import { fmtDeg, fmtSigned, fmtSignedDeg, mean, sd } from './sd.js'
 import { MEM } from './text.js'
+import { SETTLE } from '../../motion.js'
 
 // The left–right errors of one round, built up into the SD.
 //   values : the round's errors (degrees, anticlockwise +); other : the other round's, only to share one scale,
@@ -15,7 +16,6 @@ import { MEM } from './text.js'
 // Dots sit under the axis (in rows so they never overlap), squares stand on it.
 
 const M = { top: 26, right: 16, bottom: 26, left: 16 }
-const GROW = { type: 'spring', stiffness: 160, damping: 22 }
 
 export default function SquaresChart({ values, other, view, colour }) {
   const tx = useText(MEM)
@@ -71,7 +71,6 @@ export default function SquaresChart({ values, other, view, colour }) {
   order.forEach(({ i }, rank) => (rankOf[i] = rank))
   const devRow = Math.min(18, (base - M.top - 14) / Math.max(1, n))
   const dotY = (i) => (view === 'dev' ? base - 10 - rankOf[i] * devRow : base + 6 + r + rowOf[i] * (2 * r + 3))
-  const MOVE = { type: 'spring', stiffness: 260, damping: 28 }
 
   // errors cannot go past ±90°: no ticks out there
   const ticks = x.ticks(Math.max(2, Math.min(9, Math.floor(plotW / 70)))).filter((t) => Math.abs(t) <= 90)
@@ -123,7 +122,7 @@ export default function SquaresChart({ values, other, view, colour }) {
                   width={a}
                   initial={{ height: 0, y: base }}
                   animate={{ height: a, y: base - a }}
-                  transition={{ ...GROW, delay: Math.min(0.6, i * 0.03) }}
+                  transition={{ ...SETTLE, delay: Math.min(0.6, i * 0.03) }}
                 />
               )
             })}
@@ -131,7 +130,7 @@ export default function SquaresChart({ values, other, view, colour }) {
           {/* The average square: area = variance, side = SD */}
           {view === 'sd' && s > 0 && (
             <g className="mem-avg">
-              <motion.rect x={xm} width={side} initial={{ height: 0, y: base }} animate={{ height: side, y: base - side }} transition={GROW} />
+              <motion.rect x={xm} width={side} initial={{ height: 0, y: base }} animate={{ height: side, y: base - side }} transition={SETTLE} />
               {avgLines.map((t, j) => (
                 <text key={j} x={avgLabel.x} y={avgLabel.y + j * 15} textAnchor={avgLabel.anchor}>
                   {t}
@@ -166,7 +165,7 @@ export default function SquaresChart({ values, other, view, colour }) {
               x2={x(m + d)}
               initial={false}
               animate={{ y1: dotY(i), y2: dotY(i) }}
-              transition={MOVE}
+              transition={SETTLE}
             />
           ))}
 
@@ -177,7 +176,7 @@ export default function SquaresChart({ values, other, view, colour }) {
               cx={x(v)}
               initial={false}
               animate={{ cy: dotY(i) }}
-              transition={MOVE}
+              transition={SETTLE}
               r={r}
             />
           ))}

@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { MotionConfig, motion } from 'motion/react'
+import { SETTLE } from '../../motion.js'
 
 // Bars of counted answers (a crowd), one per category, with the student's own answer ringed.
 //   bars    : [{ key, label, count, fill? }] in display order
@@ -65,7 +66,7 @@ export default function CategoryChart({ bars, you, modes = [], lines = [], chanc
                   rx="4"
                   initial={{ height: 0, y: base }}
                   animate={{ height: h, y: base - h }}
-                  transition={{ type: 'spring', stiffness: 150, damping: 22, delay: i * 0.03 }}
+                  transition={{ ...SETTLE, delay: i * 0.03 }}
                 />
               </g>
             )

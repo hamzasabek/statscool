@@ -4,7 +4,8 @@ import photo from '../assets/author.jpg'
 import { useText } from '../i18n.jsx'
 import { ABOUT } from './text.js'
 
-// About page (/about), in five tabs so nothing needs a long scroll (the tab is in the address: /about?tab=teaching):
+// About page (/about), in five tabs so nothing needs a long scroll (the tab is in the address: /about?tab=teaching).
+// The tabs are listed in the margin (a row that scrolls sideways on narrow screens):
 //   idea        why StatsCool exists + the four steps at a glance
 //   teaching    why each step is there (the learning science, cited) + what is not claimed
 //               (rationale tracker: context/rationale.md; full review: docs/learning-science-review.md)
@@ -95,7 +96,7 @@ function Teaching({ tx }) {
           <details key={name} className={`about-teach-row ${STEP_CLASS[k]}`}>
             <summary>
               <span className="about-teach-what">
-                <span className="about-teach-name">{name}</span>
+                <span className="about-teach-name step-dot">{name}</span>
                 <span>{does}</span>
               </span>
               <span className="about-more">{tx.research}</span>
@@ -222,7 +223,10 @@ export default function About() {
 
   // Arrow keys move between the tabs (WAI-ARIA tabs pattern)
   function onKey(e) {
-    const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : e.key === 'Home' ? -99 : e.key === 'End' ? 99 : 0
+    // (the list is vertical on wide screens, a row on narrow ones: both pairs of arrows work)
+    const next = e.key === 'ArrowRight' || e.key === 'ArrowDown'
+    const prev = e.key === 'ArrowLeft' || e.key === 'ArrowUp'
+    const d = next ? 1 : prev ? -1 : e.key === 'Home' ? -99 : e.key === 'End' ? 99 : 0
     if (!d) return
     e.preventDefault()
     const i = Math.min(TABS.length - 1, Math.max(0, d === -99 ? 0 : d === 99 ? TABS.length - 1 : TABS.indexOf(tab) + d))
@@ -232,25 +236,27 @@ export default function About() {
 
   const View = { idea: Idea, teaching: Teaching, experiments: Experiments, use: Use, author: Author }[tab]
   return (
-    <article className="about prose">
-      <h1>{tx.title}</h1>
-      <div className="about-tabs" role="tablist" aria-label={tx.tabsAria} onKeyDown={onKey}>
-        {TABS.map((t) => (
-          <button
-            key={t}
-            ref={(el) => (refs.current[t] = el)}
-            type="button"
-            role="tab"
-            id={`about-tab-${t}`}
-            aria-selected={t === tab}
-            aria-controls="about-panel"
-            tabIndex={t === tab ? 0 : -1}
-            onClick={() => go(t)}
-          >
-            {tx.tabs[t]}
-          </button>
-        ))}
-      </div>
+    <article className="about prose split">
+      <header className="split-aside">
+        <h1>{tx.title}</h1>
+        <div className="about-tabs" role="tablist" aria-label={tx.tabsAria} onKeyDown={onKey}>
+          {TABS.map((t) => (
+            <button
+              key={t}
+              ref={(el) => (refs.current[t] = el)}
+              type="button"
+              role="tab"
+              id={`about-tab-${t}`}
+              aria-selected={t === tab}
+              aria-controls="about-panel"
+              tabIndex={t === tab ? 0 : -1}
+              onClick={() => go(t)}
+            >
+              {tx.tabs[t]}
+            </button>
+          ))}
+        </div>
+      </header>
       <div className="about-panel" id="about-panel" role="tabpanel" aria-labelledby={`about-tab-${tab}`} key={tab}>
         <View tx={tx} go={go} />
       </div>
