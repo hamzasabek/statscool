@@ -80,6 +80,15 @@ if (!flag('no-build')) {
     process.exit(1)
   }
 }
+// Licences: every package, font and CSS framework the build ships has its notice (tools/licenses.mjs).
+{
+  const { spawnSync } = await import('node:child_process')
+  const r = spawnSync(process.execPath, ['tools/licenses.mjs', '--check'], { stdio: 'inherit' })
+  if (r.status) {
+    console.log('Fix the licences (npm run licenses).')
+    process.exit(1)
+  }
+}
 const server = await preview({ preview: { port: PORT, strictPort: true }, logLevel: 'error' })
 const base = `http://localhost:${PORT}/`
 
@@ -136,7 +145,7 @@ async function open(route, w, h, lang) {
 if (!routes.length) {
   await open('/topics', 1366, 768, 'en')
   const topics = await ev(`[...new Set([...document.querySelectorAll('a[href^="#/topics/"]')].map((a) => a.getAttribute('href').slice(1)))]`)
-  const all = new Set(['/', '/topics', '/about', '/references', '/privacy', ...topics])
+  const all = new Set(['/', '/topics', '/about', '/references', '/privacy', '/licences', ...topics])
   for (const t of topics) {
     await open(t, 1366, 768, 'en')
     const links = await ev(`[...document.querySelectorAll('a[href^="#/topics/"]')].map((a) => a.getAttribute('href').slice(1))`)

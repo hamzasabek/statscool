@@ -3,12 +3,14 @@ import { flushSync } from 'react-dom'
 import { Route, Routes, useLocation } from 'react-router'
 import Footer from './components/Footer.jsx'
 import Header from './components/Header.jsx'
+import BgPicker from './components/BgPicker.jsx' // TEST (Step 102): remove once a background is chosen
 import { SearchProvider } from './components/Search.jsx'
 import Home from './pages/Home.jsx'
 import Topics from './pages/Topics.jsx'
 import About from './pages/About.jsx'
 import NotFound from './pages/NotFound.jsx'
 import Privacy from './pages/Privacy.jsx'
+import Licences from './pages/Licences.jsx'
 import References from './pages/References.jsx'
 import { GamePage, TopicPage } from './pages/TopicPage.jsx'
 
@@ -49,6 +51,7 @@ function App() {
   return (
     <SearchProvider>
       <Header />
+      <BgPicker />
       <main className="page">
         <Routes location={shown}>
           <Route path="/" element={<Home />} />
@@ -56,6 +59,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/references" element={<References />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/licences" element={<Licences />} />
           <Route path="/topics/:slug" element={<TopicPage />} />
           <Route path="/topics/:slug/:game" element={<GamePage />} />
           <Route path="*" element={<NotFound />} />

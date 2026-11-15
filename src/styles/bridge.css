@@ -384,3 +384,8 @@ a.row:hover .tl-cta { transform: translateX(4px); }
 
 /* ---------- Answer keys are keys, not dots: square, with monospace digits (Pick a random number) ---------- */
 .bs-num { border-radius: 0; font-family: var(--font-mono); font-weight: 600; }
+
+/* ---------- Phone menu: the legal links at the foot of the panel ---------- */
+.menu-legal { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 24px 0 0; padding-top: 16px; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: var(--fs-xs); }
+.menu-legal a { color: var(--muted); }
+.menu-legal a:hover, .menu-legal a.active { color: var(--text); }

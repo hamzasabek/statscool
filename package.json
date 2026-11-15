@@ -9,7 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "node tools/check.mjs",
-    "verify-refs": "node tools/verify-refs.mjs"
+    "verify-refs": "node tools/verify-refs.mjs",
+    "licenses": "node tools/licenses.mjs"
   },
   "dependencies": {
     "@carbon/styles": "1.119.0",

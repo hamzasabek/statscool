@@ -1763,3 +1763,58 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   light and dark screenshots of every kind of page (Home, Topics, topic page, About, References, Privacy, 14 games and extras, quiz
   answered, tour bubble, search palette, citation bubble, phone menu); the interaction script again (menu, Escape, dark switch, quiz
   notification, section bar): all as before, no console errors.
+
+## 2026-11-16 — Step 101 (branch `redesign-frameworks`): licences of the frameworks and fonts, always shown (Claude)
+- Owner: "make what is necessary so our website always shows the copyright and licence obligations of the frameworks and fonts we recently added".
+- What the licences ask:
+  - MIT (Bootstrap, UIkit, HiQ, React, React Router, Motion, KaTeX) and ISC (D3): the copyright line and the permission notice travel with the code.
+  - Apache 2.0 (IBM Carbon): a copy of the licence, and a notice that we changed the files.
+  - SIL OFL 1.1 (Inter, IBM Plex Mono, Fraunces, KaTeX's math fonts): the licence travels with the font files. Before this step it did not:
+    the font licences sat in src/assets/fonts and were not part of the built site.
+- New `tools/licenses.mjs` (`npm run licenses`):
+  - It builds the site in memory and reads what really ships: npm packages in the JavaScript (React + scheduler, React Router, 7 d3-*
+    modules, Motion's 4 packages, KaTeX), the font files emitted, and the CSS frameworks whose cascade layer holds rules.
+  - It writes `public/licenses/<project>.txt` (served at ./licenses/…; name, packages and versions, licence, "Changes" for the CSS frameworks,
+    copyright lines, full licence texts), `public/licenses/THIRD-PARTY-NOTICES.txt` (all in one) and `src/licenses.js` (data of the page).
+  - A shipped package with no project in its list stops it. KaTeX ships no licence file for its fonts: their notice is rebuilt from the
+    font files' name table (Design Science 2009-2010, Khan Academy 2014-2018, Reserved Font Names KaTeX_*) + the OFL text.
+  - `npm run check` now runs `node tools/licenses.mjs --check` (fails if a notice is missing or out of date) and crawls /licences.
+- New page /licences (`pages/Licences.jsx`, texts `LICENCES_PAGE` in pages/text.js, EN / FR):
+  - Fonts / Styles / Code, one row per project: what it does here, packages and versions, licence, copyright, a link to the full text;
+    "Changed by StatsCool" on the CSS frameworks; a link to the file with every notice; StatsCool's own licences (About, Use and cite).
+  - It is linked from:
+    - the footer of every page except the games (Privacy · Licences · About);
+    - the foot of the phone menu (Privacy · Licences);
+    - About > Use and cite (new sentence);
+    - the privacy page's legal notice ("Licences" entry extended; "Last updated" now 16 November 2026);
+    - the search (`keywords.js` PAGES entry).
+- CSS: `frameworks.scss` starts with a /*! */ notice; `esbuild.legalComments: 'eof'` keeps it, and the JS libraries' own notices, in the built files.
+- HiQ is now really used: the bodies of /licences and /privacy are HiQ prose (class `hiq`). `tools/frameworks-css.mjs` removes HiQ's form,
+  meter, dialog and utility rules after PurgeCSS (they were 38 KB of its 49 KB), so HiQ costs 15 KB. `tools/cite-check.mjs` skips the
+  generated src/licenses.js (copyright lines looked like hand-typed citations).
+- Tested:
+  - `npm run licenses` then `--check`; full `npm run check` (36 pages × 2 sizes × EN / FR = 144 views, no problems).
+  - Screenshots of /licences, /privacy and About > Use and cite; dist/licenses/ holds the 14 text files.
+
+## 2026-11-16 — Step 102 (branch `redesign-frameworks`): background test for the rectangular look (Claude)
+- Owner: before merging, test background colours that fit the new design; search frameworks, repositories and sites and propose some.
+- Research:
+  - IBM Carbon's themes read from @carbon/themes: white #ffffff / g10 #f4f4f4 / g90 #262626 / g100 #161616, cards #ffffff in g10 and #262626 in g100.
+  - UIkit: #fff, muted #f8f8f8, secondary #222. Bootstrap: #fff, dark #212529.
+  - Vercel Geist, read from vercel.com/geist/colors in headless Chrome: #ffffff / #fafafa light, #0a0a0a / #000 dark.
+  - opencode.ai (measured in Step 100): #0c0c0c, panels #161616, lines #2e2e2e.
+  - Tokyo Night (folke/tokyonight.nvim): Night #1a1b26, Storm #24283b. Catppuccin: Latte #eff1f5, Mocha #1e1e2e. GitHub Primer: #0d1117 dark.
+- Six options, light and dark, only the neutral tokens change (palette, logo colours, step tints stay):
+  StatsCool (today), IBM Carbon (g10 / g100), OpenCode (Geist white / opencode black), Paper (warm), Night blue (Tokyo Night),
+  Graph paper (a 24 px grid on the page). File `src/styles/backgrounds.css` (`<html data-bg>`).
+- Contrast checked by script: text, muted text and the step colours ≥ 4.5:1, axes ≥ 3:1, on page and cards. The logo pink as text in dark
+  mode was 4.37:1 on the Carbon and Night cards: #ff47a2 there (4.8:1).
+- TEST picker `components/BgPicker.jsx`: a narrow vertical tab on the left edge, halfway down, on every page. It opens the six options with
+  swatches and one line each (EN / FR). The choice is kept in memory only (no new localStorage key, so the privacy page stays true); a
+  link can carry one (`#/topics?bg=paper`).
+- Tested:
+  - Screenshots of Home, a topic page and a game for the 6 options in light and dark (36).
+  - Picker in headless Chrome: opens, sets data-bg, body colour changes, Escape closes, kept across pages, back to default.
+  - Full `npm run check`: no problems.
+- To do once the owner chooses: put the chosen values in index.css (`:root` and `[data-theme='dark']`), delete backgrounds.css and
+  BgPicker.jsx (and their two imports), run the check, then merge only on the owner's word.

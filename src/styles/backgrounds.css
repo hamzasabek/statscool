@@ -1,0 +1,111 @@
+/* ==========================================================================================
+   Background test (Step 102, branch redesign-frameworks): six page / card palettes, light and dark,
+   to choose the ground of the rectangular look. <html data-bg="…"> picks one (components/BgPicker.jsx);
+   without it the site keeps its own (StatsCool). Only the neutral tokens change: the palette (navy, blue,
+   sky, sun), the logo colours and the step tints stay. Contrast checked by script (text and the
+   step colours >= 4.5:1, axes >= 3:1 on page and cards).
+   Once the owner chooses, the chosen values become the defaults in index.css and this file goes.
+   Sources: IBM Carbon themes (@carbon/themes: g10, g100), opencode.ai (measured) and Vercel Geist
+   (read from vercel.com/geist/colors), Tokyo Night (folke/tokyonight.nvim), Catppuccin and Rosé Pine
+   (warm paper), GitHub Primer (dark canvas).
+   ========================================================================================== */
+
+/* ---------- IBM Carbon: Gray 10 (light) and Gray 100 (dark), Carbon's own themes ---------- */
+:root[data-bg='carbon'][data-theme='light'] {
+  --bg: #f4f4f4; --header-bg: #ffffff; --surface: #ffffff; --hover: #f4f4f4; --hover-strong: #e8e8e8; --seg-active: #ffffff;
+  --border: #e0e0e0; --border-strong: #c6c6c6; --text: #161616; --muted: #525252; --grid: #e8e8e8; --axis: #8d8d8d;
+  --grain: none; --tint: 7%;
+}
+:root[data-bg='carbon'][data-theme='dark'] {
+  --bg: #161616; --header-bg: #161616; --surface: #262626; --hover: #333333; --hover-strong: #393939; --seg-active: #393939;
+  --border: #393939; --border-strong: #525252; --text: #f4f4f4; --muted: #c6c6c6; --grid: #2e2e2e; --axis: #8d8d8d;
+  --grain: none; --dot-stroke: #161616; --ck-b-stroke: #161616; --pink-text: #ff47a2; --tint: 8%;
+}
+
+/* ---------- OpenCode: paper white (light, as Vercel Geist) and near-black (dark, as opencode.ai) ---------- */
+:root[data-bg='opencode'][data-theme='light'] {
+  --bg: #fafafa; --header-bg: #ffffff; --surface: #ffffff; --hover: #f2f2f2; --hover-strong: #ebebeb; --seg-active: #ffffff;
+  --border: #ebebeb; --border-strong: #d4d4d4; --text: #171717; --muted: #4d4d4d; --grid: #efefef; --axis: #8f8f8f;
+  --grain: none; --tint: 6%;
+}
+:root[data-bg='opencode'][data-theme='dark'] {
+  --bg: #0c0c0c; --header-bg: #0c0c0c; --surface: #161616; --hover: #1c1c1c; --hover-strong: #242424; --seg-active: #2e2e2e;
+  --border: #2e2e2e; --border-strong: #3d3d3d; --text: #fafafa; --muted: #aeaeae; --grid: #1f1f1f; --axis: #6a6a6a;
+  --grain: none; --dot-stroke: #0c0c0c; --ck-b-stroke: #0c0c0c; --tint: 7%;
+}
+
+/* ---------- Paper: warm paper and warm charcoal (after Rosé Pine Dawn and Solarized's light base) ---------- */
+:root[data-bg='paper'][data-theme='light'] {
+  --bg: #f6f3ec; --header-bg: #fbf9f4; --surface: #fffdf8; --hover: #f1ece2; --hover-strong: #e9e2d5; --seg-active: #fffdf8;
+  --border: #e3dccd; --border-strong: #cfc6b4; --text: #1f1c17; --muted: #5c5549; --grid: #ebe5d9; --axis: #8c8475;
+}
+:root[data-bg='paper'][data-theme='dark'] {
+  --bg: #14120f; --header-bg: #0e0d0b; --surface: #1d1a16; --hover: #26221c; --hover-strong: #2f2a23; --seg-active: #3a342c;
+  --border: #2e2922; --border-strong: #403830; --text: #efe8dc; --muted: #b5ab9a; --grid: #241f1a; --axis: #7d7466;
+  --dot-stroke: #14120f; --ck-b-stroke: #14120f;
+}
+
+/* ---------- Night blue: blue-tinted greys that echo the navy (after Tokyo Night) ---------- */
+:root[data-bg='night'][data-theme='light'] {
+  --bg: #e8ebf4; --header-bg: #f1f3f9; --surface: #f7f8fc; --hover: #e4e8f2; --hover-strong: #d9deeb; --seg-active: #ffffff;
+  --border: #d4d9e8; --border-strong: #b9c1d9; --text: #151a33; --muted: #4a5272; --grid: #dfe3ee; --axis: #7d86a6;
+  --grain: none;
+}
+:root[data-bg='night'][data-theme='dark'] {
+  --bg: #1a1b26; --header-bg: #16161e; --surface: #222536; --hover: #292e42; --hover-strong: #30354c; --seg-active: #3b4261;
+  --border: #2f3449; --border-strong: #3b4261; --text: #c8d0f5; --muted: #a9b1d6; --grid: #262a3c; --axis: #737aa2;
+  --grain: none; --dot-stroke: #1a1b26; --ck-b-stroke: #1a1b26; --pink-text: #ff47a2;
+}
+
+/* ---------- Graph paper: a faint 24 px grid on the page, like a squared lab notebook (dark after GitHub's canvas) ---------- */
+:root[data-bg='graph'][data-theme='light'] {
+  --bg: #f7f9fc; --surface: #ffffff; --grain: none;
+  --paper-line: rgb(17 31 162 / 0.065);
+}
+:root[data-bg='graph'][data-theme='dark'] {
+  --bg: #0d1117; --header-bg: #090c10; --surface: #161b22; --hover: #1c222b; --hover-strong: #232a35; --seg-active: #2d3542;
+  --border: #262d38; --border-strong: #353e4b; --text: #e6edf3; --muted: #a3abb8; --grid: #1d232c; --axis: #737b88;
+  --grain: none; --dot-stroke: #0d1117; --ck-b-stroke: #0d1117;
+  --paper-line: rgb(142 164 255 / 0.075);
+}
+:root[data-bg='graph'] body {
+  background-color: var(--bg);
+  background-image: linear-gradient(to right, var(--paper-line) 1px, transparent 1px), linear-gradient(to bottom, var(--paper-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ---------- The picker (test only) ---------- */
+/* A tab on the left edge, halfway down: out of the way of the games' instructions (bottom left) and buttons (bottom right). */
+.bgp { position: fixed; left: 0; top: 50%; z-index: 60; transform: translateY(-50%); font-size: var(--fs-sm); }
+.bgp-toggle {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 8px; width: 28px; padding: 8px 0;
+  border: 0; background: var(--surface); color: var(--muted); box-shadow: 0 0 0 1px var(--border-strong), var(--shadow-pop);
+  font: inherit; font-family: var(--font-mono); font-size: var(--fs-xs); cursor: pointer;
+}
+.bgp-toggle:hover { color: var(--text); }
+.bgp-toggle .bgp-swatch { flex-direction: column; }
+.bgp-toggle .bgp-swatch i { width: 14px; height: 8px; }
+.bgp-label { writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; }
+.bgp-toggle:focus-visible, .bgp-option:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.bgp-swatch { display: inline-flex; flex: none; box-shadow: 0 0 0 1px var(--border-strong); }
+.bgp-swatch i { display: block; width: 10px; height: 14px; }
+.bgp-panel {
+  position: absolute; left: 8px; top: 50%; transform: translateY(-50%); margin-left: 0; width: min(340px, calc(100vw - 24px)); padding: 12px;
+  background: var(--surface); color: var(--text); box-shadow: 0 0 0 1px var(--border-strong), var(--shadow-pop);
+}
+.bgp-title { margin: 0 0 2px; font-family: var(--font-mono); font-weight: 600; font-size: var(--fs-sm); }
+.bgp-note { margin: 0 0 10px; color: var(--muted); font-size: var(--fs-xs); }
+.bgp-list { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.bgp-option {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 2px 10px; width: 100%; padding: 8px 10px;
+  border: 0; background: transparent; color: var(--text); text-align: left; font: inherit; cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.bgp-option:hover { background: var(--hover); }
+.bgp-option[aria-pressed='true'] { box-shadow: inset 0 0 0 2px var(--accent); background: var(--accent-soft); }
+.bgp-option .bgp-swatch { grid-row: span 2; }
+.bgp-option .bgp-swatch i { width: 14px; height: 30px; }
+.bgp-name { font-weight: var(--fw-medium); }
+.bgp-desc { grid-column: 2; color: var(--muted); font-size: var(--fs-xs); line-height: 1.35; }
+.bgp-panel { left: 0; }
+.bgp:has(.bgp-panel) .bgp-toggle { visibility: hidden; }

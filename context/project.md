@@ -67,11 +67,16 @@ src/
     bridge.css             unlayered, loaded AFTER index.css (main.jsx): --bs-* / --cds-* / --hiq-* fed from our tokens, then how
                            each framework piece looks here, then "Step 100: the rectangular look" (Carbon + UIkit + a little
                            OpenCode: monospace headings, [1] [2] header links, Carbon buttons, square markers, hairline sections)
+    backgrounds.css        TEST ONLY (Step 102): six background options (<html data-bg>), light and dark
+  (tools/licenses.mjs, `npm run licenses`: builds in memory, lists the npm packages, fonts and CSS frameworks the build ships, writes
+   public/licenses/*.txt (full texts, served with the site) and src/licenses.js (data of the /licences page, pages/Licences.jsx);
+   `npm run check` runs it with --check.)
   (tools/frameworks-css.mjs: Vite plugin `virtual:frameworks.css` = frameworks.scss compiled by Sass, then trimmed by PurgeCSS
    to the selectors found in index.html + src/**/*.{js,jsx}. Write framework class names in FULL in the sources, e.g. an
    object of class strings, never 'cds--x--' + state, or they are dropped.)
   components/
     Breadcrumb.jsx         Bootstrap breadcrumb "Topics › <topic>" (Stage head, topic pages)
+    BgPicker.jsx           TEST ONLY (Step 102): background picker, left edge; options in src/styles/backgrounds.css; delete after the choice
     Menu.jsx               phone menu (≤ 700 px): UIkit off-canvas from the right (in a portal), links, language, Bootstrap
                            switches for sound and dark mode; Escape / outside / a link closes it
     Footer.jsx             slim line at the foot of every page except games (3+ path segments): Privacy and legal notice · About

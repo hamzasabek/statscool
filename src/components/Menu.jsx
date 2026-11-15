@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { NavLink } from 'react-router'
 import { LANGS, useLang, useText } from '../i18n.jsx'
 import { COMMON } from '../text.js'
+import { PRIVACY_PAGE } from '../pages/text.js'
 import { useSoundOn } from '../sound.js'
 import { useTheme } from '../theme.js'
 
@@ -14,6 +15,7 @@ const SLIDE_MS = 300 // UIkit's .uk-offcanvas-bar-animation
 
 export default function Menu() {
   const tx = useText(COMMON)
+  const legal = useText(PRIVACY_PAGE)
   const { lang, setLang } = useLang()
   const [theme, toggleTheme] = useTheme()
   const [sound, setSound] = useSoundOn()
@@ -105,6 +107,14 @@ export default function Menu() {
                     </label>
                   </div>
                 </div>
+                <p className="menu-legal">
+                  <NavLink to="/privacy" onClick={hide}>
+                    {legal.footPrivacy}
+                  </NavLink>
+                  <NavLink to="/licences" onClick={hide}>
+                    {legal.footLicences}
+                  </NavLink>
+                </p>
               </div>
             </div>
           </div>,
