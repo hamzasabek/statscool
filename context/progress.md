@@ -1555,3 +1555,7 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Done: logo back to 62 / 50 / 40 px and `--header-h` 76 / 64 px; old Google Fonts link (Inter 400–700, Fraunces 500 / 600, no italic) and
   `--fw-display` 600 (hero `em` no longer italic: no Fraunces italic is loaded); topics, activities and Home topics are hairline cards
   again (`.rule-list` grid of `li` cards); playground side column tightened again for the taller header. Full `npm run check`: no problems.
+- Owner's colour decision (item 1): keep the dark colours; light mode changed from warm paper to a cold white (`--bg` #f6f8fc, bluish greys for
+  `--muted` #565c6b, `--border` #dbe1ec, `--hover`, `--grid`, `--axis`; `--text` #12151d). New token `--grain`: a very faint SVG noise
+  (feTurbulence data URI, dark specks at alpha ≈ 0.05 in light, white specks ≈ 0.07 in dark) layered on `body` background; white sheets and
+  charts cover it, so it only shows on the page background. Checked by screenshot in both modes.

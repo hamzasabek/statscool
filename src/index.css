@@ -13,13 +13,13 @@
   --sky: #53cbf3;
   --sun: #ffde42;
 
-  --bg: #f6f4ee;                  /* paper */
+  --bg: #f6f8fc;                  /* cool white */
   --surface: #ffffff;             /* a sheet on the paper: charts, panels */
-  --text: #16171d;                /* ink */
-  --muted: #5d5c57;
-  --border: #dddbd1;              /* hairline rules */
-  --hover: #eceae2;
-  --hover-strong: #e1dfd5;
+  --text: #12151d;                /* ink */
+  --muted: #565c6b;
+  --border: #dbe1ec;              /* hairline rules */
+  --hover: #e7ecf4;
+  --hover-strong: #dce3ef;
   --seg-active: #ffffff;
   --accent: var(--navy);          /* links, active states, small accent text */
   --accent-soft: #e6eafc;
@@ -29,8 +29,8 @@
   --on-cta: var(--navy);
   --bar: #bccbff;
   --bar-mode: var(--blue);
-  --grid: #edebe4;
-  --axis: #8b8a84;
+  --grid: #e6ebf3;
+  --axis: #858c9c;
   --mean: var(--navy);
   --median: #086d96;              /* sky, darkened for text on white */
   --median-line: #1597cc;         /* brighter sky for the chart line */
@@ -62,6 +62,7 @@
 
   /* Surfaces are flat: a hairline, not a shadow. Only what floats above the page (tour bubble,
      citation bubble) casts one. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0.05 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --shadow: 0 0 0 1px var(--border);
   --shadow-hover: 0 0 0 1px var(--axis);
   --shadow-pop: 0 0 0 1px var(--border), 0 2px 4px rgb(22 23 29 / 0.05), 0 14px 36px rgb(22 23 29 / 0.14);
@@ -108,6 +109,7 @@
 
 /* Dark mode: set on <html data-theme="dark"> (system setting by default, or the header switch). */
 :root[data-theme='dark'] {
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.07 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --bg: #0e0e0d;                /* black paper */
   --surface: #181817;
   --text: #f2f1ec;
@@ -158,7 +160,7 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--bg) var(--grain);
   color: var(--text);
 }
 
