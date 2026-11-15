@@ -1595,3 +1595,7 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   hairline and a number in the same hue; hover thickens the edge in the hue. Ink is now deep navy `--text` #101a30; radii `--r-md` 12,
   `--r-lg` 20; the Home hero sheet has a light blue tint. Fonts unchanged (the owner kept the old ones).
 - Tested so far: build; screenshots of Home, Topics, a topic page, in light and dark.
+- Owner kept this version, with one change: the themes (topic cards on Home and Topics) must not have different colours. Now all share one
+  neutral slate-blue tint (`--hue-neutral` #6f7f9e, `.tint-N` all point to it); the colours per type of game (Discover, Explore, Train,
+  Check) inside a theme page stay. `--hue-2..6` removed. Checked by screenshots (Topics, Home, a theme page, light and dark) and
+  `npm run check`.
