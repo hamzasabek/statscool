@@ -1507,3 +1507,19 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Tested: `npm run build` passed; `node tools/cite-check.mjs` passed (50 references checked, 0 errors); `npm run check -- about --no-build` passed in English and French at 1366×768 and 390×844 with no problems.
 
 
+
+## 2026-11-15 — Step 88: two assistant skills installed in the project: apple-design and graphify (Claude)
+- Owner: check whether two skills can be used here (Graphify-Labs/graphify, emilkowalski/skills → apple-design) and install them.
+- Checked both first. apple-design: one Markdown file, MIT, no scripts, no network; advice on springs, gestures, reduced motion
+  and typography that fits our Motion-based games. Graphify: Apache-2.0 CLI (PyPI `graphifyy` 0.9.109, linked to the GitHub
+  repo), parses code locally with tree-sitter, no API key and no telemetry for code-only graphs.
+- `.claude/skills/apple-design/` (SKILL.md + the MIT LICENSE). Its one link to a sibling skill (`../animation-performance`)
+  is not installed.
+- Graphify: `uv` installed with pip (user level), then `uv tool install graphifyy` (CLI in `~/.local/bin`), then
+  `graphify install --project --platform windows`. The installer wrote more than the skill: `.claude/skills/graphify/`,
+  `.claude/CLAUDE.md`, a "graphify" section at the end of `CLAUDE.md`, and `.claude/settings.json` with PreToolUse hooks
+  (Bash|Grep, Read|Glob) and a SessionStart hook that remind Claude to query the graph first. `AGENTS.md` is untouched.
+- First graph built with `graphify update .` (code only, no LLM): 1295 nodes, 3269 edges, 53 communities, in `graphify-out/`
+  (2.9 MB, gitignored: each machine rebuilds it). No site code changed.
+- Tested: `graphify query "where are topic games registered"` returns `src/topics/games.jsx`; `npm run build` passes.
+- To remove: `graphify uninstall --purge` (skill, hooks, CLAUDE.md section, graph) and delete `.claude/skills/apple-design/`.

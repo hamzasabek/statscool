@@ -495,3 +495,10 @@ topic-list chips). Small touches: text selection pink, link underline pink on ho
 cyan on hover, nav dot pink (Topics) / cyan (About), focus ring --focus (pink). celebrate.js: a burst of
 36 dots in the four colours when a game's last useChime threshold is crossed and on a perfect quiz;
 nothing with reduced motion.
+
+## Assistant skills (Step 88)
+`.claude/skills/` holds two Claude Code skills: `apple-design` (motion and interface advice, Markdown only) and `graphify`
+(knowledge graph of the code). Graphify needs its CLI on the machine (`uv tool install graphifyy`); `graphify update .`
+rebuilds the graph in `graphify-out/` (gitignored) and `graphify query "<question>"` searches it. `.claude/settings.json`
+holds Graphify's hooks, which only remind Claude to query the graph first. Gemini is not set up for either skill
+(`graphify install --project --platform gemini` would do it).
