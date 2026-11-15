@@ -1641,3 +1641,4 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   opens, Esc closes, no-result text, topics field replaces the plan, Enter opens the first result, no console errors; screenshots EN / FR, light / dark, desktop /
   phone; full npm run check.
 - Open decision for the owner: keep the header palette, the topics field, or both.
+- Owner's rule added to AGENTS.md (section 4, "Search keywords"): a line in src/search/keywords.js is OBLIGATORY for every new game, topic, extra or About tab (search-check enforces it).

@@ -55,6 +55,10 @@ remembers what the other did: this file and `context/` are the shared memory. Ke
 - **Registering**: a topic's games and extras (playground, live calculation, quiz) are listed in
   `src/topics/topics.js` and mapped to components in `src/topics/games.jsx`; experiments are also
   listed on the About page (`src/pages/text.js`).
+- **Search keywords (owner's rule, Step 93, OBLIGATORY): every time you add or rename a game, a topic, an extra (playground, live calculation,
+  Train, quiz) or an About tab, add or update its line in `src/search/keywords.js`** (English and French synonyms and concept words: what a
+  student would type). Key: the topic slug, or `<topic>/<activity>`. `tools/search-check.mjs` (the first step of `npm run check`) fails if a topic, game
+  or extra has no line or cannot be found by its own name in both languages. A new kind of page: add it to `src/search/engine.js` too.
 - **Shared pieces to reuse**: `mean-median/PlayChart.jsx` (draggable dot chart, with an `Overlay`
   for another topic's marks), `variance-sd/ErrorChart.jsx` (lanes of stacked dots),
   `normal-distribution/BellChart.jsx` and `NormalPlot.jsx`, `components/Quiz.jsx`, `components/Tex.jsx`,
