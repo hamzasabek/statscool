@@ -17,7 +17,8 @@ import { ABOUT } from './text.js'
 const REPO = 'https://github.com/hamzasabek/statscool'
 const SITE = 'https://hamzasabek.github.io/statscool/'
 const YEAR = 2026 // the citation's year (APA: the year of the version; also in CITATION.cff)
-// The author's public profiles (no phone or personal email: contact goes through GitHub issues).
+// The author's public profiles (no phone: contact goes through GitHub issues or the email below).
+const EMAIL = 'hamza.sabek.campus@gmail.com'
 const PROFILES = [
   ['ResearchGate', 'https://www.researchgate.net/profile/Hamza-Sabek'],
   ['LinkedIn', 'https://www.linkedin.com/in/hamza-sabek-19819470/'],
@@ -209,6 +210,8 @@ function Author({ tx }) {
             {tx.contactBefore}
             <Out href={`${REPO}/issues`}>{tx.issue}</Out>
             {tx.contactAfter}
+            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            {tx.contactEnd}
           </p>
         </section>
       </div>

@@ -195,7 +195,8 @@ export const ABOUT = {
     contactTitle: 'Contact',
     contactBefore: 'Found a bug, or have an idea for a game? ',
     issue: 'Open an issue on GitHub',
-    contactAfter: '.',
+    contactAfter: ', or write to ',
+    contactEnd: '.',
     play: 'Play the games →',
   },
   fr: frenchTypo({
@@ -296,7 +297,8 @@ export const ABOUT = {
     contactTitle: 'Contact',
     contactBefore: 'Vous avez trouvé un bug, ou une idée de jeu ? ',
     issue: 'Ouvrez une issue sur GitHub',
-    contactAfter: '.',
+    contactAfter: ', ou écrivez à ',
+    contactEnd: '.',
     play: 'Jouer aux jeux →',
   }),
 }
@@ -354,7 +356,7 @@ export const PRIVACY_PAGE = {
     legalTitle: 'Legal notice',
     legal: [
       ['Publisher and director of publication', 'Hamza Sabek, a private individual. StatsCool is a free, non-commercial teaching site.'],
-      ['Contact', 'Through the issues of the project on GitHub (link below). No personal address or email is published.'],
+      ['Contact', 'By email at hamza.sabek.campus@gmail.com, or through the issues of the project on GitHub (link below). No postal address is published.'],
       ['Host', 'GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, United States (GitHub Pages).'],
       ['Licences', 'Code under the MIT licence; texts and content under CC BY 4.0; the logo, the name and the photo are reserved. Details on the About page, tab “Use and cite”. The cited studies belong to their authors.'],
     ],
@@ -399,7 +401,7 @@ export const PRIVACY_PAGE = {
     legalTitle: 'Mentions légales',
     legal: [
       ['Éditeur et directeur de la publication', 'Hamza Sabek, personne physique. StatsCool est un site pédagogique gratuit et non commercial.'],
-      ['Contact', 'Par les « issues » du projet sur GitHub (lien ci-dessous). Aucune adresse postale ni adresse e-mail personnelle n’est publiée.'],
+      ['Contact', 'Par e-mail à hamza.sabek.campus@gmail.com, ou par les « issues » du projet sur GitHub (lien ci-dessous). Aucune adresse postale n’est publiée.'],
       ['Hébergeur', 'GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis (GitHub Pages).'],
       ['Licences', 'Code sous licence MIT ; textes et contenus sous CC BY 4.0 ; le logo, le nom et la photo sont réservés. Détails sur la page À propos, onglet « Utiliser et citer ». Les études citées appartiennent à leurs auteurs.'],
     ],

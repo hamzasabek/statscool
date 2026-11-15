@@ -1657,3 +1657,8 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   do not grow (the footer fills the rest). About "Use and cite" tab: the privacy card no longer mentions Google and links to the page. Search: `privacy` page entry in `keywords.js` (PAGES); `/privacy` added to the crawl of `tools/check.mjs`.
 - Not legal advice: the owner may want his university's data protection officer to read it before wide promotion; a postal address / email can be added to the legal notice if preferred.
 - Tested: build; `npm run check` (all pages, EN / FR, desktop / phone); `/privacy` screenshots; search finds the page by "privacy", "cookies", "mentions légales", "RGPD".
+
+## 2026-11-15 — Step 95: the owner's email on the About and privacy pages (Claude)
+- Owner: add hamza.sabek.campus@gmail.com to the About page and to the privacy page. About, tab "Author", card "Contact": "…, or write to <mailto link>" (texts `contactAfter`, `contactEnd`);
+  /privacy: the legal notice's Contact line names the address and it is a mailto link in "Links" (the "no personal email is published" wording is gone, "no postal address" stays).
+  The address is now in the page source, so spam is possible: that was the owner's choice. Tested: build, `npm run check -- about?tab=author privacy`.

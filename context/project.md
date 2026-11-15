@@ -125,7 +125,7 @@ src/
                            constant, keep in step with CITATION.cff; open source and licences: code MIT, content CC BY 4.0,
                            name / logo / photo reserved; privacy; built with + AI disclosure: Claude and Gemini) · Author
                            (round photo assets/author.jpg 136 px beside the third-person bio, ResearchGate / LinkedIn /
-                           GitHub links, no phone or personal email; inspiration: rpsychologist; contact: GitHub issues)
+                           GitHub links, no phone (the owner's email hamza.sabek.campus@gmail.com is shown on the Author tab and in /privacy, his explicit wish, Step 95); inspiration: rpsychologist; contact: GitHub issues)
     text.js                HOME and ABOUT texts (en + fr)
     NotFound.jsx
   topics/

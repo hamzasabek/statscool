@@ -6,6 +6,7 @@ import { PRIVACY_PAGE } from './text.js'
 const REPO = 'https://github.com/hamzasabek/statscool'
 const GITHUB_PRIVACY = 'https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement'
 const CNIL = 'https://www.cnil.fr/en'
+const EMAIL = 'hamza.sabek.campus@gmail.com'
 
 export default function Privacy() {
   const tx = useText(PRIVACY_PAGE)
@@ -48,6 +49,9 @@ export default function Privacy() {
               <a href={CNIL} target="_blank" rel="noreferrer">
                 {tx.cnil}
               </a>
+            </li>
+            <li>
+              <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </li>
             <li>
               <a href={`${REPO}/issues`} target="_blank" rel="noreferrer">
