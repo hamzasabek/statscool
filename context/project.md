@@ -11,7 +11,7 @@ live graphs. Inspiration and reference: https://rpsychologist.com/correlation
 | Build / dev server | Vite 7 | `npm run dev` → http://localhost:5173 |
 | Routing | React Router 8 (`react-router` package) | `HashRouter`, `Routes`, `NavLink` (HashRouter for GitHub Pages static compatibility) |
 | Graphs | D3 v7 | D3 is used for **math only** (scales, interpolation, timers). React renders the SVG. Same approach as rpsychologist (which uses Svelte + D3). |
-| Animation | `useTweened` hook (d3 `interpolate` + `timer`) | numbers/arrays (bars, curves); respects `prefers-reduced-motion` |
+| Animation | `useSprung` hook (`hooks/useSprung.js`, interruptible spring, no bounce) + `src/motion.js` (DROP / SETTLE / FADE springs) | numbers/arrays (bars, curves, mean and median marks); respects `prefers-reduced-motion` |
 | Physics animation | Motion 14.7.1 (`motion/react`, pinned exactly) | springy dots, enter/exit (`AnimatePresence`); wrapped in `<MotionConfig reducedMotion="user">` |
 | Interaction | Native pointer events + `setPointerCapture` | no d3-drag; dragging/clicking handled in React |
 | Deployment | GitHub Pages only (Netlify removed in Step 22) | `.github/workflows/deploy.yml` builds and deploys on every push to `main`; `base: './'` in `vite.config.js` |
@@ -49,7 +49,12 @@ src/
                            switch, saved `statscool-sound`, on by default). Rules under "Sound" below
   text.js                  COMMON texts (header + nav, topics page, Stage, tour buttons, All topics / Play again)
   App.jsx                  header + routes; scrolls to the top when the page changes
-  index.css                all styles; color tokens on :root (light + dark mode)
+  motion.js                the motion vocabulary: DROP (dropped / thrown dots, slight bounce), SETTLE (no bounce),
+                           FADE, project() (where a flick lands), rubberband(); used by all Motion / useSprung animation
+  index.css                all styles; one token block on :root (7 type sizes --fs-*, weights --fw-*, 3 radii --r-*,
+                           3 durations --dur-*, one curve --ease-out), paper-and-ink colours (light + dark mode),
+                           flat hairline rules instead of shadows; `.split` = margin column + content (Home, Topics,
+                           topic pages, About, References)
   components/
     Header.jsx             logo (links to /) + Topics / About links (NavLink, yellow dot when active;
                            Topics stays active inside a game) + EN | FR switch + sound on/off + light/dark button
@@ -79,7 +84,8 @@ src/
     Stage.jsx              full-viewport learning layout (head, say, bar, main, foot) + Steps;
                            optional `className` (e.g. `ck-stage` lets the game grow on phones)
   hooks/
-    useTweened.js          smooth animation of numbers / number arrays
+    useSprung.js           numbers / number arrays that follow a target like a spring (interruptible, keeps its
+                           speed); usePrefersReducedMotion. Replaced useTweened.js (design refresh, Step 89)
   pages/
     Home.jsx               / : the concept. Hero (dots dropping into a bell, curve drawn at the end;
                            seeded order, CSS animation, off with reduced motion; owner's choice after

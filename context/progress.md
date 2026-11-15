@@ -1542,3 +1542,9 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - NOT tested yet: the interactions themselves (holding the hero button, dragging and flicking a dot, the page fade, the tour
   moving between steps), phones for real, and `/topics/mean-median/playground` in French at 1366×768 now scrolls 19 px.
 - Not done yet: `context/project.md` (new files, tokens, layout), the uppercase table head of the recap sheets.
+- Finished later the same day (Claude, after the first session stopped at the token limit): playground side column tightened (card
+  padding, gaps) so `/topics/mean-median/playground` in French fits one screen at 1366×768 again; uppercase table head of the recap
+  sheets removed (`.rc-table thead th`); `context/project.md` updated (motion.js, useSprung, tokens, `.split`).
+  Interactions tested in headless Chrome with synthetic mouse input (scratch script): holding the hero button 2 s lands a dot and
+  gives the gap, a short hold gives the hint; dragging a dot in the playground changes the three centres, a click adds a dot; the
+  guided tour moves from step to step; no console errors. Still NOT tested: a real phone (touch lift, latency).
