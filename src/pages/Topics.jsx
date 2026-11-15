@@ -46,7 +46,7 @@ export default function Topics() {
 function TopicItem({ topic: t, number, delay, lang }) {
   const { title, summary } = t.text[lang]
   return (
-    <li className="tl-item" style={{ '--i': delay }}>
+    <li className={`tl-item tint-${(number - 1) % 6 + 1}`} style={{ '--i': delay }}>
       <Link to={`/topics/${t.slug}`} className="row tl-link">
         <span className="tl-node" aria-hidden="true">
           {String(number).padStart(2, '0')}

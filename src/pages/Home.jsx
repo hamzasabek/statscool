@@ -330,7 +330,7 @@ export default function Home() {
           {topics.map((t, i) => {
             const { title, summary } = t.text[lang]
             return (
-              <li key={t.slug}>
+              <li key={t.slug} className={`tint-${i % 6 + 1}`}>
                 <Link to={`/topics/${t.slug}`} className="row home-topic">
                   <span className="home-topic-num" aria-hidden="true">
                     {String(i + 1).padStart(2, '0')}

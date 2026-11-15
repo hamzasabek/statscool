@@ -18,7 +18,7 @@
   --header-alpha: 62%;            /* how opaque the bar is (lower = more see-through) */
   --header-line: 35%;             /* strength of the hairline under it (0% = none) */
   --surface: #fdfdff;             /* card: a half-step lighter than the page, same hue */
-  --text: #12151d;                /* ink */
+  --text: #101a30;                /* deep navy ink (as Our World in Data, Mathigon) */
   --muted: #565c6b;
   --border: #dfe4ee;
   --border-strong: #c9d1df;      /* hover edge of a card, scrollbar thumb */              /* hairline rules */
@@ -89,8 +89,8 @@
   /* Corners: three for surfaces, one for small marks, pills for buttons */
   --r-xs: 3px;
   --r-sm: 6px;
-  --r-md: 10px;
-  --r-lg: 16px;
+  --r-md: 12px;
+  --r-lg: 20px;
   --r-pill: 999px;
 
   /* Motion: three durations and one curve for CSS; springs live in src/motion.js.
@@ -2182,3 +2182,28 @@ p, li, figcaption { text-wrap: pretty; }
 .rule-list > li { transition: box-shadow var(--dur-2) var(--ease-out); }
 .rule-list > li:has(a.row:hover) { box-shadow: 0 0 0 1px var(--border-strong); }
 .rule-list > li:has(a.row:active) { box-shadow: 0 0 0 1px var(--axis); transition-duration: 0s; }
+
+/* ---------- Colour by topic and by step (Step 90, branch redesign-learning-sites) ----------
+   Seeing Theory tints every chapter with its own pastel; Brilliant and Duolingo let colour carry the
+   category. Here each topic has a hue, each step of the learning path keeps its logo colour, and a card is that hue
+   mixed into the card colour (so it always sits in harmony with the page, in light and in dark). */
+:root {
+  --hue-1: #4f8ef7; --hue-2: #2fb47a; --hue-3: #e0a800; --hue-4: #ef8236; --hue-5: #e5534b; --hue-6: #cf5aae;
+  --tint: 9%;
+}
+:root[data-theme='dark'] { --tint: 7%; }
+.tint-1 { --hue: var(--hue-1); } .tint-2 { --hue: var(--hue-2); } .tint-3 { --hue: var(--hue-3); }
+.tint-4 { --hue: var(--hue-4); } .tint-5 { --hue: var(--hue-5); } .tint-6 { --hue: var(--hue-6); }
+.topic-role-group.is-discover { --hue: var(--logo-pink); }
+.topic-role-group.is-play { --hue: #7bc400; }
+.topic-role-group.is-train { --hue: var(--logo-cyan); }
+.topic-role-group.is-quiz { --hue: #f2c200; }
+.rule-list > li {
+  background: color-mix(in oklab, var(--hue, var(--border-strong)) var(--tint), var(--surface));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--hue, var(--border-strong)) 24%, var(--border));
+}
+.rule-list > li:has(a.row:hover) { box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--hue, var(--border-strong)) 55%, var(--border)); }
+.rule-list > li:has(a.row:active) { box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--hue, var(--axis)) 75%, var(--border)); }
+.tl-node, .home-topic-num { color: color-mix(in srgb, var(--hue, var(--muted)) 78%, var(--text)); }
+a.row:hover .tl-node, a.row:hover .home-topic-num { color: color-mix(in srgb, var(--hue, var(--accent)) 92%, var(--text)); }
+.hero-sheet { background: color-mix(in srgb, var(--hue-1) calc(var(--tint) * 0.6), var(--surface)); }

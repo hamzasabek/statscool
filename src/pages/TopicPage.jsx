@@ -52,7 +52,7 @@ export function TopicPage() {
       </header>
 
       <div className="split-main">
-        <section className="topic-role-group">
+        <section className="topic-role-group is-discover">
           <RoleHead role={tx.roles.discover} extra={tx.gamesCount(topic.games.length)} kind="discover" />
           <ol className="rule-list topic-games">
             {topic.games.map((g, k) => {
@@ -92,7 +92,7 @@ export function TopicPage() {
           if (!list.length) return null
           const tag = { play: tx.playgroundTag, train: tx.trainTag, quiz: tx.quizTag }[kind]
           return (
-            <section key={kind} className="topic-role-group">
+            <section key={kind} className={`topic-role-group is-${kind}`}>
               <RoleHead role={tx.roles[kind]} kind={kind} />
               <ul className="rule-list topic-games">
                 {list.map((x) => (

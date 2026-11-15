@@ -1576,3 +1576,22 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   darker hairline (`.rule-list > li:has(a.row:hover)`), thin tinted scrollbars, `text-wrap: balance` on headings and `pretty` on text,
   font smoothing. End of `src/index.css`, block "Finishing touches". Checked by screenshots (Home, Topics, topic page, playground, quiz,
   game, About) in both modes.
+
+## 2026-11-15 — Step 90 (in progress, branch `redesign-learning-sites`, not on main): style research on learning sites, applied (Claude)
+- Owner: "I don't like this style" (the grey tonal one): study the styles of learning / statistics sites and get inspired by them, in a new
+  branch. Branch made from `redesign-lab-notebook`, worktree `.claude/worktrees/redesign2/` (node_modules is a junction to the main folder's).
+- Research (a script read the public HTML + CSS of ten sites as text and counted fonts, colours and radii; WebFetch alone returns no CSS):
+  Brilliant (near-black #141414, yellow #f7c325, periwinkle #7491ff, pink #ff90e0; radii 10–16 px, pills; reading column 640 px, page
+  1100–1200 px), Khan Academy (Inter; blue #0069d6; radii 4–8; dark #1b1b1f), Seeing Theory (Brown; Assistant 300–700; a pastel
+  tint per chapter: #d6effa #e9f5ed #fef9d4 #fff2e8 #ffe9e7 #fff1f9; radii 20 / 35), Distill (serif, radii 2–3, column ≈ 500 px), Mathigon
+  (Source Sans; blue #0f82f2, magenta #cd0e66; purple-tinted dark #22212e), Our World in Data (Lato + Playfair Display, navy #1d3d63 on
+  #dbe5f0 / #f0f4fa tints, radii 2–4), rpsychologist (IBM Plex Sans, #fcfcfc / dark #161616, teal accent), Setosa (Lato 100–300),
+  3Blue1Brown (Source Serif 4 + Figtree), Duolingo (radii 12–16). Shared traits: one strong accent and neutral ground; a serif for
+  headings with a clean sans; ink with a hue (navy / aubergine) not pure black; colour carries the category (Seeing Theory, Brilliant,
+  Duolingo); soft 12–20 px corners on the app-like sites, 2–4 px on the editorial ones; a narrow reading column; tinted dark modes.
+- Applied (end of `src/index.css`, section "Colour by topic and by step"): every topic has a hue (blue, green, yellow, orange, red, pink:
+  `--hue-1..6`, classes `.tint-N` on the cards of Topics and Home), every step keeps its logo colour (`.topic-role-group.is-discover /
+  play / train / quiz`); a card = that hue mixed into the card colour (`--tint` 9 % light, 7 % dark, mixed in oklab for dark), with a
+  hairline and a number in the same hue; hover thickens the edge in the hue. Ink is now deep navy `--text` #101a30; radii `--r-md` 12,
+  `--r-lg` 20; the Home hero sheet has a light blue tint. Fonts unchanged (the owner kept the old ones).
+- Tested so far: build; screenshots of Home, Topics, a topic page, in light and dark.
