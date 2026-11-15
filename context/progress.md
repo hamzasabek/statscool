@@ -1618,3 +1618,5 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   says the curve refits every dot you add.
 - Tested: build; `npm run check -- /`; headless Chrome with real mouse presses (scratch script): peak y 79.1 → 75.1 (2.0 s), → 77.7, 82.7, 86.6 and
   its x 209 → 218 as late and early presses were added; no console errors; screenshot looked at.
+- Same step, owner: the starting curve was too full. The simulated bell is now 4 dots high at its peak (was 6.6): 28 simulated dots instead of 47
+  (`height()` in Home.jsx; the caption count follows `DOTS.length`). Tested: build, `npm run check -- /`, real presses in headless Chrome (the curve still adapts), screenshot.

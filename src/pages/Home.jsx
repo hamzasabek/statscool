@@ -28,9 +28,9 @@ const MAX_TRIES = 12 // of the student's dots kept on the chart
 const FULL_GAME = '/topics/normal-distribution/inner-clock'
 
 // The simulated tries: a bell centred on 2 s with a standard deviation of 2.9 columns (0.36 s),
-// in dots per column. Simulated data, labelled as such in the caption.
-const height = (c) => 6.6 * Math.exp(-0.5 * ((c - MID) / 2.9) ** 2)
-const COUNT = Array.from({ length: COLS }, (_, c) => Math.round(height(c))) // 0 0 1 1 3 4 5 6 7 6 5 4 3 1 1 0 0
+// in dots per column (about 28 dots in all, so the chart starts light). Simulated data, labelled as such in the caption.
+const height = (c) => 4 * Math.exp(-0.5 * ((c - MID) / 2.9) ** 2)
+const COUNT = Array.from({ length: COLS }, (_, c) => Math.round(height(c))) // 0 0 0 1 2 2 3 4 4 4 3 2 2 1 0 0 0
 const DOTS = []
 for (let c = 0; c < COLS; c++) {
   for (let level = 0; level < COUNT[c]; level++) DOTS.push({ c, level })
