@@ -1524,7 +1524,7 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Tested: `graphify query "where are topic games registered"` returns `src/topics/games.jsx`; `npm run build` passes.
 - To remove: `graphify uninstall --purge` (skill, hooks, CLAUDE.md section, graph) and delete `.claude/skills/apple-design/`.
 
-## 2026-11-15 — Step 89 (in progress, branch `redesign-lab-notebook`, not on main): design refresh "Lab notebook" (Claude)
+## 2026-11-15 — Step 89 (merged into main in Step 91): design refresh "Lab notebook" (Claude)
 - Owner: after a design audit, chose direction A (paper and ink, hairline rules, few cards), motion level 2 (+ physical dots in
   the playgrounds) and a playable Home hero, done so that it is easy to undo: all of it is on this branch only.
 - Foundation (`src/index.css`): one token block (7 type sizes, 3 weights + display, 3 surface radii, 3 durations + one curve),
@@ -1577,7 +1577,7 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   font smoothing. End of `src/index.css`, block "Finishing touches". Checked by screenshots (Home, Topics, topic page, playground, quiz,
   game, About) in both modes.
 
-## 2026-11-15 — Step 90 (in progress, branch `redesign-learning-sites`, not on main): style research on learning sites, applied (Claude)
+## 2026-11-15 — Step 90 (merged into main in Step 91): style research on learning sites, applied (Claude)
 - Owner: "I don't like this style" (the grey tonal one): study the styles of learning / statistics sites and get inspired by them, in a new
   branch. Branch made from `redesign-lab-notebook`, worktree `.claude/worktrees/redesign2/` (node_modules is a junction to the main folder's).
 - Research (a script read the public HTML + CSS of ten sites as text and counted fonts, colours and radii; WebFetch alone returns no CSS):
@@ -1599,3 +1599,12 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   neutral slate-blue tint (`--hue-neutral` #6f7f9e, `.tint-N` all point to it); the colours per type of game (Discover, Explore, Train,
   Check) inside a theme page stay. `--hue-2..6` removed. Checked by screenshots (Topics, Home, a theme page, light and dark) and
   `npm run check`.
+
+## 2026-11-15 — Step 91: design refresh merged into main (Claude)
+- Owner: after comparing old and new side by side on desktop and phones, accepted the design (branch `redesign-learning-sites`, which contains
+  `redesign-lab-notebook`) and asked to merge it into `main`. Merge commit `--no-ff`. Contents: Steps 89 (lab-notebook layout, tokens, playable hero,
+  springs, page transitions) and 90 (cool white / charcoal palettes, grain, neutral theme cards, step colours), with the owner's choices: old fonts,
+  old logo size, cards not ruled rows.
+- Before the merge the main folder had uncommitted changes by someone else (the "What we do not claim" block again): saved as a tagged stash and
+  a patch, not re-applied (see next.md).
+- Tested after the merge: `npm run build`; full `npm run check`.

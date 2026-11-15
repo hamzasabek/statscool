@@ -3,18 +3,11 @@
 ## In progress
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
-- **Design refresh "Lab notebook" (Claude, started 2026-11-15, Step 89), NOT on `main`.** The owner asked for a
-  redesign that is easy to undo, so it lives on the branch `redesign-lab-notebook`, in a separate git worktree:
-  `.claude/worktrees/redesign/` (ignored locally through `.git/info/exclude`; never `git add` that folder).
-  `main` and the live site are unchanged until the owner accepts it. Scope: one type / radius / motion scale,
-  paper-and-ink colours, hairline rules instead of gradient or top-border cards, a playable hero on Home,
-  page transitions, physical dots in the playgrounds. It rewrites much of `src/index.css`, `src/pages/Home.jsx`,
-  `Topics.jsx`, `TopicPage.jsx`, `App.jsx`, `Tour.jsx`, `mean-median/PlayChart.jsx`: on `main`, keep CSS changes
-  small until the branch is merged or dropped, to avoid conflicts. Accept: merge the branch into `main` and push.
-  Drop: `git worktree remove .claude/worktrees/redesign` and `git branch -D redesign-lab-notebook`.
-- Found on 2026-11-15, 02:23, uncommitted in the main folder and not made by Claude: `src/index.css`,
-  `src/pages/About.jsx`, `src/pages/text.js` put back the "What we do not claim" block that Step 87 removed.
-  Left untouched for whoever made it (owner or Gemini) to finish or discard.
+- The design refresh (Steps 89-91) is merged into `main`. The old branches `redesign-lab-notebook` and `redesign-learning-sites` and the worktrees
+  `.claude/worktrees/redesign` and `redesign2` can be removed when the owner no longer wants to compare (`git worktree remove` then `git branch -D`).
+- Uncommitted change found 2026-11-15 in the main folder, not made by Claude: it put back the "What we do not claim" block that Step 87
+  removed. Before the merge it was saved as a stash (`statscool-premerge-claim-block`) and a patch (`scratch/uncommitted-before-merge.patch`, gitignored);
+  the About page was redesigned in the meantime, so it was NOT re-applied. If the owner wants the block back, re-add it by hand on the new About page.
 
 ## Open items
 - "Tap with the beat" (Step 64) was only tested with synthetic taps in headless Chrome: check the
