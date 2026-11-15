@@ -28,3 +28,15 @@
 :root[data-theme='dark'] {
   @include theme.theme(themes.$g100);
 }
+
+// StatsCool's own class names take Carbon's styles (Sass @extend works on the modules used above), so the
+// games keep their markup: every `.segmented` switch is a Carbon content switcher.
+.segmented {
+  @extend .cds--content-switcher;
+}
+.segmented > button {
+  @extend .cds--content-switcher-btn;
+}
+.segmented > button.is-active {
+  @extend .cds--content-switcher--selected;
+}

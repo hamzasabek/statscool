@@ -1690,3 +1690,36 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   Framework class names must therefore be written in full in the sources. Result now: 135.6 KB (was 130.6 KB), since almost no framework class is used yet.
 - Tested: build; `npm run check` on Home, a topic page, inner clock, quiz, playground, About (desktop + phone): no problems; screenshots compared with
   `main` pixel by pixel: identical (the quiz differs only by its random question).
+
+## 2026-11-15 — Step 99 (branch `redesign-frameworks`): pilot of the framework restyle (Claude)
+- What changed for the student (shared pieces, so every page that uses them follows):
+  - Switches: every `.segmented` (EN | FR, game views and modes) is a Carbon content switcher. `_carbon.scss` maps our class onto
+    Carbon's with Sass @extend, so no game file changed. Drawn as a hairline pill track with a navy pill for the choice; Carbon's
+    ::after fill and dividers are off (they sat above plain-text labels). Old `.segmented` rules removed from index.css.
+  - Game steps (`Steps` in Stage.jsx): a Carbon progress indicator, with a line on top of each step (navy when done or current). Each
+    step has a ring: ✓ when done, a yellow core for "you are here", empty for what comes next. Phones show only the current label.
+  - Breadcrumb (new `components/Breadcrumb.jsx`, Bootstrap): "Topics › <topic>" replaces the "← <topic>" back link in every game and
+    the back link + eyebrow on topic pages ("Topics › Part 1 · Topic 01").
+  - Quiz (`components/Quiz.jsx`): options are Carbon selectable tiles (a check mark at the right marks your pick). The answer shows
+    as a Carbon inline notification: a coloured bar and an icon, sky for right, red for not quite. The ✓ / ✗ were taken out of the
+    "Right!" / "Juste !" texts (the icon says it). The quiz's coloured score dots are kept: they are the site's dots.
+  - Phone menu (new `components/Menu.jsx`): at 700 px or less the header shows logo, search and one menu button. A UIkit off-canvas
+    panel slides from the right with Topics / About, the language and two Bootstrap switches (sound, dark mode: yellow when on, navy
+    knob). It is rendered in a portal (the header's backdrop blur would trap it). Escape, a tap outside or a link closes it, and focus
+    goes into it and back. New COMMON texts (EN / FR): breadcrumb, menu, closeMenu, sound, darkMode, onThisPage.
+  - Topic pages (`pages/TopicPage.jsx`): a sticky "On this page" bar (UIkit subnav, pill) with Discover · Explore · Train your eye ·
+    Check yourself · References, each with its step colour. The section in view is marked by our own scroll-spy. Buttons, not
+    #anchors, because the site uses hash routes. The activity kind ("Game 1", "Free play", ...) is a Carbon tag in its step's colour.
+- Supporting changes:
+  - `theme.js` / `index.html` also set `data-bs-theme`. The theme hooks follow `<html data-theme>` (MutationObserver), so the header
+    and menu switches agree.
+  - `tools/check.mjs`: new `--theme=light|dark` option (the screenshot names get the theme).
+- Owner's earlier choices kept: cards without shadows (so UIkit cards were NOT applied), rounded corners and pills, Inter + Fraunces,
+  no capitals (UIkit subnav's uppercase turned off).
+- Size: CSS 170.5 KB (gzip 34.7 KB), was 130.6 KB on main; no framework JavaScript.
+- Tested:
+  - `npm run build`; full `npm run check`: 35 pages × 2 sizes × EN / FR = 140 views, no problems, every game still one screen on desktop.
+  - Screenshots in light and dark (topic page, live calculation, inner clock desktop + phone, quiz, menu).
+  - Interactions in headless Chrome (scratch script): the menu opens (bar at right: 0, focus on the close button); the dark switch sets
+    data-theme and data-bs-theme; Escape closes the menu; a link navigates and closes it; a quiz answer shows the notification and
+    the selected tile; the section bar marks "Train your eye" after a jump.

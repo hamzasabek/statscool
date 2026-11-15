@@ -5,6 +5,12 @@ import { frenchTypo } from './i18n.jsx'
 export const COMMON = {
   en: {
     back: '← Topics',
+    breadcrumb: 'You are here',
+    menu: 'Menu',
+    closeMenu: 'Close the menu',
+    sound: 'Sound',
+    darkMode: 'Dark mode',
+    onThisPage: 'On this page',
     progress: 'Progress',
     allTopics: 'All topics',
     playAgain: 'Play again',
@@ -55,6 +61,12 @@ export const COMMON = {
   },
   fr: frenchTypo({
     back: '← Thèmes',
+    breadcrumb: 'Vous êtes ici',
+    menu: 'Menu',
+    closeMenu: 'Fermer le menu',
+    sound: 'Son',
+    darkMode: 'Mode sombre',
+    onThisPage: 'Sur cette page',
     progress: 'Progression',
     allTopics: 'Tous les thèmes',
     playAgain: 'Rejouer',

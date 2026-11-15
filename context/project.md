@@ -55,7 +55,23 @@ src/
                            3 durations --dur-*, one curve --ease-out), paper-and-ink colours (light + dark mode),
                            flat hairline rules instead of shadows; `.split` = margin column + content (Home, Topics,
                            topic pages, About, References)
+  styles/                  (branch redesign-frameworks) the CSS frameworks, CSS only, no framework JavaScript:
+    frameworks.scss        each framework in its own cascade layer `@layer hiq, bootstrap, uikit, carbon` (layered CSS
+                           always loses to our unlayered index.css + bridge.css). ONE framework per kind of element:
+                           HiQ = prose inside `.hiq`; Bootstrap = buttons, breadcrumb, list group, badge, modal, range,
+                           form-switch; UIkit = off-canvas, subnav, accordion, to-top, tooltip, card; Carbon = progress
+                           indicator, notifications, progress bar, tabs, content switcher, tags, tiles, structured list, popover
+    _carbon.scss, _bootstrap.scss, _uikit.scss   the modules taken from each (no resets, no IBM Plex, no Bootstrap reboot /
+                           grid / utilities, no UIkit base); `_carbon.scss` also maps our `.segmented` onto Carbon's content
+                           switcher with Sass @extend (the games keep their markup)
+    bridge.css             unlayered: --bs-* / --cds-* / --hiq-* fed from our tokens, then how each framework piece looks here
+  (tools/frameworks-css.mjs: Vite plugin `virtual:frameworks.css` = frameworks.scss compiled by Sass, then trimmed by PurgeCSS
+   to the selectors found in index.html + src/**/*.{js,jsx}. Write framework class names in FULL in the sources, e.g. an
+   object of class strings, never 'cds--x--' + state, or they are dropped.)
   components/
+    Breadcrumb.jsx         Bootstrap breadcrumb "Topics › <topic>" (Stage head, topic pages)
+    Menu.jsx               phone menu (≤ 700 px): UIkit off-canvas from the right (in a portal), links, language, Bootstrap
+                           switches for sound and dark mode; Escape / outside / a link closes it
     Footer.jsx             slim line at the foot of every page except games (3+ path segments): Privacy and legal notice · About
     Search.jsx             SearchProvider (Ctrl/⌘ + K, or "/" outside a field), SearchButton (header), Palette (combobox dialog),
                            SearchField (visible field of the topics page; the owner kept both it and the header search, Step 96: its results replace the plan while something is typed)
@@ -478,6 +494,8 @@ A new game: tick when a trial becomes a dot, `useChime(n, MIN_TRIALS, TRIALS)` a
 - Learning pages use `<Stage>` and must fit in one screen without scrolling (desktop/laptop,
   down to 1366×657). Charts fill the leftover height (`.chart-fill`). Pages with many controls
   may scroll on phones (`flowOnNarrow`).
+- Frameworks (branch redesign-frameworks): use the framework piece that owns an element (src/styles/frameworks.scss
+  header) and restyle it in src/styles/bridge.css from our tokens; never load a whole framework or its JavaScript.
 - Visual style (owner's wish): elegant, no boxed/rectangle panels. Use soft lifted cards,
   pill buttons, segmented pills, whitespace. Fonts: Fraunces (headings), Inter (UI), both self-hosted (Latin + Latin-ext variable woff2 in src/assets/fonts; no Google Fonts).
 

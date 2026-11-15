@@ -11,6 +11,7 @@
 //   npm run check                                  every page (crawled from /topics)
 //   npm run check -- /topics/variance-sd/quiz      only these routes (hash routes, without "#")
 //   npm run check -- --sizes=1366x768,390x844 --lang=en,fr --shots --no-build
+//     --theme=light or dark   force the colour mode (default: the browser's setting)
 //     --shots    save a screenshot of each page in scratch/check/ (gitignored)
 //     --no-build use the existing dist/
 // Chrome: set CHROME=/path/to/chrome if it is not found. Needs Node 22+ (built-in WebSocket).
@@ -29,6 +30,7 @@ const sizes = opt('sizes', '1366x768,390x844')
   .map((s) => s.split('x').map(Number))
 const langs = opt('lang', 'en,fr').split(',')
 const shots = flag('shots')
+const theme = opt('theme', '')
 // A route can be written "topics/x/y", "/topics/x/y" or "#/topics/x/y" (Git Bash turns a leading
 // "/" into a Windows path: that is undone here too).
 const norm = (r) =>
@@ -120,6 +122,7 @@ async function open(route, w, h, lang) {
   await send('Page.navigate', { url: base })
   await sleep(300)
   await ev(`localStorage.setItem('statscool-lang', '${lang}')`)
+  if (theme) await ev(`localStorage.setItem('statscool-theme', '${theme}')`)
   // A hash-only change does not reload the page (the app would keep the language it read at load
   // time), and a reload right after it can race and reload the previous route: go through a blank
   // page so the route is always a fresh load that reads the language just stored.
@@ -171,7 +174,7 @@ for (const route of routes) {
       console.log(parts.filter(Boolean).join('  '))
       if (shots) {
         const shot = await send('Page.captureScreenshot', { format: 'png' })
-        const name = `${route.replace(/\W+/g, '_').replace(/^_|_$/g, '') || 'home'}-${w}-${lang}.png`
+        const name = `${route.replace(/\W+/g, '_').replace(/^_|_$/g, '') || 'home'}-${w}-${lang}${theme ? `-${theme}` : ''}.png`
         writeFileSync(join('scratch/check', name), Buffer.from(shot.result.data, 'base64'))
       }
     }

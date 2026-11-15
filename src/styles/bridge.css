@@ -36,7 +36,13 @@
   --cds-border-subtle-01: var(--border);
   --cds-border-strong-01: var(--border-strong);
   --cds-link-primary: var(--accent);
-  --cds-support-success: var(--lime-text);
+  --cds-support-success: var(--real);           /* right answers are sky-blue on this site, not green */
+  --cds-notification-background-success: color-mix(in srgb, var(--real) 11%, var(--surface));
+  --cds-notification-background-error: color-mix(in srgb, var(--danger) 9%, var(--surface));
+  --cds-layer-selected-inverse: var(--accent);
+  --cds-text-inverse: var(--on-accent);
+  --cds-icon-primary: var(--text);
+  --cds-icon-secondary: var(--muted);
   --cds-support-error: var(--danger);
   --cds-support-info: var(--cyan-text);
   --cds-support-warning: var(--sun);
@@ -60,3 +66,198 @@
   --hiq-table-heading-text-color: var(--muted);
   --hiq-outline-color: var(--focus);
 }
+
+/* ==========================================================================================
+   Components: how each framework's piece looks on StatsCool (pilot, Step 99)
+   ========================================================================================== */
+
+/* ---------- Carbon content switcher = every .segmented switch (EN | FR, views, modes) ----------
+   Carbon's structure and its clear selected state (a filled segment), drawn as a hairline pill track
+   with a navy pill for the choice: the same switch everywhere on the site. */
+.segmented {
+  --cds-border-inverse: var(--border-strong);
+  --cds-border-subtle: var(--border);
+  --cds-layer-hover: var(--hover);
+  --cds-focus-inset: var(--surface);
+  display: inline-flex;
+  inline-size: auto;
+  max-inline-size: 100%;
+  block-size: auto;
+  gap: 2px;
+  padding: 2px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
+}
+.segmented > button,
+.segmented > button:first-child,
+.segmented > button:last-child {
+  flex: 1 1 auto;
+  inline-size: auto;
+  block-size: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  box-shadow: none;
+  overflow: visible;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--muted);
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+.segmented > button:hover:not(:disabled) { background-color: var(--hover); color: var(--text); }
+.segmented > button:active:not(:disabled) { transform: scale(0.97); }
+.segmented > button.is-active,
+.segmented > button.is-active:hover { background-color: var(--accent); color: var(--on-accent); }
+/* Carbon draws the selected fill and the dividers with ::after / ::before above plain text: not needed here. */
+.segmented > button::after,
+.segmented > button::before { display: none; }
+.segmented > button:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.segmented > button:disabled { opacity: 0.4; }
+.lang-switch > button,
+.lang-switch > button:first-child,
+.lang-switch > button:last-child { block-size: 26px; padding: 0 10px; font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.04em; }
+
+/* ---------- Carbon progress indicator = the steps of a game (Stage.jsx) ----------
+   A line on top of each step (navy when done or current), a ring per step: ✓ done, a yellow core for
+   "you are here" (the student's colour), an empty ring for what comes next. */
+.steps.cds--progress { gap: 0; margin: 0; padding: 0 0 2px; }
+.steps .cds--progress-step { inline-size: auto; min-inline-size: 6.5rem; padding-inline-end: 14px; }
+.steps .cds--progress-line { inline-size: 100%; }
+.steps .cds--progress-step-button { cursor: default; }
+.steps .cds--progress-step svg { margin-block-start: 0.6rem; fill: var(--accent); }
+.steps .cds--progress-step--incomplete svg { fill: var(--axis); }
+.steps .step-core { fill: var(--sun); stroke: var(--dot-stroke); stroke-width: 0.6; }
+.steps .cds--progress-label { max-inline-size: none; margin-block-start: 0.45rem; font-size: var(--fs-sm); line-height: 1.4; color: var(--muted); }
+.steps .cds--progress-step--current .cds--progress-label { color: var(--text); font-weight: var(--fw-medium); }
+.steps .cds--progress-step--incomplete .cds--progress-line { background-color: var(--border); }
+@media (max-width: 520px) {
+  .steps .cds--progress-step { min-inline-size: 0; padding-inline-end: 8px; }
+  .steps .cds--progress-step:not(.cds--progress-step--current) .cds--progress-label { display: none; }
+}
+
+/* ---------- Bootstrap breadcrumb = "Topics › Mean, median and mode" (Breadcrumb.jsx) ---------- */
+.breadcrumb {
+  --bs-breadcrumb-divider: '›';
+  --bs-breadcrumb-margin-bottom: 0;
+  --bs-breadcrumb-item-padding-x: 0.45rem;
+  --bs-breadcrumb-divider-color: var(--axis);
+  --bs-breadcrumb-item-active-color: var(--text);
+  font-size: var(--fs-sm);
+}
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); text-decoration: underline; text-decoration-color: var(--logo-pink); }
+.breadcrumb-item.active { font-weight: var(--fw-medium); }
+
+/* ---------- Carbon selectable tiles = the quiz options (Quiz.jsx) ---------- */
+.qz-opt.cds--tile { min-block-size: 0; min-inline-size: 0; padding-inline-end: 44px; font-size: var(--fs-md); line-height: 1.45; letter-spacing: 0; }
+.qz-opt .cds--tile__checkmark { inset-block-start: 50%; inset-inline-end: 14px; translate: 0 -50%; block-size: 16px; }
+.qz-opt.cds--tile--is-selected { border-color: transparent; }
+.qz-opt.cds--tile--is-selected .cds--tile__checkmark svg { fill: currentColor; }
+
+/* ---------- Carbon inline notification = the quiz's "right / not quite" and its explanation ---------- */
+.qz-why.cds--inline-notification { max-inline-size: none; min-inline-size: 0; min-block-size: 0; border-radius: 0 var(--r-md) var(--r-md) 0; color: var(--text); }
+.qz-why.cds--inline-notification::before { border-radius: 0 var(--r-md) var(--r-md) 0; }
+.qz-why .cds--inline-notification__details { margin-inline: 14px 16px; }
+.qz-why .cds--inline-notification__icon { margin-block-start: 0.8rem; margin-inline-end: 12px; }
+.qz-why .cds--inline-notification__text-wrapper { display: block; padding: 0.75rem 0; }
+.qz-why .cds--inline-notification__title { display: inline; margin-inline-end: 0.35rem; font-size: var(--fs-md); font-weight: var(--fw-bold); letter-spacing: 0; }
+.qz-why .cds--inline-notification__subtitle { display: inline; font-size: var(--fs-md); line-height: 1.5; letter-spacing: 0; }
+.qz-why.is-right .cds--inline-notification__title { color: var(--real); }
+.qz-why.is-wrong .cds--inline-notification__title { color: var(--danger); }
+.qz-why .qz-why-mark { fill: var(--surface); }
+
+/* ---------- UIkit off-canvas = the phone menu (Menu.jsx), Bootstrap switches inside ---------- */
+.btn.menu-btn { display: none; width: 36px; height: 36px; padding: 0; flex: none; color: var(--text); }
+.menu-btn svg, .menu-close svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; }
+@media (max-width: 700px) {
+  .header-desk { display: none !important; }
+  .btn.menu-btn { display: inline-flex; }
+}
+.menu-root .uk-offcanvas { display: block; z-index: 1000; }
+.menu-root .uk-offcanvas-overlay::before { background: color-mix(in srgb, var(--navy) 22%, rgb(0 0 0 / 0.25)); }
+.menu-bar.uk-offcanvas-bar {
+  width: min(300px, 86vw);
+  padding: 64px 22px 24px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-pop);
+  border-radius: var(--r-lg) 0 0 var(--r-lg);
+}
+.uk-offcanvas-flip .menu-bar.uk-offcanvas-bar { right: min(-300px, -86vw); }
+.uk-offcanvas-flip .uk-open > .menu-bar.uk-offcanvas-bar { right: 0; }
+.uk-offcanvas-bar-animation { transition: right 0.3s var(--ease-out), left 0.3s var(--ease-out); }
+@media (prefers-reduced-motion: reduce) { .uk-offcanvas-bar-animation, .uk-offcanvas-overlay::before { transition: none; } }
+.btn.menu-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; padding: 0; }
+.menu-nav { display: grid; gap: 4px; margin-bottom: 26px; }
+.menu-nav a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: var(--r-md);
+  color: var(--text); font-family: var(--font-display); font-weight: var(--fw-display); font-size: var(--fs-xl);
+  text-decoration: none;
+}
+.menu-nav a::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); }
+.menu-nav a.active::before { background: var(--logo-pink); }
+.menu-nav a:nth-child(2).active::before { background: var(--logo-cyan); }
+.menu-nav a:hover, .menu-nav a.active { background: var(--hover); }
+.menu-settings { display: grid; gap: 14px; padding-top: 20px; border-top: 1px solid var(--border); }
+.menu-label { margin: 0 0 -6px; font-size: var(--fs-sm); color: var(--muted); }
+.menu-settings .segmented { inline-size: 100%; }
+
+/* Bootstrap form-switch: yellow when on (the student's colour), navy knob. */
+.form-check.form-switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 0; margin: 0; padding: 0; font-weight: var(--fw-medium); }
+.form-switch .form-check-input { order: 2; float: none; width: 2.6em; height: 1.4em; margin: 0; cursor: pointer; background-color: var(--hover-strong); border-color: var(--border-strong); }
+.form-switch .form-check-input:checked {
+  background-color: var(--sun);
+  border-color: var(--dot-stroke);
+  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23111fa2'/%3e%3c/svg%3e");
+}
+.form-switch .form-check-input:focus { border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 30%, transparent); }
+.form-check-label { cursor: pointer; }
+
+/* ---------- UIkit subnav (pill) = the "On this page" bar of a topic page ---------- */
+.topic-sections {
+  position: sticky; top: 24px; z-index: 5; /* below the header's small grey tab */
+  margin: 0 0 28px; padding: 6px;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  box-shadow: 0 0 0 1px var(--border);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  overflow-x: auto; scrollbar-width: none;
+}
+.topic-sections .uk-subnav { display: flex; flex-wrap: nowrap; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.topic-sections .uk-subnav-pill > * { padding-left: 0; flex: none; }
+.topic-sections .uk-subnav-pill > * > :first-child {
+  text-transform: none; /* plain words, not capitals (owner's taste) */
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border: 0; border-radius: var(--r-pill);
+  background: transparent; color: var(--muted);
+  font: inherit; font-size: var(--fs-sm); font-weight: var(--fw-medium); white-space: nowrap; cursor: pointer;
+  transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.topic-sections .uk-subnav-pill > [class*='is-'] > :first-child::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--step); box-shadow: 0 0 0 1px color-mix(in srgb, var(--step-text) 55%, transparent);
+}
+.topic-sections .uk-subnav-pill > * > :first-child:hover { background: var(--hover); color: var(--text); }
+.topic-sections .uk-subnav-pill > .uk-active > :first-child { background: var(--accent); color: var(--on-accent); }
+.topic-sections button:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+@media (max-width: 900px) { .topic-sections { top: 22px; margin-bottom: 20px; } }
+
+/* ---------- Carbon tag = the kind of an activity (Game 1, Free play, …) in its step's colour ---------- */
+.topic-tag.cds--tag {
+  margin: 0; min-block-size: 1.5rem; padding-inline: 10px; border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--step, var(--hue-neutral)) 24%, var(--surface));
+  color: var(--step-text, var(--text));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--step-text, var(--border)) 25%, transparent);
+  font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.01em; white-space: nowrap;
+}
+.topic-crumbs { margin-bottom: 16px; }

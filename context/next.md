@@ -3,6 +3,13 @@
 ## In progress
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
+- Restyling with CSS frameworks (Carbon, Bootstrap, UIkit, HiQ), branch `redesign-frameworks`, worktree `.claude/worktrees/redesign3/`
+  (Steps 98-99 in progress.md). Done: spike (layers, bridge, PurgeCSS plugin) and the PILOT (switches, game steps, breadcrumb,
+  quiz, phone menu, topic page section bar and tags). Waiting for the owner's go / no-go on the pilot. If go, left: About (Carbon
+  vertical tabs, UIkit accordion), References (Bootstrap list group), search palette (Bootstrap modal + list group), playgrounds and
+  live calculations (Carbon tiles, Bootstrap range), Train shell (Carbon progress bar), tour and citation bubbles (Carbon popover),
+  Privacy (HiQ prose in `.hiq`), icon tooltips (UIkit), Bootstrap-owned buttons, cleanup of dead rules in index.css (`.back-link`, ...).
+  Never merge into main without the owner's word.
 - The design refresh (Steps 89-91) is merged into `main`. The old branches `redesign-lab-notebook` and `redesign-learning-sites` and the worktrees
   `.claude/worktrees/redesign` and `redesign2` can be removed when the owner no longer wants to compare (`git worktree remove` then `git branch -D`).
 - Uncommitted change found 2026-11-15 in the main folder, not made by Claude: it put back the "What we do not claim" block that Step 87

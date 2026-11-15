@@ -15,8 +15,10 @@ function saved() {
   }
 }
 
+// data-bs-theme too: Bootstrap's colour mode (src/styles/_bootstrap.scss) follows ours.
 function apply(t) {
   document.documentElement.dataset.theme = t
+  document.documentElement.dataset.bsTheme = t
 }
 
 export function useTheme() {
@@ -31,11 +33,17 @@ export function useTheme() {
       setTheme(t)
     }
     mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
+    // Several switches (header, phone menu) share the mode: each follows <html data-theme>.
+    const mo = new MutationObserver(() => setTheme(document.documentElement.dataset.theme || 'light'))
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => {
+      mq.removeEventListener('change', onChange)
+      mo.disconnect()
+    }
   }, [])
 
   function toggle() {
-    const t = theme === 'dark' ? 'light' : 'dark'
+    const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
     apply(t)
     try {
       localStorage.setItem(KEY, t)
