@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { Link } from 'react-router'
 import { useLang, useText } from '../i18n.jsx'
 import { COMMON } from '../text.js'
 import { PARTS, topics } from '../topics/topics.js'
 import TopicGlyph from '../components/TopicGlyph.jsx'
+import { SearchField } from '../components/Search.jsx'
 
 // Topics page (/topics): the course plan. The title stays in the margin; next to it, one heading
 // per part (PARTS) and under it the part's topics as ruled rows: the topic's number, its title, one
@@ -12,6 +14,7 @@ import TopicGlyph from '../components/TopicGlyph.jsx'
 export default function Topics() {
   const { lang } = useLang()
   const tx = useText(COMMON)
+  const [searching, setSearching] = useState(false) // something is typed in the field: its results replace the plan
   return (
     <section className="topics-page split">
       <header className="split-aside">
@@ -20,7 +23,8 @@ export default function Topics() {
       </header>
 
       <div className="split-main">
-        {PARTS.map((part, p) => {
+        <SearchField onActive={setSearching} />
+        {!searching && PARTS.map((part, p) => {
           const { title, lead } = part.text[lang]
           const items = topics.map((t, i) => ({ t, i })).filter(({ t }) => t.part === part.id)
           return (

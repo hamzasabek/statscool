@@ -1623,3 +1623,21 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Same step, owner: the Home "Hold for 2 seconds" button (yellow ring on a white fill, thin dark outline) looked off beside the yellow "Start playing" button.
   `.hero-pad` is now a solid ink pill (`--text` on `--bg`, no ring), and turns yellow only while held (`.is-running`, with the thin outline). Tested: build,
   `npm run check -- /`, screenshots idle and held in light and dark.
+
+## 2026-11-15 — Step 93: search in the whole site (Claude)
+- Owner: build the search (option 1 of the options given: in-browser index, no server): large scope (topics, games, extras, About, references,
+  pages), English and French together, and TRY BOTH places: a button + palette in the header, and a visible field on the topics page; the owner will
+  then decide which one to drop.
+- `src/search/engine.js` (index of 88 entries: 3 pages, 6 topics, 24 games / extras, 5 About tabs, 50 references; both languages in every entry, so an
+  English word finds French content and the other way round; scoring: title 4, keywords 2.2, topic 1.6, description 1; one typo allowed, light stem
+  (asymétrie → asymétriques); a citation ranks below the game that cites it), `keywords.js` (synonyms / concept words, EN + FR, per topic, game, kind and
+  About tab), `text.js`. UI: `components/Search.jsx`: header button (icon; with "Search" and Ctrl K at ≥ 1000 px), palette (Ctrl/⌘ + K or "/"; arrows, Enter,
+  Esc; ARIA combobox; full screen on phones; focus restored on close; reduced motion respected), field on `/topics`. Styles at the end of index.css.
+- Phone header: with the new icon it overflowed (+33 px at 390): below 480 px only the language you can switch to is shown (one button), buttons are 32 px,
+  below 380 px the logo is 34 px. Measured: no horizontal scroll at 360, 390, 412 px.
+- New `tools/search-check.mjs` (run first by `npm run check`): every topic, game and extra found by its own name in EN and FR, and each has keywords. It
+  caught three quizzes with no keywords line.
+- Tested: engine queries (typo, accents, other language, no result); headless Chrome with real key events: Ctrl+K opens, typing, arrows + Enter navigate, "/"
+  opens, Esc closes, no-result text, topics field replaces the plan, Enter opens the first result, no console errors; screenshots EN / FR, light / dark, desktop /
+  phone; full npm run check.
+- Open decision for the owner: keep the header palette, the topics field, or both.

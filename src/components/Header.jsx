@@ -2,6 +2,7 @@ import { Link, NavLink } from 'react-router'
 import logoDark from '../assets/logo-dark.png'
 import logoLight from '../assets/logo-light.png'
 import { LANGS, useLang, useText } from '../i18n.jsx'
+import { SearchButton } from './Search.jsx'
 import { COMMON } from '../text.js'
 import { useSoundOn } from '../sound.js'
 import { useTheme } from '../theme.js'
@@ -55,6 +56,7 @@ export default function Header() {
             <NavLink to="/topics">{tx.navTopics}</NavLink>
             <NavLink to="/about">{tx.navAbout}</NavLink>
           </nav>
+          <SearchButton />
           <div className="segmented lang-switch" role="group" aria-label={tx.language}>
             {LANGS.map((l) => (
               <button

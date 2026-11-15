@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { Route, Routes, useLocation } from 'react-router'
 import Header from './components/Header.jsx'
+import { SearchProvider } from './components/Search.jsx'
 import Home from './pages/Home.jsx'
 import Topics from './pages/Topics.jsx'
 import About from './pages/About.jsx'
@@ -44,7 +45,7 @@ function App() {
   }, [shown.pathname])
 
   return (
-    <>
+    <SearchProvider>
       <Header />
       <main className="page">
         <Routes location={shown}>
@@ -57,7 +58,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-    </>
+    </SearchProvider>
   )
 }
 

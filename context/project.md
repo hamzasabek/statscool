@@ -25,7 +25,7 @@ quiz questions, recap sheets, game designs; the name, logo and author photo are 
 README "Licences" says the same), `CITATION.cff` (GitHub's "Cite this repository"; same reference as
 the About page; licence MIT + CC-BY-4.0), `AGENTS.md` (the shared rules for every AI assistant: session start, end of step, commands,
 conventions), `CLAUDE.md` and `GEMINI.md` (each imports AGENTS.md), `tools/check.mjs` (`npm run
-check`: first tools/cite-check.mjs, then every page in headless Chrome at desktop and phone size, EN and FR: one screen or how much it
+check`: first tools/cite-check.mjs and tools/search-check.mjs (every topic, game and extra must be found by its own name in EN and FR, and have a line in src/search/keywords.js), then every page in headless Chrome at desktop and phone size, EN and FR: one screen or how much it
 scrolls, wider than the screen, console and KaTeX errors, page not found; `--shots` saves screenshots
 in `scratch/check/`, gitignored).
 
@@ -56,6 +56,8 @@ src/
                            flat hairline rules instead of shadows; `.split` = margin column + content (Home, Topics,
                            topic pages, About, References)
   components/
+    Search.jsx             SearchProvider (Ctrl/⌘ + K, or "/" outside a field), SearchButton (header), Palette (combobox dialog),
+                           SearchField (visible field of the topics page: its results replace the plan while something is typed)
     Header.jsx             logo (links to /) + Topics / About links (NavLink, yellow dot when active;
                            Topics stays active inside a game) + EN | FR switch + sound on/off + light/dark button
     TrainShell.jsx         the shell of every "Train your eye" game: rounds, one gesture answers, grade
@@ -83,6 +85,10 @@ src/
                            CSS shows the one for the current theme
     Stage.jsx              full-viewport learning layout (head, say, bar, main, foot) + Steps;
                            optional `className` (e.g. `ck-stage` lets the game grow on phones)
+  search/                  the site search (Step 93; no server, no library): engine.js (one index of ~90 entries built from topics.js, the
+                           About tabs, references.js and the pages; every entry holds EN + FR text, accents and capitals ignored, every typed word
+                           must match: whole word, beginning, part, one typo, light stem; titles > keywords > descriptions), keywords.js (synonyms and
+                           concept words per topic / game / kind / About tab: ADD A LINE when adding a game), text.js (EN + FR texts)
   hooks/
     useSprung.js           numbers / number arrays that follow a target like a spring (interruptible, keeps its
                            speed); usePrefersReducedMotion. Replaced useTweened.js (design refresh, Step 89)

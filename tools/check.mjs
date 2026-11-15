@@ -69,6 +69,15 @@ if (!flag('no-build')) {
     process.exit(1)
   }
 }
+// Search: every topic, game and extra can be found by its own name, in both languages.
+{
+  const { spawnSync } = await import('node:child_process')
+  const r = spawnSync(process.execPath, ['tools/search-check.mjs'], { stdio: 'inherit' })
+  if (r.status) {
+    console.log('Fix the search (src/search/keywords.js).')
+    process.exit(1)
+  }
+}
 const server = await preview({ preview: { port: PORT, strictPort: true }, logLevel: 'error' })
 const base = `http://localhost:${PORT}/`
 
