@@ -1568,3 +1568,11 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Colours, third round (owner: light page whiter, dark page blacker, header edge discreet and more transparent). Light `--bg` #f6f8fc;
   dark `--bg` #101216, `--header-bg` #08090b, `--surface` #1a1d22. New tokens `--header-alpha` (62% light / 55% dark: lower = more
   see-through) and `--header-line` (35% / 45%: strength of the hairline under the header). Checked by screenshot, light and dark.
+- Design polish (owner: "a very elegant design, cards in harmony with the background"). Light and dark colours rebuilt as ONE cool hue in three
+  steps: page (`--bg`) → card (`--surface`, a half-step lighter, no longer pure white) → inner tile (`--hover`: quiz options, stat tiles,
+  chips, a few grey tones lighter than before and in the same hue). Light `--bg` #f5f7fb, `--surface` #fdfdff, `--hover` #eff2f8, `--border`
+  #dfe4ee; dark `--bg` #101216, `--surface` #181c22, `--hover` #1e232a, `--border` #252a32. New `--border-strong` (hover edge of a card, thin
+  scrollbar thumb). Details: header blur 14 → 26 px (what scrolls under it melts into a soft smear), cards answer the pointer with a
+  darker hairline (`.rule-list > li:has(a.row:hover)`), thin tinted scrollbars, `text-wrap: balance` on headings and `pretty` on text,
+  font smoothing. End of `src/index.css`, block "Finishing touches". Checked by screenshots (Home, Topics, topic page, playground, quiz,
+  game, About) in both modes.

@@ -13,16 +13,17 @@
   --sky: #53cbf3;
   --sun: #ffde42;
 
-  --bg: #f6f8fc;                  /* cool white, a very light grey */
+  --bg: #f5f7fb;                  /* page: cool white, a very light grey */
   --header-bg: #fcfdff;           /* the bar on top: almost pure white */
   --header-alpha: 62%;            /* how opaque the bar is (lower = more see-through) */
   --header-line: 35%;             /* strength of the hairline under it (0% = none) */
-  --surface: #ffffff;             /* a sheet on the paper: charts, panels */
+  --surface: #fdfdff;             /* card: a half-step lighter than the page, same hue */
   --text: #12151d;                /* ink */
   --muted: #565c6b;
-  --border: #d8dee9;              /* hairline rules */
-  --hover: #e4e9f1;
-  --hover-strong: #d8e0ec;
+  --border: #dfe4ee;
+  --border-strong: #c9d1df;      /* hover edge of a card, scrollbar thumb */              /* hairline rules */
+  --hover: #eff2f8;            /* inner tile on a card (options, stat tiles, chips) */
+  --hover-strong: #e4e9f2;
   --seg-active: #ffffff;
   --accent: var(--navy);          /* links, active states, small accent text */
   --accent-soft: #e6eafc;
@@ -117,13 +118,14 @@
   --header-bg: #08090b;         /* the bar on top: black with a trace of grey */
   --header-alpha: 55%;
   --header-line: 45%;
-  --surface: #1a1d22;
-  --text: #eef0f4;
+  --surface: #181c22;
+  --text: #eaedf2;
   --muted: #a7acb7;
-  --border: #2a2e35;
-  --hover: #1f2329;
-  --hover-strong: #2e323a;
-  --seg-active: #383d46;
+  --border: #252a32;
+  --border-strong: #363c47;
+  --hover: #1e232a;
+  --hover-strong: #272c35;
+  --seg-active: #333943;
   --accent: #8ea4ff;
   --accent-soft: #1b2142;
   --on-accent: #0f1013;
@@ -195,8 +197,8 @@ code {
   height: var(--header-h);
   background: color-mix(in srgb, var(--header-bg) var(--header-alpha), transparent);
   box-shadow: 0 1px 0 color-mix(in srgb, var(--border) var(--header-line), transparent);
-  backdrop-filter: blur(14px) saturate(1.6);
-  -webkit-backdrop-filter: blur(14px) saturate(1.6);
+  backdrop-filter: blur(26px) saturate(1.5);
+  -webkit-backdrop-filter: blur(26px) saturate(1.5);
 }
 @media (prefers-reduced-transparency: reduce) {
   .header { background: var(--header-bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
@@ -2171,3 +2173,12 @@ a.row:hover .home-topic-num { color: var(--accent); }
 
 /* The playground dots can be pulled a little past the edge of their chart */
 .pg-chart { overflow: visible; }
+
+/* ---------- Finishing touches (Step 89, design refresh) ---------- */
+html { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+h1, h2, h3, .lead, .tl-title, .topic-game-name { text-wrap: balance; }
+p, li, figcaption { text-wrap: pretty; }
+/* A card answers the pointer with its edge, not with a movement: the hairline darkens a little. */
+.rule-list > li { transition: box-shadow var(--dur-2) var(--ease-out); }
+.rule-list > li:has(a.row:hover) { box-shadow: 0 0 0 1px var(--border-strong); }
+.rule-list > li:has(a.row:active) { box-shadow: 0 0 0 1px var(--axis); transition-duration: 0s; }
