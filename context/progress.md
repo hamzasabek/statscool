@@ -1608,3 +1608,13 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Before the merge the main folder had uncommitted changes by someone else (the "What we do not claim" block again): saved as a tagged stash and
   a patch, not re-applied (see next.md).
 - Tested after the merge: `npm run build`; full `npm run check`.
+
+## 2026-11-15 — Step 92: the Home hero curve adapts to each dot (Claude)
+- Owner: the curve of the Home animation should adapt to the dot the visitor drops.
+- `src/pages/Home.jsx`: the curve is now the normal curve that fits ALL the dots (47 simulated + the visitor's up to 12): mean and standard
+  deviation in columns, area = number of dots (`curvePoints()`), kept inside the chart. It is redrawn at every landing and glides (spring-like,
+  14 % of the way per frame, instant with reduced motion) to the new shape inside the soft-sheet loop (`useSoftSheet(svgRef, targetRef, wakeRef)`),
+  so it still bends away from the pointer. Late presses shift the peak right and widen the bell; a press at 2 s raises it. Caption (en + fr)
+  says the curve refits every dot you add.
+- Tested: build; `npm run check -- /`; headless Chrome with real mouse presses (scratch script): peak y 79.1 → 75.1 (2.0 s), → 77.7, 82.7, 86.6 and
+  its x 209 → 218 as late and early presses were added; no console errors; screenshot looked at.

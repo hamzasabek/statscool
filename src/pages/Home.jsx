@@ -51,10 +51,22 @@ ORDER.forEach((di, step) => {
   dropAt[j] = step
 })
 const DROP_MS = 45
-const CURVE_PTS = Array.from({ length: 121 }, (_, i) => {
-  const c = -0.5 + (i / 120) * COLS
-  return [X0 + (c + 0.5) * SIZE, BASE - height(c) * SIZE]
-})
+// The curve is the bell that fits ALL the dots (the simulated ones and the student's): the normal
+// density with their mean and standard deviation (in columns), scaled so its area is the number of dots.
+// It is redrawn, and glides to its new shape, each time a dot lands.
+const TOP = BASE - ROWS * SIZE // the curve never leaves the chart
+function curvePoints(extra = []) {
+  const cols = [...DOTS.map((d) => d.c), ...extra]
+  const n = cols.length
+  const m = cols.reduce((a, c) => a + c, 0) / n
+  const sd = Math.max(1, Math.sqrt(cols.reduce((a, c) => a + (c - m) ** 2, 0) / n))
+  return Array.from({ length: 121 }, (_, i) => {
+    const c = -0.5 + (i / 120) * COLS
+    const h = (n / (sd * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * ((c - m) / sd) ** 2)
+    return [X0 + (c + 0.5) * SIZE, Math.max(TOP, BASE - h * SIZE)]
+  })
+}
+const CURVE_PTS = curvePoints()
 const pathOf = (pts) => pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`).join('')
 const CURVE = pathOf(CURVE_PTS)
 const cxOf = (c) => X0 + (c + 0.5) * SIZE
@@ -70,12 +82,14 @@ const SPRING = 0.18 // share of the way to the target covered each frame
 
 // The dots are read from the page on every frame (their resting place is in data-x / data-y), so
 // the dots the student adds bend like the others.
-function useSoftSheet(svgRef) {
+function useSoftSheet(svgRef, targetRef, wakeRef) {
   useEffect(() => {
     const svg = svgRef.current
     const curve = svg.querySelector('.hero-curve')
     const offs = new WeakMap() // current displacement of each dot
     const curveOff = CURVE_PTS.map(() => [0, 0])
+    const base = CURVE_PTS.map((p) => [...p]) // where the curve is now; it glides towards targetRef.current
+    const still = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     let pointer = null
     let raf = 0
 
@@ -106,9 +120,13 @@ function useSoftSheet(svgRef) {
         c.setAttribute('cx', (x + o[0]).toFixed(2))
         c.setAttribute('cy', (y + o[1]).toFixed(2))
       }
-      const bent = CURVE_PTS.map(([x, y], j) => {
-        if (ease(curveOff[j], x, y)) moving = true
-        return [x + curveOff[j][0], y + curveOff[j][1]]
+      const goal = targetRef.current
+      const bent = base.map((b, j) => {
+        const dy = goal[j][1] - b[1]
+        b[1] += still ? dy : dy * 0.14
+        if (Math.abs(dy) > 0.05) moving = true
+        if (ease(curveOff[j], b[0], b[1])) moving = true
+        return [b[0] + curveOff[j][0], b[1] + curveOff[j][1]]
       })
       curve.setAttribute('d', pathOf(bent))
       raf = moving || pointer ? requestAnimationFrame(frame) : 0
@@ -116,6 +134,7 @@ function useSoftSheet(svgRef) {
     const wake = () => {
       if (!raf) raf = requestAnimationFrame(frame)
     }
+    wakeRef.current = wake
     const toView = (e) => {
       const p = svg.createSVGPoint()
       p.x = e.clientX
@@ -144,7 +163,7 @@ function useSoftSheet(svgRef) {
       svg.removeEventListener('pointerup', onLeave)
       svg.removeEventListener('pointercancel', onLeave)
     }
-  }, [svgRef])
+  }, [svgRef, targetRef, wakeRef])
 }
 
 // One gesture per try: press and hold the button (or the space bar) for what feels like 2 seconds,
@@ -152,7 +171,9 @@ function useSoftSheet(svgRef) {
 // top of the simulated ones; outside 1 to 3 s it cannot be drawn and the text says so.
 function HeroClock({ tx }) {
   const svgRef = useRef(null)
-  useSoftSheet(svgRef)
+  const targetRef = useRef(CURVE_PTS)
+  const wakeRef = useRef(() => {})
+  useSoftSheet(svgRef, targetRef, wakeRef)
   const [tries, setTries] = useState([]) // the student's dots, oldest first: { id, c }
   const [holding, setHolding] = useState(false)
   const [note, setNote] = useState(null) // { kind: 'short' } | { kind: 'off', v } | { kind: 'ok', v }
@@ -200,6 +221,11 @@ function HeroClock({ tx }) {
   const stacked = {}
   const yours = tries.map((d) => ({ ...d, level: COUNT[d.c] + (stacked[d.c] = (stacked[d.c] ?? 0) + 1) - 1 }))
   const lastId = tries.length ? tries[tries.length - 1].id : null
+  // The curve follows every dot: its new shape is the goal, the sheet loop glides there.
+  useEffect(() => {
+    targetRef.current = curvePoints(tries.map((d) => d.c))
+    wakeRef.current()
+  }, [tries])
 
   let result = tx.heroIdle
   if (note?.kind === 'short') result = tx.heroShort
