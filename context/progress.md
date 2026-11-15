@@ -1548,3 +1548,10 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   Interactions tested in headless Chrome with synthetic mouse input (scratch script): holding the hero button 2 s lands a dot and
   gives the gap, a short hold gives the hint; dragging a dot in the playground changes the three centres, a click adds a dot; the
   guided tour moves from step to step; no console errors. Still NOT tested: a real phone (touch lift, latency).
+- Owner's review (2026-11-15), comparing old and new side by side: KEEP cards without shadows or gradients (2), the new type scale (3) but
+  with the OLD fonts, press feedback (5), no pulses (6), margin column (7), plain recap table head (9), playable hero (10), Home sections
+  removed (11), page transitions (12), springs (13), playground dots (14), tour (15). DROP: smaller logo (4) and ruled rows (8). Item 1
+  (paper-and-ink colours) was not mentioned: kept for now, to confirm.
+- Done: logo back to 62 / 50 / 40 px and `--header-h` 76 / 64 px; old Google Fonts link (Inter 400–700, Fraunces 500 / 600, no italic) and
+  `--fw-display` 600 (hero `em` no longer italic: no Fraunces italic is loaded); topics, activities and Home topics are hairline cards
+  again (`.rule-list` grid of `li` cards); playground side column tightened again for the taller header. Full `npm run check`: no problems.
