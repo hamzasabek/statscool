@@ -56,6 +56,7 @@ src/
                            flat hairline rules instead of shadows; `.split` = margin column + content (Home, Topics,
                            topic pages, About, References)
   components/
+    Footer.jsx             slim line at the foot of every page except games (3+ path segments): Privacy and legal notice · About
     Search.jsx             SearchProvider (Ctrl/⌘ + K, or "/" outside a field), SearchButton (header), Palette (combobox dialog),
                            SearchField (visible field of the topics page: its results replace the plan while something is typed)
     Header.jsx             logo (links to /) + Topics / About links (NavLink, yellow dot when active;
@@ -112,6 +113,8 @@ src/
                            data"…), under it a vertical timeline of its topics (numbered nodes,
                            numbers run on across parts; game name, title, one sentence, Play → or
                            Coming soon; drawings hidden on phones). A `soon` part is a dashed box.
+    Privacy.jsx            /privacy (Step 94): privacy notice + legal notice (mentions légales); texts PRIVACY_PAGE in text.js. Must stay true to the code: no cookie, no
+                           analytics, no third-party request, 4 localStorage keys, fonts self-hosted (src/assets/fonts, OFL licences beside them, @font-face at the top of index.css)
     References.jsx         /references : every cited work in APA 7 (from virtual:cites), anchors
                            #ref-<key> (the bubbles' "All references" link scrolls there)
     About.jsx              /about, five tabs (Step 86; the tab is in the address: /about?tab=teaching, arrow keys move
@@ -476,7 +479,7 @@ A new game: tick when a trial becomes a dot, `useChime(n, MIN_TRIALS, TRIALS)` a
   down to 1366×657). Charts fill the leftover height (`.chart-fill`). Pages with many controls
   may scroll on phones (`flowOnNarrow`).
 - Visual style (owner's wish): elegant, no boxed/rectangle panels. Use soft lifted cards,
-  pill buttons, segmented pills, whitespace. Fonts: Fraunces (headings), Inter (UI).
+  pill buttons, segmented pills, whitespace. Fonts: Fraunces (headings), Inter (UI), both self-hosted (Latin + Latin-ext variable woff2 in src/assets/fonts; no Google Fonts).
 
 - Topics are games: the student makes the data, each action is a dot. Psychology themes.
 - Plain JavaScript (`.jsx` / `.js`), function components and hooks.

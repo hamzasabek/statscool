@@ -1,3 +1,39 @@
+/* Fonts, served from this site (Step 94): no request to Google, so no visitor address is sent to a third party.
+   Inter (text) and Fraunces (headings) are variable fonts under the SIL Open Font License (licences next to the files
+   in src/assets/fonts). Only the Latin subsets are kept: they cover English and French. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(./assets/fonts/inter-latin-ext-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(./assets/fonts/inter-latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(./assets/fonts/fraunces-latin-ext-opsz-normal.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(./assets/fonts/fraunces-latin-opsz-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ==========================================================================================
    StatsCool: design tokens ("lab notebook", Step 89)
    Paper and ink: the page is warm paper (--bg), charts and panels are white sheets (--surface),
@@ -293,7 +329,7 @@ code {
 .page {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 44px var(--gutter) 88px;
+  padding: 44px var(--gutter) 32px; /* the site footer follows, see .site-foot */
 }
 .page:has(> .stage) { padding-top: 0; padding-bottom: 0; }
 .page h1 {
@@ -2301,3 +2337,29 @@ a.row:hover .tl-node, a.row:hover .home-topic-num { color: color-mix(in srgb, va
 .sr-inline .sr-item:has(.sr-link:hover) { box-shadow: 0 0 0 1.5px var(--border-strong); }
 .sr-inline .sr-link { padding: 14px 18px; }
 .sr-empty-help { margin: 4px 6px 0; color: var(--muted); max-width: 56ch; }
+
+/* ---------- Privacy page and site footer (Step 94) ---------- */
+.privacy-date { margin: 14px 0 0; font-size: var(--fs-sm); color: var(--muted); }
+.privacy-body { max-width: 68ch; }
+.privacy-body section { padding: 4px 0 8px; }
+.privacy-body section + section { border-top: 1px solid var(--border); margin-top: 20px; padding-top: 22px; }
+.page .privacy-body h2 { margin: 0 0 10px; font-family: var(--font-display); font-weight: var(--fw-display); font-size: var(--fs-xl); line-height: 1.2; letter-spacing: -0.012em; }
+.privacy-body p { margin: 0 0 12px; line-height: 1.65; }
+.privacy-legal { margin: 0; display: grid; gap: 14px; }
+.privacy-legal dt { font-weight: var(--fw-medium); }
+.privacy-legal dd { margin: 2px 0 0; line-height: 1.6; }
+.privacy-links { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+
+.site-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 12px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 var(--gutter) 24px;
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+.site-foot a { color: var(--muted); }
+.site-foot a:hover { color: var(--text); }

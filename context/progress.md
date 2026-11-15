@@ -1642,3 +1642,18 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   phone; full npm run check.
 - Open decision for the owner: keep the header palette, the topics field, or both.
 - Owner's rule added to AGENTS.md (section 4, "Search keywords"): a line in src/search/keywords.js is OBLIGATORY for every new game, topic, extra or About tab (search-check enforces it).
+
+## 2026-11-15 — Step 94: self-hosted fonts and a privacy and legal notice (Claude)
+- Owner: after my answer on privacy and cookie rules for a static site (no banner needed; weak point = Google Fonts; a notice naming the publisher and the host
+  is wanted), "do what you had recommended for now".
+- Fonts: Inter and Fraunces are now served by the site (no request to Google): the four Latin / Latin-ext variable woff2 files (Fraunces keeps its optical-size
+  axis) are in `src/assets/fonts/` with their SIL OFL licences, declared by `@font-face` at the top of `src/index.css` (same family names, so no other CSS changed);
+  the Google `<link>` and preconnects are gone from `index.html`. `dist/` holds no "googleapis" or "gstatic". Look unchanged (screenshots checked).
+- New page `/privacy` (`src/pages/Privacy.jsx`, texts `PRIVACY_PAGE` in `src/pages/text.js`, EN + FR): what stays on the device (4 localStorage choices, no banner needed),
+  what happens in the games (nothing leaves the browser), who sees a visit (GitHub as host: IP in its logs; the author sees nothing), rights (GDPR; CNIL), what
+  changes if accounts / analytics are added; then the legal notice (mentions légales: publisher Hamza Sabek as a private individual, contact through GitHub issues, host
+  GitHub, Inc. with its address, licences). Facts checked against GitHub's privacy statement and against the code (no cookie, no fetch, keys statscool-theme / -lang / -sound / -tour-*).
+- `Footer.jsx`: a slim line "Privacy and legal notice · About" under every page except the games (which must fit one screen). `.page` bottom padding 88 → 32 px so pages
+  do not grow (the footer fills the rest). About "Use and cite" tab: the privacy card no longer mentions Google and links to the page. Search: `privacy` page entry in `keywords.js` (PAGES); `/privacy` added to the crawl of `tools/check.mjs`.
+- Not legal advice: the owner may want his university's data protection officer to read it before wide promotion; a postal address / email can be added to the legal notice if preferred.
+- Tested: build; `npm run check` (all pages, EN / FR, desktop / phone); `/privacy` screenshots; search finds the page by "privacy", "cookies", "mentions légales", "RGPD".

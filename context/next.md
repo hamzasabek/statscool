@@ -122,5 +122,5 @@ what is left and which files; remove the item once it is committed. (AGENTS.md, 
   of the real length; remember results in localStorage.
 - Unused CSS tokens left from archived parts: `--bar`, `--bar-mode`, `--mode`, `--real-soft`,
   `--miss-soft`, `.legend-item.fit/.real`.
-- Self-host the two fonts (e.g. @fontsource) instead of Google Fonts.
+- (Done in Step 94: fonts are self-hosted.) When accounts, progress sync, analytics, a contact form or research data are added, the privacy page (/privacy) must be rewritten first: legal basis, processor agreement, retention, consent (see Step 94 in progress.md).
 - Code-split per topic (lazy routes); bundle is ~460 kB.

@@ -178,7 +178,8 @@ export const ABOUT = {
     inspBefore: 'StatsCool is inspired by the interactive visualisations of Kristoffer Magnusson at ',
     inspAfter: '.',
     privacyTitle: 'Privacy',
-    privacy: 'No account, no ads, no tracking. What you do in a game stays in your browser and is gone when you leave the page. Only your language, your theme, your sound setting and which guides you have seen are saved, on your own device. The fonts are loaded from Google Fonts.',
+    privacyLink: 'Privacy and legal notice',
+    privacy: 'No account, no ads, no tracking. What you do in a game stays in your browser and is gone when you leave the page. Only your language, your theme, your sound setting and which guides you have seen are saved, on your own device. Nothing is sent to anyone; the fonts come from this site itself. The full notice is on the privacy page.',
     openTitle: 'Open source and licences',
     openBefore: 'The code is free to reuse under the MIT licence. It is on ',
     github: 'GitHub',
@@ -278,7 +279,8 @@ export const ABOUT = {
     inspBefore: 'StatsCool s’inspire des visualisations interactives de Kristoffer Magnusson sur ',
     inspAfter: '.',
     privacyTitle: 'Vie privée',
-    privacy: 'Pas de compte, pas de publicité, pas de pistage. Ce que vous faites dans un jeu reste dans votre navigateur et disparaît quand vous quittez la page. Seuls votre langue, votre thème, le réglage du son et les guides déjà vus sont enregistrés, sur votre propre appareil. Les polices sont chargées depuis Google Fonts.',
+    privacyLink: 'Vie privée et mentions légales',
+    privacy: 'Pas de compte, pas de publicité, pas de pistage. Ce que vous faites dans un jeu reste dans votre navigateur et disparaît quand vous quittez la page. Seuls votre langue, votre thème, le réglage du son et les guides déjà vus sont enregistrés, sur votre propre appareil. Rien n’est envoyé à qui que ce soit ; les polices viennent de ce site lui-même. L’avis complet est sur la page de vie privée.',
     openTitle: 'Open source et licences',
     openBefore: 'Le code est libre de réutilisation sous licence MIT. Il est sur ',
     github: 'GitHub',
@@ -310,5 +312,102 @@ export const REFS_PAGE = {
     title: 'Références',
     // cite-ok: an example of a citation, not a citation
     lead: 'Toutes les études, expériences et notions utilisées sur StatsCool, aux normes APA (7e édition). Dans les jeux, cliquez sur une citation comme « (Repp, 2005) » pour voir sa référence complète.',
+  }),
+}
+
+// /privacy: privacy notice and legal notice (mentions légales), Step 94. Facts it states (checked in the code):
+// no cookie, no analytics, no request to a third party except the host; four settings kept in localStorage
+// (statscool-theme, statscool-lang, statscool-sound, statscool-tour-*); fonts served from this site.
+export const PRIVACY_PAGE = {
+  en: {
+    title: 'Privacy and legal notice',
+    lead: 'The short version: no account, no cookie, no ad, no tracking. StatsCool does not collect any data about you.',
+    // cite-ok: a date, not a citation
+    updated: 'Last updated: 15 November 2026.',
+    sections: [
+      [
+        'What stays on your device',
+        [
+          'StatsCool saves four choices in your browser’s local storage, only on your own device: your language, your theme (light or dark), your sound setting and which guided tours you have already seen. They are used only to show the site the way you asked, and are never sent anywhere. Because they are needed for that, no consent banner is shown.',
+          'You can erase them at any time by clearing this site’s data in your browser settings.',
+        ],
+      ],
+      [
+        'What you do in the games',
+        ['The dots you drop, the answers you give and your scores stay in the memory of your browser and are gone when you leave the page. Nothing is sent to a server, because StatsCool has no server of its own and no account.'],
+      ],
+      [
+        'Who can see your visit',
+        [
+          'The site is hosted by GitHub (GitHub Pages). Like any web host, GitHub receives your IP address and the technical details of each request (page, browser, time) when your browser loads a page, and it may keep them in its server logs. The author does not receive them: there is no analytics tool and no way to see who visits. GitHub’s own rules are in its privacy statement.',
+          'The fonts (Inter and Fraunces) are served by this site itself, not by Google or any other company. The site loads nothing else from a third party. Links to other sites (ResearchGate, LinkedIn, GitHub, article DOIs) are only followed if you click them; those sites have their own policies.',
+        ],
+      ],
+      [
+        'Your rights',
+        [
+          'Since StatsCool holds no personal data about its visitors, there is nothing to access, correct or delete on its side. For what GitHub keeps in its logs, you can write to GitHub (see its privacy statement). If you live in the European Union, you can also complain to your data-protection authority (in France, the CNIL).',
+          'If one day StatsCool adds accounts, saved progress, statistics about visits or research data, this page will be updated first and, where the law requires it, your consent will be asked before anything is collected.',
+        ],
+      ],
+    ],
+    legalTitle: 'Legal notice',
+    legal: [
+      ['Publisher and director of publication', 'Hamza Sabek, a private individual. StatsCool is a free, non-commercial teaching site.'],
+      ['Contact', 'Through the issues of the project on GitHub (link below). No personal address or email is published.'],
+      ['Host', 'GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, United States (GitHub Pages).'],
+      ['Licences', 'Code under the MIT licence; texts and content under CC BY 4.0; the logo, the name and the photo are reserved. Details on the About page, tab “Use and cite”. The cited studies belong to their authors.'],
+    ],
+    linksTitle: 'Links',
+    github: 'GitHub privacy statement',
+    cnil: 'CNIL: protecting personal data',
+    contact: 'Contact the author (GitHub issues)',
+    footPrivacy: 'Privacy and legal notice',
+    footAbout: 'About',
+  },
+  fr: frenchTypo({
+    title: 'Vie privée et mentions légales',
+    lead: 'En bref : pas de compte, pas de cookie, pas de publicité, pas de pistage. StatsCool ne collecte aucune donnée vous concernant.',
+    updated: 'Dernière mise à jour : 15 novembre 2026.',
+    sections: [
+      [
+        'Ce qui reste sur votre appareil',
+        [
+          'StatsCool enregistre quatre choix dans le stockage local de votre navigateur, uniquement sur votre propre appareil : votre langue, votre thème (clair ou sombre), le réglage du son et les visites guidées déjà vues. Ils servent seulement à afficher le site comme vous l’avez demandé et ne sont jamais envoyés ailleurs. Comme ils sont nécessaires à cela, aucune bannière de consentement n’est affichée.',
+          'Vous pouvez les effacer à tout moment en supprimant les données de ce site dans les réglages de votre navigateur.',
+        ],
+      ],
+      [
+        'Ce que vous faites dans les jeux',
+        ['Les points que vous posez, vos réponses et vos scores restent dans la mémoire de votre navigateur et disparaissent quand vous quittez la page. Rien n’est envoyé à un serveur, car StatsCool n’a ni serveur propre ni compte.'],
+      ],
+      [
+        'Qui peut voir votre visite',
+        [
+          'Le site est hébergé par GitHub (GitHub Pages). Comme tout hébergeur, GitHub reçoit votre adresse IP et les détails techniques de chaque requête (page, navigateur, heure) lorsque votre navigateur charge une page, et peut les conserver dans ses journaux de serveur. L’auteur ne les reçoit pas : il n’y a aucun outil de statistiques ni moyen de voir qui visite le site. Les règles de GitHub figurent dans sa politique de confidentialité.',
+          'Les polices (Inter et Fraunces) sont servies par ce site lui-même, et non par Google ou une autre société. Le site ne charge rien d’autre auprès d’un tiers. Les liens vers d’autres sites (ResearchGate, LinkedIn, GitHub, DOI des articles) ne sont suivis que si vous cliquez dessus ; ces sites ont leurs propres politiques.',
+        ],
+      ],
+      [
+        'Vos droits',
+        [
+          'StatsCool ne détenant aucune donnée personnelle sur ses visiteurs, il n’y a rien à consulter, rectifier ou supprimer de son côté. Pour ce que GitHub conserve dans ses journaux, vous pouvez écrire à GitHub (voir sa politique de confidentialité). Si vous résidez dans l’Union européenne, vous pouvez aussi saisir votre autorité de protection des données (en France, la CNIL).',
+          'Si StatsCool ajoute un jour des comptes, une progression enregistrée, des statistiques de visite ou des données de recherche, cette page sera d’abord mise à jour et, lorsque la loi l’exige, votre consentement sera demandé avant toute collecte.',
+        ],
+      ],
+    ],
+    legalTitle: 'Mentions légales',
+    legal: [
+      ['Éditeur et directeur de la publication', 'Hamza Sabek, personne physique. StatsCool est un site pédagogique gratuit et non commercial.'],
+      ['Contact', 'Par les « issues » du projet sur GitHub (lien ci-dessous). Aucune adresse postale ni adresse e-mail personnelle n’est publiée.'],
+      ['Hébergeur', 'GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis (GitHub Pages).'],
+      ['Licences', 'Code sous licence MIT ; textes et contenus sous CC BY 4.0 ; le logo, le nom et la photo sont réservés. Détails sur la page À propos, onglet « Utiliser et citer ». Les études citées appartiennent à leurs auteurs.'],
+    ],
+    linksTitle: 'Liens',
+    github: 'Politique de confidentialité de GitHub',
+    cnil: 'CNIL : protéger les données personnelles',
+    contact: 'Contacter l’auteur (issues GitHub)',
+    footPrivacy: 'Vie privée et mentions légales',
+    footAbout: 'À propos',
   }),
 }

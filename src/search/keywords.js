@@ -190,6 +190,19 @@ export const PAGES = [
       fr: 'bibliographie citations sources études articles littérature DOI APA livres',
     },
   },
+  {
+    id: 'privacy',
+    to: '/privacy',
+    title: { en: 'Privacy and legal notice', fr: 'Vie privée et mentions légales' },
+    sub: {
+      en: 'No account, no cookie, no tracking. What is saved on your device, who hosts the site, who to contact.',
+      fr: 'Pas de compte, pas de cookie, pas de pistage. Ce qui est enregistré sur votre appareil, l’hébergeur, le contact.',
+    },
+    kw: {
+      en: 'privacy policy legal notice cookies GDPR RGPD data personal data tracking analytics consent terms licence host GitHub contact fonts',
+      fr: 'vie privée confidentialité politique mentions légales cookies RGPD données personnelles pistage statistiques consentement conditions licence hébergeur GitHub contact polices',
+    },
+  },
 ]
 
 export const ABOUT_KW = {

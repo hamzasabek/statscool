@@ -163,6 +163,9 @@ function Use({ tx }) {
         <section className="about-card">
           <h3>{tx.privacyTitle}</h3>
           <p>{tx.privacy}</p>
+          <p>
+            <Link to="/privacy">{tx.privacyLink}</Link>
+          </p>
         </section>
         <section className="about-card">
           <h3>{tx.builtTitle}</h3>

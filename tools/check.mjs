@@ -133,7 +133,7 @@ async function open(route, w, h, lang) {
 if (!routes.length) {
   await open('/topics', 1366, 768, 'en')
   const topics = await ev(`[...new Set([...document.querySelectorAll('a[href^="#/topics/"]')].map((a) => a.getAttribute('href').slice(1)))]`)
-  const all = new Set(['/', '/topics', '/about', '/references', ...topics])
+  const all = new Set(['/', '/topics', '/about', '/references', '/privacy', ...topics])
   for (const t of topics) {
     await open(t, 1366, 768, 'en')
     const links = await ev(`[...document.querySelectorAll('a[href^="#/topics/"]')].map((a) => a.getAttribute('href').slice(1))`)
