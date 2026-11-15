@@ -1620,3 +1620,6 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   its x 209 → 218 as late and early presses were added; no console errors; screenshot looked at.
 - Same step, owner: the starting curve was too full. The simulated bell is now 4 dots high at its peak (was 6.6): 28 simulated dots instead of 47
   (`height()` in Home.jsx; the caption count follows `DOTS.length`). Tested: build, `npm run check -- /`, real presses in headless Chrome (the curve still adapts), screenshot.
+- Same step, owner: the Home "Hold for 2 seconds" button (yellow ring on a white fill, thin dark outline) looked off beside the yellow "Start playing" button.
+  `.hero-pad` is now a solid ink pill (`--text` on `--bg`, no ring), and turns yellow only while held (`.is-running`, with the thin outline). Tested: build,
+  `npm run check -- /`, screenshots idle and held in light and dark.
