@@ -6,7 +6,6 @@ import { LangProvider } from './i18n.jsx'
 import 'virtual:frameworks.css' // src/styles/frameworks.scss, trimmed (tools/frameworks-css.mjs)
 import './index.css'
 import './styles/bridge.css' // after index.css: the framework look wins over the older rules
-import './styles/backgrounds.css' // TEST (Step 102): background options, see components/BgPicker.jsx
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

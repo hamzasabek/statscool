@@ -8,9 +8,9 @@ what is left and which files; remove the item once it is committed. (AGENTS.md, 
   quiz, phone menu, topic page section bar and tags) and, at the owner's request, the RECTANGULAR LOOK on every page (Step 100:
   square corners, IBM Plex Mono headings, Carbon buttons, UIkit cards, [1] [2] header links), the third-party licences (Step 101:
   /licences, public/licenses/, npm run licenses, checked by npm run check) and a BACKGROUND TEST (Step 102: six options in
-  src/styles/backgrounds.css, picker components/BgPicker.jsx on the left edge). Waiting for the owner's choice of background: then
-  make it the default in index.css, delete backgrounds.css + BgPicker.jsx (+ imports in main.jsx and App.jsx), check, and merge
-  into main only on the owner's word. If go, left: About (Carbon
+  src/styles/backgrounds.css, picker components/BgPicker.jsx on the left edge). Owner chose graph paper (Step 103): it is the
+  default, the five others are archived in design/archive/backgrounds/ (README there says how to use one again), and the lines
+  across the page became title blocks and sheets. Merging into main was asked by the owner (Step 104). If go, left: About (Carbon
   vertical tabs, UIkit accordion), References (Bootstrap list group), search palette (Bootstrap modal + list group), playgrounds and
   live calculations (Carbon tiles, Bootstrap range), Train shell (Carbon progress bar), tour and citation bubbles (Carbon popover),
   Privacy (HiQ prose in `.hiq`), icon tooltips (UIkit), Bootstrap-owned buttons, cleanup of dead rules in index.css (`.back-link`, ...).

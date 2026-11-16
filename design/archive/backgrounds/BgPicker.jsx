@@ -2,17 +2,17 @@ import { useEffect, useRef, useState } from 'react'
 import { frenchTypo, useText } from '../i18n.jsx'
 import { useTheme } from '../theme.js'
 
-// TEST ONLY (Step 102, branch redesign-frameworks): a small picker, bottom left, to try six backgrounds
-// (src/styles/backgrounds.css) on every page, in light and dark. The choice lives in memory only (no
+// ARCHIVE (Step 103): the test picker of Step 102, kept with the archived backgrounds (backgrounds.css next to it).
+// To use it again, see README.md. A small picker, on the left edge, to try the backgrounds on every page, in light and dark. The choice lives in memory only (no
 // localStorage: the privacy page lists the four saved choices), so a reload goes back to StatsCool; a link
 // can carry one: …/#/topics?bg=paper. Remove this component and backgrounds.css once the owner has chosen.
 const OPTIONS = [
+  { id: 'graph', light: ['#f7f9fc', '#ffffff'], dark: ['#0d1117', '#161b22'] },
   { id: 'statscool', light: ['#f5f7fb', '#fdfdff'], dark: ['#101216', '#181c22'] },
   { id: 'carbon', light: ['#f4f4f4', '#ffffff'], dark: ['#161616', '#262626'] },
   { id: 'opencode', light: ['#fafafa', '#ffffff'], dark: ['#0c0c0c', '#161616'] },
   { id: 'paper', light: ['#f6f3ec', '#fffdf8'], dark: ['#14120f', '#1d1a16'] },
   { id: 'night', light: ['#e8ebf4', '#f7f8fc'], dark: ['#1a1b26', '#222536'] },
-  { id: 'graph', light: ['#f7f9fc', '#ffffff'], dark: ['#0d1117', '#161b22'] },
 ]
 const IDS = OPTIONS.map((o) => o.id)
 
@@ -22,7 +22,7 @@ const TEXT = {
     title: 'Try a background',
     note: 'Test: only until you reload the page. The light / dark switch works with each one.',
     names: {
-      statscool: ['StatsCool', 'Today’s cool white and charcoal, with a faint grain.'],
+      statscool: ['StatsCool', 'The cool white and charcoal before Step 103, with a faint grain.'],
       carbon: ['IBM Carbon', 'Gray 10 and Gray 100: Carbon’s own neutral greys.'],
       opencode: ['OpenCode', 'Paper white and near-black, as opencode.ai and Vercel Geist.'],
       paper: ['Paper', 'Warm paper and warm charcoal: the yellow sits softly.'],
@@ -35,7 +35,7 @@ const TEXT = {
     title: 'Essayer un fond',
     note: 'Test : seulement jusqu’au rechargement de la page. Le bouton clair / sombre marche avec chacun.',
     names: {
-      statscool: ['StatsCool', 'Le blanc froid et l’anthracite actuels, avec un léger grain.'],
+      statscool: ['StatsCool', 'Le blanc froid et l’anthracite d’avant l’étape 103, avec un léger grain.'],
       carbon: ['IBM Carbon', 'Gray 10 et Gray 100 : les gris neutres de Carbon.'],
       opencode: ['OpenCode', 'Blanc papier et presque noir, comme opencode.ai et Vercel Geist.'],
       paper: ['Papier', 'Papier chaud et anthracite chaud : le jaune s’y pose en douceur.'],
@@ -49,7 +49,7 @@ const TEXT = {
 function fromLink() {
   const q = window.location.hash.split('?')[1]
   const bg = q ? new URLSearchParams(q).get('bg') : null
-  return IDS.includes(bg) ? bg : 'statscool'
+  return IDS.includes(bg) ? bg : 'graph'
 }
 
 const Swatch = ({ colours }) => (
@@ -68,7 +68,7 @@ export default function BgPicker() {
   const [theme] = useTheme() // the swatch follows light / dark
 
   useEffect(() => {
-    if (bg === 'statscool') delete document.documentElement.dataset.bg
+    if (bg === 'graph') delete document.documentElement.dataset.bg // graph paper is the site's default
     else document.documentElement.dataset.bg = bg
   }, [bg])
   useEffect(() => {

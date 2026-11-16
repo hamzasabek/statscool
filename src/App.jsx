@@ -3,7 +3,6 @@ import { flushSync } from 'react-dom'
 import { Route, Routes, useLocation } from 'react-router'
 import Footer from './components/Footer.jsx'
 import Header from './components/Header.jsx'
-import BgPicker from './components/BgPicker.jsx' // TEST (Step 102): remove once a background is chosen
 import { SearchProvider } from './components/Search.jsx'
 import Home from './pages/Home.jsx'
 import Topics from './pages/Topics.jsx'
@@ -51,7 +50,6 @@ function App() {
   return (
     <SearchProvider>
       <Header />
-      <BgPicker />
       <main className="page">
         <Routes location={shown}>
           <Route path="/" element={<Home />} />

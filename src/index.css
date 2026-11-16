@@ -67,11 +67,11 @@
   --sky: #53cbf3;
   --sun: #ffde42;
 
-  --bg: #f5f7fb;                  /* page: cool white, a very light grey */
+  --bg: #f7f9fc;                  /* page: graph paper, a cool white under a faint grid (--paper-line, body) */
   --header-bg: #fcfdff;           /* the bar on top: almost pure white */
   --header-alpha: 62%;            /* how opaque the bar is (lower = more see-through) */
   --header-line: 35%;             /* strength of the hairline under it (0% = none) */
-  --surface: #fdfdff;             /* card: a half-step lighter than the page, same hue */
+  --surface: #ffffff;             /* card: a white sheet laid on the graph paper (it hides the grid) */
   --text: #101a30;                /* deep navy ink (as Our World in Data, Mathigon) */
   --muted: #565c6b;
   --border: #dfe4ee;
@@ -120,7 +120,9 @@
 
   /* Surfaces are flat: a hairline, not a shadow. Only what floats above the page (tour bubble,
      citation bubble) casts one. */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0.05 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Graph paper (Step 103, owner's choice among six backgrounds; the others are in design/archive/backgrounds/):
+     a 24 px grid of faint navy lines on the page, drawn by body. Cards, charts and panels are opaque sheets on it. */
+  --paper-line: rgb(17 31 162 / 0.065);
   --shadow: 0 0 0 1px var(--border);
   --shadow-hover: 0 0 0 1px var(--axis);
   --shadow-pop: 0 0 0 1px var(--border), 0 2px 4px rgb(22 23 29 / 0.05), 0 14px 36px rgb(22 23 29 / 0.14);
@@ -173,19 +175,19 @@
 
 /* Dark mode: set on <html data-theme="dark"> (system setting by default, or the header switch). */
 :root[data-theme='dark'] {
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.05 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --bg: #101216;                /* near-black, cool */
-  --header-bg: #08090b;         /* the bar on top: black with a trace of grey */
+  --paper-line: rgb(142 164 255 / 0.075); /* the grid: faint periwinkle lines */
+  --bg: #0d1117;                /* graph paper at night: blue-black (as GitHub's dark canvas) */
+  --header-bg: #090c10;         /* the bar on top: darker than the page */
   --header-alpha: 55%;
   --header-line: 45%;
-  --surface: #181c22;
-  --text: #eaedf2;
-  --muted: #a7acb7;
-  --border: #252a32;
-  --border-strong: #363c47;
-  --hover: #1e232a;
-  --hover-strong: #272c35;
-  --seg-active: #333943;
+  --surface: #161b22;
+  --text: #e6edf3;
+  --muted: #a3abb8;
+  --border: #262d38;
+  --border-strong: #353e4b;
+  --hover: #1c222b;
+  --hover-strong: #232a35;
+  --seg-active: #2d3542;
   --accent: #8ea4ff;
   --accent-soft: #1b2142;
   --on-accent: #0f1013;
@@ -194,14 +196,14 @@
   --on-cta: var(--navy);
   --bar: #2b3c9a;
   --bar-mode: var(--blue);
-  --grid: #22262c;
-  --axis: #747985;
+  --grid: #1d232c;
+  --axis: #737b88;
   --mean: #8ea4ff;
   --median: var(--sky);
   --median-line: var(--sky);
   --mode: var(--sun);
   --added: var(--sun);
-  --dot-stroke: #101216;
+  --dot-stroke: #0d1117;
   --danger: #ff6b6b;
   --real: var(--sky);
   --real-soft: #0e2733;
@@ -217,7 +219,7 @@
   --focus: var(--logo-pink);
   --ck-b-line: var(--sky);
   --ck-b-text: var(--sky);
-  --ck-b-stroke: #101216;
+  --ck-b-stroke: #0d1117;
   --shadow: 0 0 0 1px var(--border);
   --shadow-hover: 0 0 0 1px var(--axis);
   --shadow-pop: 0 0 0 1px var(--border), 0 16px 40px rgb(0 0 0 / 0.55);
@@ -228,7 +230,10 @@
 
 body {
   margin: 0;
-  background: var(--bg) var(--grain);
+  background-color: var(--bg);
+  /* graph paper: one faint line every 24 px, both ways */
+  background-image: linear-gradient(to right, var(--paper-line) 1px, transparent 1px), linear-gradient(to bottom, var(--paper-line) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--text);
 }
 

@@ -328,11 +328,68 @@ a.row:hover .tl-cta { transform: translateX(4px); }
   font-size: var(--fs-xs);
 }
 
-/* ---------- Sections divided by full-width hairlines (OpenCode) ---------- */
-.topic-role-group + .topic-role-group { margin-top: 36px; padding-top: 30px; border-top: 1px solid var(--border); }
-.topic-refs { padding-top: 30px; border-top: 1px solid var(--border); }
-.tl-part + .tl-part { padding-top: 40px; border-top: 1px solid var(--border); }
-.home-section { margin-top: 72px; padding-top: 36px; border-top: 1px solid var(--border); }
+/* ---------- Sections on graph paper (Step 103) ----------
+   No rule across the page any more: on the grid it read as a stray grid line. Sections are set apart by
+   space, and each section title is a title block, as on a technical drawing: a white label with a hairline,
+   laid on the grid (with its step colour, when it has one). Lists with rows, and groups of short texts, are
+   laid on sheets (opaque tiles), so their lines are drawn on paper, never on the grid. */
+.topic-role-group + .topic-role-group,
+.topic-refs { margin-top: 56px; padding-top: 0; border-top: 0; }
+.tl-part + .tl-part { margin-top: 64px; padding-top: 0; border-top: 0; }
+.home-section { margin-top: 88px; padding-top: 0; border-top: 0; }
+.privacy-body section + section,
+.licences-body section + section { margin-top: 44px; padding-top: 0; border-top: 0; }
+
+/* the title blocks */
+.page .topic-games-title,
+.page .tl-part h2,
+.page .home-section h2,
+.page .privacy-body h2,
+.page .licences-body h2,
+.page .about-panel > h2 {
+  display: flex; /* a block of its own (what follows goes under it), as wide as its text */
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 10px;
+  padding: 8px 14px;
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--border-strong);
+}
+.page .topic-refs .topic-games-title { margin-bottom: 16px; }
+
+/* the sheets: Home */
+.home-path { gap: 12px; }
+.home-path li { padding: 18px 20px 20px; border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.home-why { margin-top: 12px; padding: 0; border-top: 0; gap: 12px; }
+.home-why li { padding: 14px 16px 16px; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.home-end { padding-top: 0; border-top: 0; }
+.home-end a { display: inline-flex; padding: 12px 18px; background: var(--surface); box-shadow: 0 0 0 1px var(--border-strong); }
+.home-end a:hover { box-shadow: 0 0 0 1px var(--accent); text-decoration: none; }
+
+/* the sheets: About (the tab rail too: a Carbon vertical tab list on a sheet, not a line on the grid) */
+.about-steps { gap: 12px; }
+.about-step-card { padding: 16px 18px 18px; border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.about-foot { margin-top: 16px; padding-top: 0; border-top: 0; }
+.about-teach { padding: 0 16px; border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.about-teach-row:last-child { border-bottom: 0; }
+.about-grid { gap: 12px; }
+.about-card { padding: 16px 18px 18px; border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.about-exps { gap: 8px 12px; }
+.about-exp { padding: 0 12px; border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.about-exp summary { border-radius: 0; }
+
+/* the sheets: the Licences list, the previous / next topic */
+.licences-list { border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.licences-item { padding: 14px 18px 16px; }
+.licences-item:last-child { border-bottom: 0; }
+.topic-nav { padding-top: 0; border-top: 0; gap: 12px; }
+.topic-nav-link { min-width: min(260px, 100%); padding: 12px 16px; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.topic-nav-link:hover { box-shadow: 0 0 0 1px var(--accent); }
+@media (max-width: 760px) {
+  .about-steps { gap: 10px; }
+}
 
 /* ---------- Tags: square, monospace ---------- */
 .topic-tag.cds--tag { border-radius: 0; font-family: var(--font-mono); font-weight: 600; font-size: 0.72rem; letter-spacing: 0; }
@@ -358,12 +415,11 @@ a.row:hover .tl-cta { transform: translateX(4px); }
 .qz-letter, .qz-review-mark { border-radius: 0; }
 
 /* ---------- About: Carbon vertical tabs in the margin (a rail, 2 px on the open tab) ---------- */
-.about-tabs { gap: 0; box-shadow: inset 2px 0 0 var(--border); }
-.about-tabs button { border-radius: 0; padding: 10px 16px; font-family: var(--font-mono); font-weight: 400; }
+.about-tabs { gap: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.about-tabs button { margin: 0; border-radius: 0; padding: 10px 16px; font-family: var(--font-mono); font-weight: 400; }
 .about-tabs button::before { display: none; }
 .about-tabs button[aria-selected='true'] { background: var(--hover); box-shadow: inset 2px 0 0 var(--accent); }
 @media (max-width: 900px) {
-  .about-tabs { box-shadow: inset 0 -1px 0 var(--border); }
   .about-tabs button[aria-selected='true'] { box-shadow: inset 0 -2px 0 var(--accent); }
 }
 

@@ -1818,3 +1818,29 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   - Full `npm run check`: no problems.
 - To do once the owner chooses: put the chosen values in index.css (`:root` and `[data-theme='dark']`), delete backgrounds.css and
   BgPicker.jsx (and their two imports), run the check, then merge only on the owner's word.
+
+## 2026-11-16 — Step 103 (branch `redesign-frameworks`): graph paper chosen, the other backgrounds archived, no more lines across the page (Claude)
+- Owner: chose the graph background; archive the other ones (they may be used another time); the lines that separate sections are not
+  beautiful on the graph background, find another solution; then merge everything into main.
+- Graph paper is the default (`src/index.css`): light page #f7f9fc, white sheets #ffffff; dark page #0d1117, sheets #161b22 (with the
+  dark greys of Step 102); `--paper-line` (navy 6.5 % light, periwinkle 7.5 % dark) drawn by `body` as a 24 px grid. The grain (`--grain`)
+  is gone from the tokens. The test picker and `src/styles/backgrounds.css` are out of the site.
+- Archive `design/archive/backgrounds/` (outside src, not built):
+  - `backgrounds.css`: StatsCool (the background before this step, written out with its grain), IBM Carbon, OpenCode, Paper (with its
+    grain), Night blue, plus the picker's styles and a rule that turns the grid off when an option is on;
+  - `BgPicker.jsx`: the picker, graph paper as its default;
+  - `README.md`: values, sources, contrast notes, how to make one the default or bring the picker back;
+  - `compare-*.jpg`: the Step 102 screenshots of the six options, light and dark.
+- Lines across the page replaced. On the grid, a full-width hairline read as a stray grid line. Now:
+  - Sections are set apart by space (56-88 px).
+  - Every section title is a title block, as on a technical drawing: a white label with a hairline, with its step colour when it has one.
+    This covers the topic page groups and references, the Topics page parts, the Home sections, Privacy, Licences and the About tabs.
+  - Every list with rows, or group of short texts, lies on an opaque sheet, so its lines are drawn on paper, never on the grid:
+    Home's four steps and three facts, About's four steps, teaching rows, three choices, experiments, Use-and-cite cards and its tab
+    rail, the Licences list, and the previous / next topic links (now two tiles).
+  - The "Start with …" link at the end of Home is a tile. Lines inside cards (recap sheet, search window, phone menu) stay: they sit on paper.
+- `postcss` 8.5.32 declared as an exact dev dependency (tools/frameworks-css.mjs imports it; it was only there through Vite and PurgeCSS).
+- Tested:
+  - Full-page screenshots of Home, Topics, a topic page, the five About tabs, Licences and Privacy, in light and dark; phones (About,
+    topic page, Home).
+  - Full `npm run check` (36 pages × 2 sizes × EN / FR: no problems; citations, search and licences checks pass).

@@ -67,7 +67,6 @@ src/
     bridge.css             unlayered, loaded AFTER index.css (main.jsx): --bs-* / --cds-* / --hiq-* fed from our tokens, then how
                            each framework piece looks here, then "Step 100: the rectangular look" (Carbon + UIkit + a little
                            OpenCode: monospace headings, [1] [2] header links, Carbon buttons, square markers, hairline sections)
-    backgrounds.css        TEST ONLY (Step 102): six background options (<html data-bg>), light and dark
   (tools/licenses.mjs, `npm run licenses`: builds in memory, lists the npm packages, fonts and CSS frameworks the build ships, writes
    public/licenses/*.txt (full texts, served with the site) and src/licenses.js (data of the /licences page, pages/Licences.jsx);
    `npm run check` runs it with --check.)
@@ -76,7 +75,6 @@ src/
    object of class strings, never 'cds--x--' + state, or they are dropped.)
   components/
     Breadcrumb.jsx         Bootstrap breadcrumb "Topics › <topic>" (Stage head, topic pages)
-    BgPicker.jsx           TEST ONLY (Step 102): background picker, left edge; options in src/styles/backgrounds.css; delete after the choice
     Menu.jsx               phone menu (≤ 700 px): UIkit off-canvas from the right (in a portal), links, language, Bootstrap
                            switches for sound and dark mode; Escape / outside / a link closes it
     Footer.jsx             slim line at the foot of every page except games (3+ path segments): Privacy and legal notice · About
@@ -503,6 +501,9 @@ A new game: tick when a trial becomes a dot, `useChime(n, MIN_TRIALS, TRIALS)` a
   may scroll on phones (`flowOnNarrow`).
 - Frameworks (branch redesign-frameworks): use the framework piece that owns an element (src/styles/frameworks.scss
   header) and restyle it in src/styles/bridge.css from our tokens; never load a whole framework or its JavaScript.
+- Background (Step 103): graph paper, a 24 px grid of faint lines (`--paper-line`, drawn by `body`). Nothing is drawn as a line across
+  the page: a section title is a title block (white label with a hairline), and lists with rows or groups of texts lie on opaque sheets
+  (cards), so lines are only ever drawn on paper. The five other backgrounds tried in Step 102 are in design/archive/backgrounds/.
 - Visual style (Step 100, branch redesign-frameworks): rectangular and flat as IBM Carbon / UIkit, a little OpenCode:
   0 px corners (tokens), hairlines, IBM Plex Mono for headings / labels / numbers (`--font-display`, `--font-mono`), Inter for
   text. Round only for data dots, step rings and the games' big press buttons. (Before Step 100: "elegant, no boxed/rectangle panels,
