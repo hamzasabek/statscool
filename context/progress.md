@@ -1908,3 +1908,20 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Docs: project.md (logo, background), the two archive READMEs.
 - Tested: `npm run build`; `npm run check` on Home, Topics and a topic page (no problems); screenshots light and dark, desktop and phone:
   the logo fits the header at 390 px next to search and menu.
+
+## 2026-11-16 — Step 107: accessibility audit (fonts and the rest), no code changed (Claude)
+- Owner: "do an audit about accessibility (fonts...)". Audit only; the report is `docs/accessibility-audit.md` (methods, what is good,
+  findings H1-H3, M1-M7, L1-L8, a suggested order, and what was NOT tested: real screen reader, real phone with a larger OS text size,
+  Windows High Contrast, colour-blindness simulation, a keyboard-only run through every game).
+- Measured with throwaway scripts (in the session scratchpad, not in the repo): axe-core 4.10.2 over 36 routes × EN/FR × light/dark ×
+  desktop/phone (144 runs); rendered font sizes of every text node; target sizes; 320 px / 200 % / 400 % zoom; WCAG 1.4.12 text spacing;
+  reduced-motion emulation; Tab order and focus ring; contrast of the tokens in both themes.
+- Main results: no horizontal scroll at 320 px or 400 % zoom, no clipping with the text-spacing override, no animation left with
+  reduced motion, text contrast 6:1 or more (muted) and 16:1 (text); 24 of 36 routes clean in axe. To fix, by priority:
+  - H1 the page title never changes and nothing announces a new page (no `document.title`, no focus move);
+  - H2 root `font-size: 15.5px` ignores the browser's default font size (use `96.875%`);
+  - H3 text under 12 px: "Game N" tags 11.2 px with contrast 4.29:1 (fails), KaTeX subscripts 6.6-9.7 px, axis ticks 11.5 px, the
+    scale's floor `--fs-xs` 12.1 px;
+  - M1 targets under 24 px (header handle 56×18, footer and licences links 20-21 px, Normal plot knobs), M2 no skip link, M3-M7 focus
+    cues, 1.2:1 field borders, `role="img"` around focusable knobs, an `<aside>` inside a landmark, one faded formula at 2.17:1.
+- `context/next.md`: the order of fixes added to Open items. Waiting for the owner to say which to do.
