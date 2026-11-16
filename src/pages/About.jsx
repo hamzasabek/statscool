@@ -7,8 +7,7 @@ import { ABOUT } from './text.js'
 // About page (/about), in five tabs so nothing needs a long scroll (the tab is in the address: /about?tab=teaching).
 // The tabs are listed in the margin (a row that scrolls sideways on narrow screens):
 //   idea        why StatsCool exists + the four steps at a glance
-//   teaching    why each step is there (the learning science, cited) + what is not claimed
-//               (rationale tracker: context/rationale.md; full review: docs/learning-science-review.md)
+//   teaching    why each step is there (cited) + what is not claimed
 //   experiments the experiments behind the games, one small card each (opens to the finding)
 //   use         how to cite, privacy, open source and licences (code MIT, content CC BY 4.0, logo / name /
 //               photo reserved), how it is built (with the AI disclosure)

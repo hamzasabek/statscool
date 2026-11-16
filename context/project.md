@@ -143,7 +143,7 @@ src/
     About.jsx              /about, five tabs (Step 86; the tab is in the address: /about?tab=teaching, arrow keys move
                            between tabs): The idea (why + the four steps as cards) · How it teaches (each step with
                            its research behind a "The research" toggle, three principles, "What we do not claim", link
-                           to docs/learning-science-review.md; only what context/rationale.md marks Built) · Experiments
+                           to the references; only what private/rationale.md marks Built) · Experiments
                            (one small expandable card per game, cited) · Use and cite (APA reference + Copy button; YEAR
                            constant, keep in step with CITATION.cff; open source and licences: code MIT, content CC BY 4.0,
                            name / logo / photo reserved; privacy; built with + AI disclosure: Claude and Gemini) · Author
@@ -397,10 +397,9 @@ design/archive/logos/      every earlier logo: v1 (the owner's first, Step 29), 
                            and the nine v3 candidates of Step 105 (README.md tells the story)
 public/favicon.svg, favicon-32.png, apple-touch-icon.png   the tab and home-screen icons (index.html links them)
 context/                   this folder — project memory, updated every step
-                           (rationale.md = the learning-science reasoning and what is built, planned or set aside)
-docs/learning-science-review.md  the literature review behind the site (Step 86): every reference checked
-                           against Crossref, every effect size against its abstract, 7 corrections logged at the top
-docs/CODE_GUIDE.md         private, gitignored (local only): beginner-friendly explanation of the code
+docs/                      public reports (accessibility-audit.md)
+private/                   LOCAL ONLY, gitignored, never pushed (Step 111): rationale.md, learning-science-review.md,
+                           CODE_GUIDE.md, the repository audits and the rationale passages removed from context/
 ```
 
 ## Routes

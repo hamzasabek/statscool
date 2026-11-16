@@ -1450,9 +1450,8 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   picks) shows the burst, removed 2.5 s later. No console errors.
 
 ## 2026-11-14 — Step 85: mastery criteria and adaptive spacing in "Train your eye" (Claude)
-- Owner: add Kellman's two criteria to the Train your eye games (from the report "StatsCool what
-  learning science says, and how to improve it", Claude outputs/): a set ends when the student is fast
-  and accurate on each kind of question, and missed items come back sooner (Mettler et al., 2016).
+- Owner: a Train set ends when the student is fast and accurate on each kind of question, and missed items come back sooner
+  (the reasons and sources are in the private notes, `private/`).
 - New components/trainPlan.js (pure): `isMastered` (last 2 answers of a kind both right = spot on or
   close, and given within `fastSec`, default 12 s) and `afterAnswer` (a new round of the kind is
   inserted after 2 other rounds on a miss, 3 on a right but slow answer, 5 on a right and fast answer
@@ -1468,35 +1467,21 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   "10 rounds" (topics.js cards, the three tours): the first list is still 10 rounds.
 - references.js: kellman2010 and mettler2016 added (verify-refs: 33 DOIs, 0 differences).
 - Behaviour check: a perfect student still plays exactly 10 rounds; mean over simulated students
-  (scratch/plantest.mjs, 2000 runs, 3 kinds): 90 % right → 12.4 rounds, 70 % → 15.7, 50 % → 18.8, never more
-  than 20. The thresholds are starting values, not tested with real students (see next.md).
+  (2000 runs, 3 kinds): 90 % right → 12.4 rounds, 70 % → 15.7, 50 % → 18.8, never more than 20.
+  The thresholds are starting values, not tested with real students (see next.md).
 - Tested: npm run build; npm run check on the three pages (EN + FR, 2 sizes: no problems, one screen);
   headless Chrome, always answering far from the truth: 20 rounds, "0 of 3 kinds mastered", end screen
   in EN and FR with the cited rule. Small fix found: French plural "1 type sur 2 maîtrisé".
 
-## 2026-11-14 — Step 86: the learning-science review checked and filed, a rationale tracker, About page in tabs (Claude)
-- Owner: file the report from `Claude outputs/`, verify all its citations and references, keep a file that tracks the
-  theoretical rationale of the site, bring the About page in line with the concepts the site already uses, and redesign
-  the About page (too much text, too much scrolling).
-- Verification: every reference compared with Crossref (title, authors, year, volume, pages, DOI) and every effect size
-  with the abstract of its source (OpenAlex, Springer, PubMed, Semantic Scholar; Crouch et al. from Table I of the paper).
-  Seven errors found and fixed: Neumann (2010 JSE does not exist; it is Neumann, Hood & Neumann 2013, SERJ), Crouch (70 vs 61 % is
-  significant for outcomes, not for explanations: 24 vs 22 %), Sinha & Kapur (raw g = 0.36, 0.87 after bias correction), Bisra
-  ("about 6,000 learners" not in the source), the "80 %" statistics-anxiety figure (not verifiable), Tintle ("four months" not in the
-  abstract), Latimier (volume and pages). Scripts in scratch/lit/ (gitignored).
-- New `docs/learning-science-review.md` (the corrected report, with the verification table at the top);
-  `context/rationale.md` (living tracker: step by step and principle by principle: mechanism, evidence key, where it lives,
-  status Built / Partly / Planned / Idea; what is not claimed; how to test). AGENTS.md now points to it (session start, end of
-  step, conventions). The original in `Claude outputs/` is untouched (that folder is gitignored).
+## 2026-11-14 — Step 86: references checked, About page in tabs (Claude)
+- Owner: check the citations behind the About page, bring it in line with what the site already does, and redesign it (too much
+  text, too much scrolling). The notes behind this step are private (`private/`, local only, since Step 111).
 - references.js: 12 works added (alfieri2011, bertsch2007, delmas1999, delmas2005, kluger1996, nesbit2018, paas1992,
-  schwartz2004, sundararajan2020, wisniewski2020, wouters2013, yang2021) and hattie2007 removed (feedback is now cited with
-  Wisniewski et al. 2020, d = 0.48, on the About and Home pages). verify-refs: 45 DOIs, 0 differences (delMas 1999 pages: Crossref
-  error, flagged crossrefOk).
+  schwartz2004, sundararajan2020, wisniewski2020, wouters2013, yang2021) and hattie2007 removed. verify-refs: 45 DOIs, 0 differences
+  (delMas 1999 pages: Crossref error, flagged crossrefOk).
 - About page (About.jsx, text.js, index.css), five tabs, deep-linkable with ?tab=: The idea · How it teaches · Experiments · Use and
-  cite · Author. "How it teaches" gives each step its mechanism and sources (collapsed behind "The research"), three principles
-  (no decoration in charts, a game is not the active ingredient, low stakes) and "What we do not claim" (nothing tested on
-  learners; own data not claimed to cause learning; the Train mastery rule is our own starting point). Only Built mechanisms are
-  there: the predict / spaced / interleaved / refutation ideas are left out on purpose. Texts in English and French.
+  cite · Author. "How it teaches" gives each step its sources (collapsed behind "The research"), three principles and "What we do not
+  claim". Texts in English and French.
 - Tested: npm run build; verify-refs; full npm run check; screenshots of the five tabs, EN and FR, desktop and phone.
 
 ## 2026-11-14 — Step 87: Remove "What we do not claim" from About page (Gemini)
@@ -1962,3 +1947,16 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   e-mails, phone numbers, local paths; `.gitignore` against what is tracked; the workflow; `npm audit`; the build (sizes, chunks, fonts,
   source maps); files not reached from `main.jsx`; CSS classes never used; the folder structure and the docs.
 - Waiting for the owner's decisions before any change (see next.md, "In progress").
+
+## 2026-11-16 — Step 111: the theoretical rationale leaves the public repository (phase A of the Step 110 plan) (Claude)
+- Owner's rule: no file about the theoretical rationale of StatsCool may be shared on GitHub; owner's decisions: keep the About tab
+  "How it teaches" (public site content), keep the private files on this PC only.
+- New local-only folder `private/` (gitignored, never pushed). Moved there and untracked (`git rm --cached`): `context/rationale.md`,
+  `docs/learning-science-review.md` (it was listed in .gitignore but still tracked); also `docs/CODE_GUIDE.md` (already untracked). New
+  `private/progress-rationale.md`: the original text of progress.md Steps 85-86 and of the learning-science item of next.md.
+- Public files rewritten to point to `private/` without describing the rationale: AGENTS.md (sessions, end of step, "Teaching
+  claims", and section 5: `private/` is local only, never pushed or quoted; if missing, ask the owner), progress.md Steps 85-86 (code
+  changes only), next.md, project.md (folder map), the header comment of src/pages/About.jsx, .gitignore (one `private/` line).
+- Not changed (owner's decision): the About tab, its references and its search keywords.
+- Next: phase B, the history rewrite (owner gave the go and the noreply address).
+- Tested: `npm run build`; `git ls-files private` is empty; `git check-ignore` confirms `private/` is ignored.
