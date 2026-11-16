@@ -55,6 +55,7 @@ scratch/
 Claude outputs/
 
 # Private notes (kept locally, never pushed)
+private/
 docs/CODE_GUIDE.md
 docs/learning-science-review.md
 

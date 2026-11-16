@@ -1952,3 +1952,13 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Known limit, left for the small-text step: at the largest sizes (24 px default) the SVG charts' text grows but its place is fixed in px
   coordinates, so an axis title can touch the tick numbers (Müller-Lyer chart: "How much too long you made the plain line" over the
   ticks) and the outer tick ("−40%") is clipped. The charts need a little more room under the axis, or labels measured from the text size.
+
+## 2026-11-16 — Step 110: repository audit (security, optimisation, organisation) and plan (Claude)
+- Owner: audit the files shared on GitHub that must not be, audit the optimisation of the code and the organisation of files and folders,
+  then plan the fixes; and no file about the theoretical rationale may be shared on GitHub.
+- The report and the plan are in `private/repo-audit-2026-11-16.md`: a new local-only folder, gitignored (`.gitignore`: `private/`), so the
+  audit itself is not published. Nothing else changed in this step.
+- Checked: every tracked file and every file ever committed on any branch; a scan of the whole history for keys, tokens, passwords,
+  e-mails, phone numbers, local paths; `.gitignore` against what is tracked; the workflow; `npm audit`; the build (sizes, chunks, fonts,
+  source maps); files not reached from `main.jsx`; CSS classes never used; the folder structure and the docs.
+- Waiting for the owner's decisions before any change (see next.md, "In progress").

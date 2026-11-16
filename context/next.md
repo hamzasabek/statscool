@@ -3,6 +3,9 @@
 ## In progress
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
+- Repository audit (Step 110): the report and the plan (phases A-G) are in `private/repo-audit-2026-11-16.md` (local only, gitignored:
+  never commit `private/`). Waiting for the owner's decisions D1-D3 before phase A. Do not start phase B (history rewrite, force push)
+  without the owner's explicit word.
 - (Done, Step 104: merged into main; kept here one step for the record, remove next time.) Restyling with CSS frameworks (Carbon,
   Bootstrap, UIkit, HiQ), branch `redesign-frameworks`, worktree `.claude/worktrees/redesign3/`
   (Steps 98-100 in progress.md). Done: spike (layers, bridge, PurgeCSS plugin), the PILOT (switches, game steps, breadcrumb,
