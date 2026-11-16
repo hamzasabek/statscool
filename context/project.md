@@ -55,7 +55,7 @@ src/
                            3 durations --dur-*, one curve --ease-out), paper-and-ink colours (light + dark mode),
                            flat hairline rules instead of shadows; `.split` = margin column + content (Home, Topics,
                            topic pages, About, References)
-  styles/                  (branch redesign-frameworks) the CSS frameworks, CSS only, no framework JavaScript:
+  styles/                  (Steps 98-104) the CSS frameworks, CSS only, no framework JavaScript:
     frameworks.scss        each framework in its own cascade layer `@layer hiq, bootstrap, uikit, carbon` (layered CSS
                            always loses to our unlayered index.css + bridge.css). ONE framework per kind of element:
                            HiQ = prose inside `.hiq`; Bootstrap = buttons, breadcrumb, list group, badge, modal, range,
@@ -502,12 +502,12 @@ A new game: tick when a trial becomes a dot, `useChime(n, MIN_TRIALS, TRIALS)` a
 - Learning pages use `<Stage>` and must fit in one screen without scrolling (desktop/laptop,
   down to 1366×657). Charts fill the leftover height (`.chart-fill`). Pages with many controls
   may scroll on phones (`flowOnNarrow`).
-- Frameworks (branch redesign-frameworks): use the framework piece that owns an element (src/styles/frameworks.scss
+- Frameworks (Steps 98-104): use the framework piece that owns an element (src/styles/frameworks.scss
   header) and restyle it in src/styles/bridge.css from our tokens; never load a whole framework or its JavaScript.
 - Background (Step 106): the "StatsCool" background again, as before Step 103: cool white / cool charcoal with a faint grain (`--grain`,
   `background: var(--bg) var(--grain)` on `body`). Graph paper (Step 103) is archived with the other options in design/archive/backgrounds/.
   The title blocks and opaque sheets of Step 103 stay (they look fine on a plain page); sections are still set apart by space.
-- Visual style (Step 100, branch redesign-frameworks): rectangular and flat as IBM Carbon / UIkit, a little OpenCode:
+- Visual style (Step 100): rectangular and flat as IBM Carbon / UIkit, a little OpenCode:
   0 px corners (tokens), hairlines, IBM Plex Mono for headings / labels / numbers (`--font-display`, `--font-mono`), Inter for
   text. Round only for data dots, step rings and the games' big press buttons. (Before Step 100: "elegant, no boxed/rectangle panels,
   pills".)

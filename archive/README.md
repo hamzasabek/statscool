@@ -23,4 +23,4 @@ The folders mirror `src/`, so a file goes back to the same path without `archive
    - Home: `<Route path="/" element={<Home />} />` (the topic list is on `/` now, so give one of them another path).
    - The draw-a-bell lesson used to open `ClockGame` from its picker (`onExit` / `onComplete` props,
      removed from `ClockGame` in Step 24; it now links back to `/`).
-4. Older versions are also in git history (e.g. `git show 6cd2553:src/App.jsx`).
+4. Older versions are also in git history (e.g. `git show d5ac5d2:src/App.jsx`).

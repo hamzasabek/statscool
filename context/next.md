@@ -3,31 +3,18 @@
 ## In progress
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
-- Repository audit (Step 110): the report and the plan (phases A-G) are in `private/repo-audit-2026-11-16.md` (local only, gitignored:
-  never commit `private/`). Decisions taken (end of the private file): purge the history of the rationale files and the code guide, keep the About tab,
-  private/ local only, commit e-mail to GitHub noreply (past and future). Next: phase A, then phase B once the owner gives the noreply
-  address and the go for the force-push.
-- (Done, Step 104: merged into main; kept here one step for the record, remove next time.) Restyling with CSS frameworks (Carbon,
-  Bootstrap, UIkit, HiQ), branch `redesign-frameworks`, worktree `.claude/worktrees/redesign3/`
-  (Steps 98-100 in progress.md). Done: spike (layers, bridge, PurgeCSS plugin), the PILOT (switches, game steps, breadcrumb,
-  quiz, phone menu, topic page section bar and tags) and, at the owner's request, the RECTANGULAR LOOK on every page (Step 100:
-  square corners, IBM Plex Mono headings, Carbon buttons, UIkit cards, [1] [2] header links), the third-party licences (Step 101:
-  /licences, public/licenses/, npm run licenses, checked by npm run check) and a BACKGROUND TEST (Step 102: six options in
-  src/styles/backgrounds.css, picker components/BgPicker.jsx on the left edge). Owner chose graph paper (Step 103): it is the
-  default, the five others are archived in design/archive/backgrounds/ (README there says how to use one again), and the lines
-  across the page became title blocks and sheets. Merging into main was asked by the owner (Step 104). If go, left: About (Carbon
-  vertical tabs, UIkit accordion), References (Bootstrap list group), search palette (Bootstrap modal + list group), playgrounds and
-  live calculations (Carbon tiles, Bootstrap range), Train shell (Carbon progress bar), tour and citation bubbles (Carbon popover),
-  Privacy (HiQ prose in `.hiq`), icon tooltips (UIkit), Bootstrap-owned buttons, cleanup of dead rules in index.css (`.back-link`, ...).
-  Never merge into main without the owner's word.
-- The design refresh (Steps 89-91) and the framework redesign (Steps 98-104) are merged into `main`. The old branches `redesign-lab-notebook`,
-  `redesign-learning-sites` and `redesign-frameworks` and the worktrees `.claude/worktrees/redesign`, `redesign2` and `redesign3` can be removed
-  when the owner no longer wants to compare (`git worktree remove` then `git branch -D`).
-- Uncommitted change found 2026-11-15 in the main folder, not made by Claude: it put back the "What we do not claim" block that Step 87
-  removed. Before the merge it was saved as a stash (`statscool-premerge-claim-block`) and a patch (`scratch/uncommitted-before-merge.patch`, gitignored);
-  the About page was redesigned in the meantime, so it was NOT re-applied. If the owner wants the block back, re-add it by hand on the new About page.
+- Repository plan (Step 110; report, plan and decisions in `private/repo-audit-2026-11-16.md`, local only). Done: phase A (Step 111,
+  the rationale moved to `private/`) and phase B (Step 112, history rewritten, old branches deleted, commit e-mail = GitHub noreply).
+  Left, one step each: C dependencies (katex 0.16.47, remove hiq, frameworks to devDependencies), D load only what a page needs
+  (lazy routes, KaTeX on demand, pages/text.js split per page), E CSS and fonts (dead classes, Fraunces, split index.css), F docs and
+  organisation (README, progress archive, doc inconsistencies, CI runs npm run check), G optional (unit tests, lint).
 
 ## Open items
+- Framework restyle (Steps 98-104) not applied yet to: About (Carbon vertical tabs, UIkit accordion), References (Bootstrap list group),
+  search palette (Bootstrap modal + list group), playgrounds and live calculations (Carbon tiles, Bootstrap range), Train shell (Carbon
+  progress bar), tour and citation bubbles (Carbon popover), icon tooltips (UIkit), Bootstrap-owned buttons.
+- "What we do not claim" block: an uncommitted change (2026-11-15, not by Claude) put it back after Step 87 removed it; it was never
+  re-applied. Its patch is in `private/stash-premerge-claim-block.patch`; re-add it by hand on the About page if the owner wants it.
 - Accessibility fixes (audit of Step 107, `docs/accessibility-audit.md`, owner has not chosen yet). Order: (1) [`document.title` per route + focus
   on the h1 after navigation: DONE, Step 108], [root font-size `96.875%` instead of `15.5px`: DONE, Step 109], a skip link; (2) font floor 13 px, KaTeX scale, "Game N" tag
   contrast (4.29:1), axis ticks, targets under 24 px; (3) focus cues, field borders, `role="img"` around the Normal knobs, the playground
@@ -81,9 +68,6 @@ what is left and which files; remove the item once it is committed. (AGENTS.md, 
   is built: add a row there when one ships.
 
 ## Known issues
-- docs/CODE_GUIDE.md (private, now gitignored) is still visible in older commits of the public
-  repo. Removing it fully needs a history rewrite + force push (owner to decide).
-- The browser-tab icon (favicon) is missing (index.html has none): could use the "cool" tiles of the logo.
 - French texts were written by Claude: have a French speaker read them once (tone: "vous").
 - Playground (topic 01): the reaction-times scenario already scrolls ~34 px at 1366×768 (long intro
   sentence in the foot), and "free" ~35 px at 1280×720. Not new in Step 61; shorten the texts or the
@@ -121,7 +105,7 @@ what is left and which files; remove the item once it is committed. (AGENTS.md, 
   Possible 4th: rod and frame (within- vs between-person spread), match the grey (SD = threshold).
   To check on a real phone: tapping lines (finger width adds scatter) and typing guesses (keyboard
   covering the chart). "How precise is your memory?" was Step 48. "Aim and tap" (Step 47)
-  was replaced: the owner found it hard to understand (code in git history, commit 0094480).
+  was replaced: the owner found it hard to understand (code in git history, commit 0985a04).
   Other ideas from Steps 46 and 48: rod and frame (Witkin 1948), line bisection / pseudoneglect
   (Bowers & Heilman 1980), Stroop (more variable when incongruent; better for a later topic).
   Older suggestions:

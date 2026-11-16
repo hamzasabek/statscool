@@ -1298,7 +1298,7 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Owner did not like the interactive hero of Step 74: "return to the last one", to be made a little
   more creative with the logo colours (ideas proposed to the owner first, not built yet).
   src/pages/HeroDots.jsx removed; Home.jsx, the hero CSS and the hero texts restored as they were
-  in 184c85c (dots dropping into a bell, curve drawn at the end).
+  in 5ee7743 (dots dropping into a bell, curve drawn at the end).
 - About page: "The author" moved from after "How each topic is built" to just before "Contact"
   (after "How it is built"). The photo is more discreet: 64 px (52 px on phones) instead of 112 px,
   no yellow ring or shadow, a thin border, floated left so the bio wraps under it.
@@ -1411,7 +1411,7 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   the header. Also: this PC reports reduced motion, so the owner may only have seen the bell already
   formed (Windows Settings → Accessibility → Visual effects → Animation effects). Owner: restore.
 - Home.jsx, Header.jsx, the hero texts, LICENSE-CONTENT.md and the hero / brand CSS restored as they
-  were in c2410f4 (the original yellow bell, curve in dark yellow, PNG logo in the header).
+  were in efbe477 (the original yellow bell, curve in dark yellow, PNG logo in the header).
   BrandLogo.jsx and the SVG logo copies removed. Kept: the bigger author photo of Step 77 (only that
   CSS re-applied), the reliable check tool of Step 80.
 - Tested: npm run build; full npm run check (no problems); headless Chrome with motion allowed:
@@ -1832,7 +1832,7 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 
 ## 2026-11-16 — Step 104: the framework redesign merged into main (Claude)
 - Owner: "then merge all to main". Branch `redesign-frameworks` (Steps 98-103) merged into `main` with a merge commit (`--no-ff`, as in
-  Step 91). Main had not moved since the branch started (5e12f75), so no conflict.
+  Step 91). Main had not moved since the branch started (3556c15), so no conflict.
 - What main now has:
   - IBM Carbon, Bootstrap, UIkit and HiQ in cascade layers, trimmed by PurgeCSS, fed by our tokens (src/styles/);
   - the rectangular look (square corners, IBM Plex Mono headings, Carbon buttons and switches, UIkit cards, [1] [2] header links);
@@ -1886,7 +1886,7 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   - "A little transparent" = `opacity: 0.86` on `.brand-logo` (CSS, one number to change; the whole image fades as a group, so the letters
     do not show through their keys).
   - The tab and home-screen icons stay H2's (the owner spoke of the logo only).
-- Background: the neutral tokens and the grain of `src/index.css` are back to the values of commit 339f438 (page #f5f7fb / #101216, sheets
+- Background: the neutral tokens and the grain of `src/index.css` are back to the values of commit a0ea63d (page #f5f7fb / #101216, sheets
   #fdfdff / #181c22, grain on `body`; done by reversing only the colour hunks of the diff, so the Step 105 logo CSS was not touched). The
   grid (`--paper-line`) is gone. Graph paper is archived with its values in `design/archive/backgrounds/README.md`. The title blocks and
   opaque sheets of Step 103 were kept (they read fine without the grid); say if the owner wants the old section lines back.
@@ -1960,3 +1960,22 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Not changed (owner's decision): the About tab, its references and its search keywords.
 - Next: phase B, the history rewrite (owner gave the go and the noreply address).
 - Tested: `npm run build`; `git ls-files private` is empty; `git check-ignore` confirms `private/` is ignored.
+
+## 2026-11-16 — Step 112: history rewritten without the private files, commit e-mail private, old branches deleted (phase B) (Claude)
+- Owner: "go ahead", with the GitHub noreply address, for the history purge and the e-mail change decided in Step 110.
+- Safety first: full backup of the old history, `D:/Projects/statscool-backups/statscool-before-rewrite-2026-11-16.bundle` (outside the
+  repo, verified with `git bundle verify`; restore with `git clone <bundle>`). The stash and `scratch/uncommitted-before-merge.patch`
+  saved in `private/`.
+- Removed: the 3 worktrees in `.claude/worktrees/` (redesign2's `node_modules` was a junction to the main folder's: only the link was
+  removed, the main `node_modules` checked intact), the 3 merged branches `redesign-*` (local and on GitHub), the stash.
+- `git filter-branch` on `main` (125 commits): `context/rationale.md`, `docs/learning-science-review.md` and `docs/CODE_GUIDE.md` removed
+  from every commit; author and committer e-mail of every commit = `144339427+hamzasabek@users.noreply.github.com`; repo config
+  `user.email` set to it for future commits (the global git config was not changed). Then `refs/original` deleted, reflog expired, `gc`.
+- Checked before the force-push: same final tree as before (identical tree hash), same 125 commit messages in the same order, no commit
+  touches the 3 files, no object of them reachable. Pushed with `--force-with-lease`; GitHub now has only `main`.
+- Every commit ID changed: the 7 old IDs quoted in archive/README.md, context/ and design/archive/backgrounds/README.md replaced by the
+  new ones (mapped by position, the commit list being one to one). next.md cleaned (finished redesign item, branches, stash, code
+  guide and favicon issues); project.md no longer refers to the deleted branch.
+- Limits: copies made before today (clones, forks, caches) cannot be recalled; GitHub may serve old commits by their full ID for a while.
+  Old versions of progress.md (Steps 85-86 prose) are still in the history, as the owner chose.
+- Gemini or any other clone made before today must be re-cloned (or `git fetch && git reset --hard origin/main` on a clean tree).

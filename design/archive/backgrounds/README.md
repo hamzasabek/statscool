@@ -34,7 +34,7 @@ Light: `--bg #f7f9fc`, `--surface #ffffff`, `--paper-line rgb(17 31 162 / 0.065)
 `--hover-strong #232a35`, `--seg-active #2d3542`, `--grid #1d232c`, `--axis #737b88`, `--dot-stroke` and `--ck-b-stroke #0d1117`,
 `--paper-line rgb(142 164 255 / 0.075)`. On `body`: `background-color: var(--bg)`, then a `linear-gradient(to right, var(--paper-line) 1px,
 transparent 1px), linear-gradient(to bottom, var(--paper-line) 1px, transparent 1px)` image at `background-size: 24px 24px`. The exact
-code is in git: commit `5c0cd40`, `src/index.css`.
+code is in git: commit `ab17fda`, `src/index.css`.
 
 ## Use one again
 
