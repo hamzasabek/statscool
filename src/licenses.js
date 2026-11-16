@@ -116,25 +116,6 @@ export const LICENSES = [
     "file": "licenses/uikit.txt"
   },
   {
-    "id": "hiq",
-    "kind": "style",
-    "name": "HiQ",
-    "url": "https://jonathanharrell.github.io/hiq/",
-    "licence": "MIT",
-    "packages": [
-      {
-        "name": "hiq",
-        "version": "4.2.11"
-      }
-    ],
-    "files": 0,
-    "copyright": [
-      "Copyright (c) 2018 Jonathan Harrell"
-    ],
-    "changed": true,
-    "file": "licenses/hiq.txt"
-  },
-  {
     "id": "react",
     "kind": "code",
     "name": "React",
@@ -267,7 +248,7 @@ export const LICENSES = [
     "packages": [
       {
         "name": "katex",
-        "version": "0.16.11"
+        "version": "0.16.47"
       }
     ],
     "files": 0,

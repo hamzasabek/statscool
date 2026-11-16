@@ -17,7 +17,7 @@ export default function Privacy() {
         <p className="lead">{tx.lead}</p>
         <p className="privacy-date">{tx.updated}</p>
       </header>
-      <div className="privacy-body hiq">
+      <div className="privacy-body prose">
         {tx.sections.map(([title, paras]) => (
           <section key={title}>
             <h2>{title}</h2>

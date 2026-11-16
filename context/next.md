@@ -4,8 +4,8 @@
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
 - Repository plan (Step 110; report, plan and decisions in `private/repo-audit-2026-11-16.md`, local only). Done: phase A (Step 111,
-  the rationale moved to `private/`) and phase B (Step 112, history rewritten, old branches deleted, commit e-mail = GitHub noreply).
-  Left, one step each: C dependencies (katex 0.16.47, remove hiq, frameworks to devDependencies), D load only what a page needs
+  the rationale moved to `private/`), phase B (Step 112, history rewritten, old branches deleted, commit e-mail = GitHub noreply) and
+  phase C (Step 113, dependencies: npm audit 22 → 1 low). Left, one step each: D load only what a page needs
   (lazy routes, KaTeX on demand, pages/text.js split per page), E CSS and fonts (dead classes, Fraunces, split index.css), F docs and
   organisation (README, progress archive, doc inconsistencies, CI runs npm run check), G optional (unit tests, lint).
 

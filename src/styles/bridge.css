@@ -53,20 +53,6 @@
 /* ---------- UIkit (uk-*) ---------- */
 :where([class^='uk-'], [class*=' uk-']) { font-family: var(--font-ui); }
 
-/* ---------- HiQ (--hiq-*), only inside .hiq ---------- */
-.hiq {
-  --hiq-font-family-base: var(--font-ui);
-  --hiq-text-color: var(--text);
-  --hiq-heading-font-weight: var(--fw-display);
-  --hiq-link-color: var(--accent);
-  --hiq-link-hover-color: var(--accent);
-  --hiq-color-primary: var(--navy);
-  --hiq-table-cell-border-color: var(--border);
-  --hiq-table-heading-background-color: var(--hover);
-  --hiq-table-heading-text-color: var(--muted);
-  --hiq-outline-color: var(--focus);
-}
-
 /* ==========================================================================================
    Components: how each framework's piece looks on StatsCool (pilot, Step 99)
    ========================================================================================== */

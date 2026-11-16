@@ -35,7 +35,6 @@ const PROJECTS = [
     copyright: ['Copyright IBM Corp.'], changed: true },
   { id: 'bootstrap', kind: 'style', name: 'Bootstrap', url: 'https://getbootstrap.com', layer: 'bootstrap', packages: ['bootstrap'], changed: true },
   { id: 'uikit', kind: 'style', name: 'UIkit', url: 'https://getuikit.com', layer: 'uikit', packages: ['uikit'], changed: true },
-  { id: 'hiq', kind: 'style', name: 'HiQ', url: 'https://jonathanharrell.github.io/hiq/', layer: 'hiq', packages: ['hiq'], changed: true },
   { id: 'react', kind: 'code', name: 'React', url: 'https://react.dev', packages: ['react', 'react-dom', 'scheduler'] },
   { id: 'react-router', kind: 'code', name: 'React Router', url: 'https://reactrouter.com', packages: ['react-router'] },
   { id: 'd3', kind: 'code', name: 'D3', url: 'https://d3js.org', packages: [/^d3-/] },

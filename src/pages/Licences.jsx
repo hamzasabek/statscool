@@ -6,7 +6,7 @@ import { LICENCES_PAGE } from './text.js'
 // /licences: the fonts, styles and code of other authors that the site ships, with their copyright and
 // licence, and a link to each full text (public/licenses/, served with the site). The list is generated
 // from what the build really contains (tools/licenses.mjs, checked by npm run check): never edit it by hand.
-// Texts: LICENCES_PAGE in text.js. The body is HiQ prose (class "hiq", src/styles/frameworks.scss).
+// Texts: LICENCES_PAGE in text.js. The body is reading text (class "prose", index.css).
 const KINDS = ['font', 'style', 'code']
 
 export default function Licences() {
@@ -20,7 +20,7 @@ export default function Licences() {
           <a href="licenses/THIRD-PARTY-NOTICES.txt">{tx.all}</a>
         </p>
       </header>
-      <div className="licences-body hiq">
+      <div className="licences-body prose">
         {KINDS.map((kind) => {
           const list = LICENSES.filter((p) => p.kind === kind)
           if (!list.length) return null

@@ -56,15 +56,15 @@ src/
                            flat hairline rules instead of shadows; `.split` = margin column + content (Home, Topics,
                            topic pages, About, References)
   styles/                  (Steps 98-104) the CSS frameworks, CSS only, no framework JavaScript:
-    frameworks.scss        each framework in its own cascade layer `@layer hiq, bootstrap, uikit, carbon` (layered CSS
+    frameworks.scss        each framework in its own cascade layer `@layer bootstrap, uikit, carbon` (layered CSS
                            always loses to our unlayered index.css + bridge.css). ONE framework per kind of element:
-                           HiQ = prose inside `.hiq`; Bootstrap = buttons, breadcrumb, list group, badge, modal, range,
+                           Bootstrap = buttons, breadcrumb, list group, badge, modal, range,
                            form-switch; UIkit = off-canvas, subnav, accordion, to-top, tooltip, card; Carbon = progress
                            indicator, notifications, progress bar, tabs, content switcher, tags, tiles, structured list, popover
     _carbon.scss, _bootstrap.scss, _uikit.scss   the modules taken from each (no resets, no IBM Plex, no Bootstrap reboot /
                            grid / utilities, no UIkit base); `_carbon.scss` also maps our `.segmented` onto Carbon's content
                            switcher with Sass @extend (the games keep their markup)
-    bridge.css             unlayered, loaded AFTER index.css (main.jsx): --bs-* / --cds-* / --hiq-* fed from our tokens, then how
+    bridge.css             unlayered, loaded AFTER index.css (main.jsx): --bs-* / --cds-* fed from our tokens, then how
                            each framework piece looks here, then "Step 100: the rectangular look" (Carbon + UIkit + a little
                            OpenCode: monospace headings, [1] [2] header links, Carbon buttons, square markers, hairline sections)
   (tools/licenses.mjs, `npm run licenses`: builds in memory, lists the npm packages, fonts and CSS frameworks the build ships, writes

@@ -1979,3 +1979,25 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - Limits: copies made before today (clones, forks, caches) cannot be recalled; GitHub may serve old commits by their full ID for a while.
   Old versions of progress.md (Steps 85-86 prose) are still in the history, as the owner chose.
 - Gemini or any other clone made before today must be re-cloned (or `git fetch && git reset --hard origin/main` on a clean tree).
+
+## 2026-11-16 — Step 113: dependencies: KaTeX patched, HiQ removed, build-only packages moved (phase C) (Claude)
+- Owner: "go ahead" with the Step 110 plan.
+- Incident while starting this step: removing the `redesign2` worktree in Step 112 had deleted part of the main `node_modules` through
+  its junction (git failed only after it started), and the owner's running dev server held `esbuild.exe`. After the owner stopped it,
+  `npm ci` restored everything from the lock file. No tracked file was affected. Note: npm 11 now blocks install scripts by default,
+  including `ibmtelemetry` (IBM's install telemetry) in the Carbon packages; they stay blocked (not needed for the build).
+- `katex` 0.16.11 → 0.16.47 (exact; fixes the `\htmlData` advisory). `npm run check` counts KaTeX errors on every page: none; the live
+  calculation's formulas looked at.
+- HiQ removed (it pulled 21 of the 22 advisories through its old PostCSS tool chain, for the prose of two pages):
+  `frameworks.scss` (no `hiq` layer, notice updated), `bridge.css` (no `--hiq-*`), `tools/frameworks-css.mjs` (no HiQ trimming, no
+  postcss import), `tools/licenses.mjs` + `npm run licenses` (public/licenses/hiq.txt gone), the HiQ line of the Licences page (EN, FR).
+  Privacy and Licences bodies: class `prose` instead of `hiq`. Checked by script: the computed style (19 properties) of every element of
+  both bodies, before and after, light and dark, 1366 and 390 px: 0 differences (our unlayered CSS already set everything HiQ did). HiQ's
+  link focus ring replaced by the site's (`.prose a:focus-visible`, index.css).
+- `@carbon/styles`, `bootstrap`, `uikit` moved to devDependencies (only compiled at build time); `postcss` removed (no longer imported);
+  `"engines": { "node": ">=22" }`.
+- `npm audit`: 22 (5 high, 17 moderate) → 1 low: KaTeX's "existing prototype pollution can bypass trust" (needs another prototype
+  pollution first; fixed only in KaTeX 0.18.2+ / 0.19, a breaking upgrade; we render only our own formulas, `trust` limited to
+  `\htmlClass`). Left as is; a KaTeX 0.19 upgrade can be its own step.
+- Built CSS 195 → 181 KB (39 → 37 KB gzip).
+- Tested: full `npm run check` (36 pages × 2 sizes × EN/FR, citations, search, licences: no problems).

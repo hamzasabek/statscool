@@ -2308,6 +2308,8 @@ a.row:hover .tl-node, a.row:hover .home-topic-num { color: color-mix(in srgb, va
 
 /* ---------- Licences page (Step 101): one row per project, as a Carbon structured list ---------- */
 .licences-all { margin: 18px 0 0; font-size: var(--fs-sm); font-weight: var(--fw-medium); }
+/* Reading text of the Privacy and Licences pages (class "prose"; it replaced HiQ in Step 113): links get the site's focus ring */
+.prose a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .licences-body { max-width: 74ch; }
 .licences-body section + section { margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--border); }
 .page .licences-body h2 { margin: 0 0 6px; font-family: var(--font-display); font-weight: var(--fw-display); font-size: var(--fs-xl); line-height: 1.2; }

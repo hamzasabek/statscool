@@ -1,6 +1,6 @@
 KaTeX — https://katex.org
 Used by StatsCool (https://hamzasabek.github.io/statscool/).
-Packages: katex 0.16.11
+Packages: katex 0.16.47
 Licence: MIT
 
 Copyright (c) 2013-2020 Khan Academy and other contributors
