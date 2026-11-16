@@ -48,7 +48,11 @@ src/
                            useChime(count, ...thresholds), useSoundOn() + isSoundOn() (the header's
                            switch, saved `statscool-sound`, on by default). Rules under "Sound" below
   text.js                  COMMON texts (header + nav, topics page, Stage, tour buttons, All topics / Play again)
-  App.jsx                  header + routes; scrolls to the top when the page changes
+  App.jsx                  header + routes; scrolls to the top when the page changes. Code splitting (Step 114): Topics,
+                           About, References, Privacy, Licences, every game / extra (topics/games.jsx) and the recap sheets are
+                           separate files; preloadRoute() fetches the next page's file BEFORE the View Transition; <Suspense>
+                           fallback `.page-loading` only on a first visit straight to such a page; <LoadBoundary> shows "could
+                           not be loaded" + Reload when a file cannot be downloaded (other errors are thrown on)
   motion.js                the motion vocabulary: DROP (dropped / thrown dots, slight bounce), SETTLE (no bounce),
                            FADE, project() (where a flick lands), rubberband(); used by all Motion / useSprung animation
   index.css                all styles; one token block on :root (7 type sizes --fs-*, weights --fw-*, 3 radii --r-*,
@@ -82,6 +86,8 @@ src/
                            SearchField (visible field of the topics page; the owner kept both it and the header search, Step 96: its results replace the plan while something is typed)
     Header.jsx             logo (links to /) + Topics / About links (NavLink, yellow dot when active;
                            Topics stays active inside a game) + EN | FR switch + sound on/off + light/dark button. Hides on scroll down; in a game (`<html data-game>`) it is a hidden overlay revealed by the grey tab `.header-handle` (hides again after 2 s)
+    Preloadable.jsx        preloadable(() => import(...)): a lazy component with .preload(), rendered directly once
+                           loaded; LoadBoundary (Step 114)
     TrainShell.jsx         the shell of every "Train your eye" game: rounds, one gesture answers, grade
                            (spot / close / off) + why, Enter or the button goes on, right / wrong sounds
                            and an end chime, end screen (score, mastery, dots per round, the game's own

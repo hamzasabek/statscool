@@ -19,14 +19,30 @@ export function usePageTitle(pathname) {
   const last = useRef(null) // the path of the previous run; null before the first one
 
   useEffect(() => {
-    const h1 = document.querySelector('main h1')
-    const name = h1?.textContent.trim()
-    document.title = pathname === '/' || !name ? tx.site : name.includes('StatsCool') ? name : `${name} · StatsCool`
-    if (last.current !== null && last.current !== pathname && h1) {
-      h1.tabIndex = -1
-      h1.focus({ preventScroll: true })
-    }
+    const moved = last.current !== null && last.current !== pathname
     last.current = pathname
+    const apply = (h1) => {
+      const name = h1?.textContent.trim()
+      document.title = pathname === '/' || !name ? tx.site : name.includes('StatsCool') ? name : `${name} · StatsCool`
+      if (moved && h1) {
+        h1.tabIndex = -1
+        h1.focus({ preventScroll: true })
+      }
+    }
+    const h1 = document.querySelector('main h1')
+    apply(h1)
+    if (h1) return
+    // The page's file is still downloading (first visit straight to a game or page, Step 114): wait for its h1.
+    const main = document.querySelector('main')
+    if (!main) return
+    const watch = new MutationObserver(() => {
+      const found = main.querySelector('h1')
+      if (!found) return
+      watch.disconnect()
+      apply(found)
+    })
+    watch.observe(main, { childList: true, subtree: true })
+    return () => watch.disconnect()
     // tx changes with the language only
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, lang])

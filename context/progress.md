@@ -2001,3 +2001,20 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   `\htmlClass`). Left as is; a KaTeX 0.19 upgrade can be its own step.
 - Built CSS 195 → 181 KB (39 → 37 KB gzip).
 - Tested: full `npm run check` (36 pages × 2 sizes × EN/FR, citations, search, licences: no problems).
+
+## 2026-11-16 — Step 114: each page and game loads its own code (phase D) (Claude)
+- Owner: "go ahead" with the Step 110 plan. Before: one 1,372 KB JavaScript file (444 KB gzip) with every topic, quiz, text and KaTeX.
+- New `src/components/Preloadable.jsx`: `preloadable(() => import(...))` = a lazy component with `.preload()`, rendered directly once its
+  file has arrived; `LoadBoundary`: when a file cannot be downloaded (offline, or an old tab after a deploy changed the file names) the
+  page shows "This page could not be loaded" + Reload (EN / FR); any other error is thrown on as before.
+- `topics/games.jsx`: the 24 games / extras and the recap sheet are preloadable. `App.jsx`: Topics, About, References, Privacy and Licences
+  too (Home, the topic page and 404 stay in the main file); `preloadRoute(path)` fetches the next page's file before the View Transition
+  starts, so the fade never shows an empty page; `<Suspense>` placeholder `.page-loading` (70vh) only on a first visit straight to a lazy
+  page. `usePageTitle`: when the h1 is not there yet (that first visit), waits for it (MutationObserver) to set the title.
+- Result (`npm run build`): main JS 1,372 → 395 KB (444 → 131 KB gzip, −71 %); KaTeX + its CSS (261 + 29 KB) only on pages with formulas;
+  Motion (147 KB) with the games; each game 5-25 KB; main CSS 181 → 152 KB (KaTeX's CSS moved out). Vite's "chunk larger than 500 kB"
+  warning is gone.
+- Tested in headless Chrome (scratch scripts): full `npm run check` (36 pages × 2 sizes × EN/FR: no problems); navigation through Home,
+  Topics, topic, game, FR, About, 404, search palette: titles and focus right; direct visit to a lazy page: title set, formulas rendered;
+  navigation to a game not yet loaded: no placeholder ever shown; chunk blocked (`Network.setBlockedURLs`): the message and Reload button,
+  and the next navigation works; guided tours open on lazy games with the focus on their button.

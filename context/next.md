@@ -5,8 +5,8 @@ Work started but not finished, for whichever AI tool (Claude or Gemini) comes ne
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
 - Repository plan (Step 110; report, plan and decisions in `private/repo-audit-2026-11-16.md`, local only). Done: phase A (Step 111,
   the rationale moved to `private/`), phase B (Step 112, history rewritten, old branches deleted, commit e-mail = GitHub noreply) and
-  phase C (Step 113, dependencies: npm audit 22 → 1 low). Left, one step each: D load only what a page needs
-  (lazy routes, KaTeX on demand, pages/text.js split per page), E CSS and fonts (dead classes, Fraunces, split index.css), F docs and
+  phase C (Step 113, dependencies: npm audit 22 → 1 low) and phase D (Step 114, code splitting: main file 444 → 131 KB gzip). Left,
+  one step each: (D, optional) pages/text.js split per page; E CSS and fonts (dead classes, Fraunces, split index.css), F docs and
   organisation (README, progress archive, doc inconsistencies, CI runs npm run check), G optional (unit tests, lint).
 
 ## Open items
@@ -127,4 +127,3 @@ what is left and which files; remove the item once it is committed. (AGENTS.md, 
 - Unused CSS tokens left from archived parts: `--bar`, `--bar-mode`, `--mode`, `--real-soft`,
   `--miss-soft`, `.legend-item.fit/.real`.
 - (Done in Step 94: fonts are self-hosted.) When accounts, progress sync, analytics, a contact form or research data are added, the privacy page (/privacy) must be rewritten first: legal basis, processor agreement, retention, consent (see Step 94 in progress.md).
-- Code-split per topic (lazy routes); bundle is ~460 kB.
