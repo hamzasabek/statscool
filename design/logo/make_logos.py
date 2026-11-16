@@ -1,15 +1,16 @@
 """StatsCool logo, version 3 (Step 105), built on a grid.
 
-The logo of the site is H2, "labelled bars", chosen by the owner: the ink "Stats" key, then the four
-fluorescent letter keys of the old logo (pink c, lime o, cyan o, yellow l), each topped by a bar of its
-colour, a gap apart: a small histogram with its labels. It keeps the old logo's identity (the four
+The logo of the site is C, "keys" (Step 106: the owner went back to it from H2, "labelled bars", which was the
+logo in Step 105): the ink "Stats" key, then the four fluorescent letter keys of the old logo (pink c, lime o,
+cyan o, yellow l) in one row. The candidates of rounds 1 and 2 (H2 and the other hybrids add a bar of the key's
+colour above each letter) are still written to the archive. It keeps the old logo's identity (the four
 fluorescent tiles in the same order, ink letters on them) in the site's language since Step 100:
 IBM Plex Mono (the headings' font), square keys, no tilt, one grid, the site's ink.
 
 Letters are drawn as outlines (paths) from IBM Plex Mono SemiBold, so the SVGs need no font.
 Usage (from the repository root, after npm install):  python design/logo/make_logos.py
 Writes:
-  design/logo/statscool-logo-light.svg / -dark.svg   the logo (H2); copied to src/assets/logo-light.svg / -dark.svg
+  design/logo/statscool-logo-light.svg / -dark.svg   the logo (C, keys); copied to src/assets/logo-light.svg / -dark.svg
   design/logo/statscool-mark.svg                     the tab icon (H2's keys and bars, no letters); copied to public/favicon.svg
   design/logo/statscool-icon.svg                     the home-screen icon (H2 on an ink square, with letters)
   design/archive/logos/v3-candidates/*.svg           the candidates of rounds 1 and 2 (archive; A, B, C, H1-H6, the 2x2 mark)
@@ -316,9 +317,9 @@ if __name__ == '__main__':
         for mode in ('light', 'dark'):
             (OUT / f'{name}-{mode}.svg').write_text(make(mode), encoding='utf8')
     (OUT / 'mark.svg').write_text(mark(), encoding='utf8')
-    # the logo of the site: H2
+    # the logo of the site: C, keys only (Step 106; H2 was it in Step 105)
     for mode in ('light', 'dark'):
-        (HERE / f'statscool-logo-{mode}.svg').write_text(labelled(mode), encoding='utf8')
+        (HERE / f'statscool-logo-{mode}.svg').write_text(keys(mode), encoding='utf8')
         shutil.copyfile(HERE / f'statscool-logo-{mode}.svg', ROOT / f'src/assets/logo-{mode}.svg')
     (HERE / 'statscool-mark.svg').write_text(h2_mark(), encoding='utf8')
     (HERE / 'statscool-icon.svg').write_text(h2_icon(), encoding='utf8')

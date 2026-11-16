@@ -9,13 +9,13 @@ import { COMMON } from '../text.js'
 import { useSoundOn } from '../sound.js'
 import { useTheme } from '../theme.js'
 
-// The StatsCool logo (v3, Step 105: the ink "Stats" key and the four fluorescent letter keys topped by
-// their bars), one SVG per theme, made by design/logo/make_logos.py; CSS shows the one that matches <html data-theme>.
+// The StatsCool logo (v3 "keys", Step 106: the ink "Stats" key and the four fluorescent letter keys; Step 105 had
+// bars on top), one SVG per theme, made by design/logo/make_logos.py; CSS shows the one that matches <html data-theme>.
 function Logo() {
   return (
     <>
-      <img className="brand-logo is-light" src={logoLight} alt="StatsCool" width="186" height="50" />
-      <img className="brand-logo is-dark" src={logoDark} alt="StatsCool" width="186" height="50" />
+      <img className="brand-logo is-light" src={logoLight} alt="StatsCool" width="260" height="36" />
+      <img className="brand-logo is-dark" src={logoDark} alt="StatsCool" width="260" height="36" />
     </>
   )
 }

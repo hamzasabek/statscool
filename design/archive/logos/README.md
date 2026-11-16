@@ -1,6 +1,6 @@
 # Archived logos
 
-Every StatsCool logo so far, kept when a new one replaced it. The current logo (v3, H2) and its generator
+Every StatsCool logo so far, kept when a new one replaced it. The current logo (v3, C "keys" since Step 106) and its generator
 are in `design/logo/`. All of them are the owner's: not covered by the site's licences (see LICENSE-CONTENT.md).
 
 ## v1: the owner's first logo (Step 29, 2026-11-10)
@@ -29,7 +29,8 @@ Round 1 (`preview.html` compares them, with the v2 logo):
 
 Round 2, the owner asked to combine B and C:
 - `h1-keychart-*.svg`: one row, the letter keys as bars of different heights on one axis.
-- `h2-labelled-*.svg`: **chosen**: the keys of C, each topped by a floating bar of its colour.
+- `h2-labelled-*.svg`: the keys of C, each topped by a floating bar of its colour. The site's logo in Step 105 only; the owner
+  went back to C in Step 106 (the tab and home-screen icons are still H2's).
 - `h3-stacked-*.svg`: "Stats" on a wide ink key over the bars of B.
 - `h4-badge-*.svg`: one ink square, "Stats" and a little bar chart inside.
 - `h5-axis-*.svg`: C standing on an axis with a tick under each letter.

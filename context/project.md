@@ -102,9 +102,9 @@ src/
                            bubble per thing, pointing at [data-tour="…"], the rest blurred and grey
   assets/
     author.jpg             the owner's photo for the About page: 320×320 crop of his CV photo, EXIF removed
-    logo-light.svg, logo-dark.svg  the StatsCool logo v3 (Step 105, "H2 labelled bars": the ink Stats key and the
-                           four fluorescent letter keys topped by their bars), made by design/logo/make_logos.py;
-                           shown 50 px high (40 / 36 / 32 px on phones); CSS shows the one for the current theme
+    logo-light.svg, logo-dark.svg  the StatsCool logo v3 "keys" (Step 106; Step 105 had H2 "labelled bars": the ink Stats key and the
+                           four fluorescent letter keys, one row), made by design/logo/make_logos.py; shown 36 px high
+                           (30 / 26 / 22 px on phones) at opacity .86; CSS shows the one for the current theme
     Stage.jsx              full-viewport learning layout (head, say, bar, main, foot) + Steps;
                            optional `className` (e.g. `ck-stage` lets the game grow on phones)
   search/                  the site search (Step 93; no server, no library): engine.js (one index of ~90 entries built from topics.js, the
@@ -387,7 +387,7 @@ archive/                   code removed from the site in Step 24 (Home, About, d
                            Step 37 (the "Are you psychic?" card game of topic 05).
                            Not built. See archive/README.md to restore a part.
 design/archive/backgrounds/  the five backgrounds not chosen in Step 102-103 (CSS, the test picker, screenshots, README: how to use one again)
-design/logo/               the current logo (v3, Step 105): statscool-logo-light/-dark.svg, statscool-mark.svg (tab icon),
+design/logo/               the current logo (v3 "keys", Step 106): statscool-logo-light/-dark.svg, statscool-mark.svg (tab icon, still H2),
                            statscool-icon.svg (home-screen icon); make_logos.py (Python + fontTools: IBM Plex Mono outlines,
                            writes them, copies them to src/assets/ and public/favicon.svg, and rewrites the archived
                            candidates); rasterize.mjs (headless Chrome: public/favicon-32.png, public/apple-touch-icon.png)
@@ -503,9 +503,9 @@ A new game: tick when a trial becomes a dot, `useChime(n, MIN_TRIALS, TRIALS)` a
   may scroll on phones (`flowOnNarrow`).
 - Frameworks (branch redesign-frameworks): use the framework piece that owns an element (src/styles/frameworks.scss
   header) and restyle it in src/styles/bridge.css from our tokens; never load a whole framework or its JavaScript.
-- Background (Step 103): graph paper, a 24 px grid of faint lines (`--paper-line`, drawn by `body`). Nothing is drawn as a line across
-  the page: a section title is a title block (white label with a hairline), and lists with rows or groups of texts lie on opaque sheets
-  (cards), so lines are only ever drawn on paper. The five other backgrounds tried in Step 102 are in design/archive/backgrounds/.
+- Background (Step 106): the "StatsCool" background again, as before Step 103: cool white / cool charcoal with a faint grain (`--grain`,
+  `background: var(--bg) var(--grain)` on `body`). Graph paper (Step 103) is archived with the other options in design/archive/backgrounds/.
+  The title blocks and opaque sheets of Step 103 stay (they look fine on a plain page); sections are still set apart by space.
 - Visual style (Step 100, branch redesign-frameworks): rectangular and flat as IBM Carbon / UIkit, a little OpenCode:
   0 px corners (tokens), hairlines, IBM Plex Mono for headings / labels / numbers (`--font-display`, `--font-mono`), Inter for
   text. Round only for data dots, step rings and the games' big press buttons. (Before Step 100: "elegant, no boxed/rectangle panels,

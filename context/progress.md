@@ -1888,3 +1888,23 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   - `npm run build` (icons at the root of dist/, links rewritten);
   - full `npm run check` (36 pages × 2 sizes × EN / FR: no problems);
   - screenshots of the header (desktop + phone, light + dark, EN + FR); the icons looked at at 16, 32 and 180 px on light and dark.
+
+## 2026-11-16 — Step 106: back to the "keys" logo, a little see-through, and back to the StatsCool background (Claude)
+- Owner: "go back to the logo with keys only and make it a little bit transparent; return to the StatsCool theme proposed in the
+  comparison." Read as: the logo C (keys, round 1 of Step 105) instead of H2; and the "StatsCool" option of the Step 102 background
+  comparison (cool white / charcoal with grain, the site before Step 103) instead of graph paper.
+- Logo:
+  - `src/assets/logo-light.svg` / `logo-dark.svg` = `keys-light/dark.svg` of the archive (the ink "Stats" key + the four fluorescent letter
+    keys, one row, no bars); same files in `design/logo/`. `make_logos.py` now writes `keys(mode)` as the site logo (not run: no Python on
+    this machine; the copies are the generator's own earlier output).
+  - It is wider than H2 (7.2:1 against 3.7:1), so shown 36 px high (260 px wide) on desktop, 30 / 26 / 22 px on phones (was 50 / 40 / 36 / 32).
+  - "A little transparent" = `opacity: 0.86` on `.brand-logo` (CSS, one number to change; the whole image fades as a group, so the letters
+    do not show through their keys).
+  - The tab and home-screen icons stay H2's (the owner spoke of the logo only).
+- Background: the neutral tokens and the grain of `src/index.css` are back to the values of commit 339f438 (page #f5f7fb / #101216, sheets
+  #fdfdff / #181c22, grain on `body`; done by reversing only the colour hunks of the diff, so the Step 105 logo CSS was not touched). The
+  grid (`--paper-line`) is gone. Graph paper is archived with its values in `design/archive/backgrounds/README.md`. The title blocks and
+  opaque sheets of Step 103 were kept (they read fine without the grid); say if the owner wants the old section lines back.
+- Docs: project.md (logo, background), the two archive READMEs.
+- Tested: `npm run build`; `npm run check` on Home, Topics and a topic page (no problems); screenshots light and dark, desktop and phone:
+  the logo fits the header at 390 px next to search and menu.
