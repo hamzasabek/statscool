@@ -42,6 +42,8 @@ remembers what the other did: this file and `context/` are the shared memory. Ke
   console errors, KaTeX errors, page not found. Exit code 1 if anything is wrong.
   `npm run check -- topics/variance-sd/quiz topics/normal-distribution --shots --no-build` checks only
   those routes and saves screenshots in `scratch/check/` (gitignored): look at them.
+- On GitHub, every push to `main` runs `npm run check` (workflow "Check every page", `.github/workflows/check.yml`) beside the
+  deploy: a red cross on a commit means a page broke. The deploy itself only builds.
 - Windows: Node is in `C:\Program Files\nodejs`. If `npm` is not found:
   PowerShell `$env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User")`,
   Git Bash `export PATH="$PATH:/c/Program Files/nodejs"`.

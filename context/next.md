@@ -3,13 +3,13 @@
 ## In progress
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
-- Repository plan (Step 110; report, plan and decisions in `private/repo-audit-2026-11-16.md`, local only). Done: A (Step 111,
-  rationale moved to `private/`), B (Step 112, history rewritten, old branches deleted, commit e-mail = GitHub noreply), C (Step 113,
-  dependencies: npm audit 22 → 1 low), D (Step 114, code splitting: main JS 444 → 131 KB gzip), E (Step 115, dead CSS and Fraunces
-  removed). Left: F docs and organisation (README, progress archive, doc inconsistencies, CI runs npm run check), G optional (unit
-  tests, lint).
+- (nothing)
 
 ## Open items
+- Repository plan (Step 110; report, plan and decisions in `private/repo-audit-2026-11-16.md`, local only): phases A-F done (Steps
+  111-116). Left for the owner to decide: G (unit tests for the statistics helpers, ESLint); keep or delete `archive/` (old code, also
+  in the git history); keep `.claude/skills/graphify` public (check its licence) or make it local; pin GitHub actions by commit SHA;
+  once the "Check every page" workflow has been green a few times, make the deploy wait for it.
 - Optional, not done on purpose (Step 115): split `src/index.css` into one CSS file per page / game. With lazy pages their CSS would
   load later and in another order, so rules of equal specificity could start winning differently; the gain is small (main CSS 28 KB
   gzip, cached). Also optional: split `src/pages/text.js` (43 KB, every page's texts) per page.
