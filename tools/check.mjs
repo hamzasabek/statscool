@@ -94,7 +94,9 @@ const base = `http://localhost:${PORT}/`
 
 // ---- a tiny Chrome DevTools Protocol client ----
 const profile = join(tmpdir(), `statscool-check-${process.pid}`)
-const chrome = spawn(chromePath, ['--headless=new', '--remote-debugging-port=9399', `--user-data-dir=${profile}`, '--no-first-run', '--autoplay-policy=no-user-gesture-required', 'about:blank'])
+// On CI (GitHub's Ubuntu runners) Chrome's sandbox cannot start (AppArmor blocks it): run without it there only.
+const ciFlags = process.env.CI ? ['--no-sandbox'] : []
+const chrome = spawn(chromePath, ['--headless=new', ...ciFlags, '--remote-debugging-port=9399', `--user-data-dir=${profile}`, '--no-first-run', '--autoplay-policy=no-user-gesture-required', 'about:blank'])
 let tabs
 for (let i = 0; i < 60 && !tabs; i++) {
   try {

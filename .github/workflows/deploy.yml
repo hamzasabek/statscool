@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# IBM Carbon's packages send install telemetry from a postinstall script: off.
+env:
+  IBM_TELEMETRY_DISABLED: 'true'
+
 permissions:
   contents: read
   pages: write

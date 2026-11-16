@@ -402,7 +402,8 @@ design/logo/               the current logo (v3 "keys", Step 106): statscool-log
 design/archive/logos/      every earlier logo: v1 (the owner's first, Step 29), v2 (Step 67, with the PNGs the header used)
                            and the nine v3 candidates of Step 105 (README.md tells the story)
 public/favicon.svg, favicon-32.png, apple-touch-icon.png   the tab and home-screen icons (index.html links them)
-context/                   this folder — project memory, updated every step
+context/                   this folder — project memory, updated every step (progress.md = Steps 81 on;
+                           progress-archive.md = Steps 1-80, Step 116)
 docs/                      public reports (accessibility-audit.md)
 private/                   LOCAL ONLY, gitignored, never pushed (Step 111): rationale.md, learning-science-review.md,
                            CODE_GUIDE.md, the repository audits and the rationale passages removed from context/
