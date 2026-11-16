@@ -102,9 +102,9 @@ src/
                            bubble per thing, pointing at [data-tour="…"], the rest blurred and grey
   assets/
     author.jpg             the owner's photo for the About page: 320×320 crop of his CV photo, EXIF removed
-    logo-light.png, logo-dark.png  the StatsCool logo, transparent, 382×248 (shown 62 px high,
-                           50 px on phones; header 76 px / 64 px = `--header-h`);
-                           CSS shows the one for the current theme
+    logo-light.svg, logo-dark.svg  the StatsCool logo v3 (Step 105, "H2 labelled bars": the ink Stats key and the
+                           four fluorescent letter keys topped by their bars), made by design/logo/make_logos.py;
+                           shown 50 px high (40 / 36 / 32 px on phones); CSS shows the one for the current theme
     Stage.jsx              full-viewport learning layout (head, say, bar, main, foot) + Steps;
                            optional `className` (e.g. `ck-stage` lets the game grow on phones)
   search/                  the site search (Step 93; no server, no library): engine.js (one index of ~90 entries built from topics.js, the
@@ -387,12 +387,13 @@ archive/                   code removed from the site in Step 24 (Home, About, d
                            Step 37 (the "Are you psychic?" card game of topic 05).
                            Not built. See archive/README.md to restore a part.
 design/archive/backgrounds/  the five backgrounds not chosen in Step 102-103 (CSS, the test picker, screenshots, README: how to use one again)
-design/logo/               the owner's original logos (1280×720, white / black background).
-                           The web versions were made from them: background made transparent
-                           (edges un-mixed from white / black so no halo), cropped, resized.
-                           Since Step 67 the PNGs in src/assets/ are the owner's second logo ("Stats" in
-                           Outfit Bold, "cool" on neon highlighter stripes); its vector sources are
-                           design/logo/statscool_logo_v2_light.svg / _dark.svg (text converted to paths).
+design/logo/               the current logo (v3, Step 105): statscool-logo-light/-dark.svg, statscool-mark.svg (tab icon),
+                           statscool-icon.svg (home-screen icon); make_logos.py (Python + fontTools: IBM Plex Mono outlines,
+                           writes them, copies them to src/assets/ and public/favicon.svg, and rewrites the archived
+                           candidates); rasterize.mjs (headless Chrome: public/favicon-32.png, public/apple-touch-icon.png)
+design/archive/logos/      every earlier logo: v1 (the owner's first, Step 29), v2 (Step 67, with the PNGs the header used)
+                           and the nine v3 candidates of Step 105 (README.md tells the story)
+public/favicon.svg, favicon-32.png, apple-touch-icon.png   the tab and home-screen icons (index.html links them)
 context/                   this folder — project memory, updated every step
                            (rationale.md = the learning-science reasoning and what is built, planned or set aside)
 docs/learning-science-review.md  the literature review behind the site (Step 86): every reference checked

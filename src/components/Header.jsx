@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
-import logoDark from '../assets/logo-dark.png'
-import logoLight from '../assets/logo-light.png'
+import logoDark from '../assets/logo-dark.svg'
+import logoLight from '../assets/logo-light.svg'
 import { LANGS, useLang, useText } from '../i18n.jsx'
 import { SearchButton } from './Search.jsx'
 import Menu from './Menu.jsx'
@@ -9,13 +9,13 @@ import { COMMON } from '../text.js'
 import { useSoundOn } from '../sound.js'
 import { useTheme } from '../theme.js'
 
-// The StatsCool logo, one version per theme (transparent PNGs made from design/logo/; CSS shows
-// the one that matches <html data-theme>).
+// The StatsCool logo (v3, Step 105: the ink "Stats" key and the four fluorescent letter keys topped by
+// their bars), one SVG per theme, made by design/logo/make_logos.py; CSS shows the one that matches <html data-theme>.
 function Logo() {
   return (
     <>
-      <img className="brand-logo is-light" src={logoLight} alt="StatsCool" width="110" height="62" />
-      <img className="brand-logo is-dark" src={logoDark} alt="StatsCool" width="110" height="62" />
+      <img className="brand-logo is-light" src={logoLight} alt="StatsCool" width="186" height="50" />
+      <img className="brand-logo is-dark" src={logoDark} alt="StatsCool" width="186" height="50" />
     </>
   )
 }

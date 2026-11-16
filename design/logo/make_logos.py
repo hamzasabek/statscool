@@ -1,15 +1,22 @@
-"""StatsCool logo, version 3 (Step 105): candidates for the rectangular look, built on a grid.
+"""StatsCool logo, version 3 (Step 105), built on a grid.
 
-Keeps the old logo's identity: "Stats" over "cool", the four fluorescent tiles in the same order
-(pink c, lime o, cyan o, yellow l, the yellow l tile taller), ink letters on the tiles.
-Adapts it to the site since Step 100: IBM Plex Mono (the headings' font), square tiles, no tilt,
-everything aligned on one grid; colours = the site's ink and the logo's fluorescents.
+The logo of the site is H2, "labelled bars", chosen by the owner: the ink "Stats" key, then the four
+fluorescent letter keys of the old logo (pink c, lime o, cyan o, yellow l), each topped by a bar of its
+colour, a gap apart: a small histogram with its labels. It keeps the old logo's identity (the four
+fluorescent tiles in the same order, ink letters on them) in the site's language since Step 100:
+IBM Plex Mono (the headings' font), square keys, no tilt, one grid, the site's ink.
 
 Letters are drawn as outlines (paths) from IBM Plex Mono SemiBold, so the SVGs need no font.
-Usage (from the repository root, after npm install):  python design/logo/v3/make_logos.py
-Writes design/logo/v3/<candidate>-light.svg / -dark.svg and mark.svg.
+Usage (from the repository root, after npm install):  python design/logo/make_logos.py
+Writes:
+  design/logo/statscool-logo-light.svg / -dark.svg   the logo (H2); copied to src/assets/logo-light.svg / -dark.svg
+  design/logo/statscool-mark.svg                     the tab icon (H2's keys and bars, no letters); copied to public/favicon.svg
+  design/logo/statscool-icon.svg                     the home-screen icon (H2 on an ink square, with letters)
+  design/archive/logos/v3-candidates/*.svg           the candidates of rounds 1 and 2 (archive; A, B, C, H1-H6, the 2x2 mark)
+The PNG icons (public/favicon-32.png, public/apple-touch-icon.png) are rendered from the SVGs by design/logo/rasterize.mjs.
 Requires Python with fontTools (pip install fonttools).
 """
+import shutil
 from pathlib import Path
 
 from fontTools.pens.boundsPen import BoundsPen
@@ -17,8 +24,9 @@ from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
 
-ROOT = Path(__file__).resolve().parents[3]
-OUT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[2]
+HERE = Path(__file__).resolve().parent
+OUT = ROOT / 'design/archive/logos/v3-candidates'
 FONT = TTFont(ROOT / 'node_modules/@ibm/plex/IBM-Plex-Mono/fonts/complete/woff/IBMPlexMono-SemiBold.woff')
 GS = FONT.getGlyphSet()
 CMAP = FONT.getBestCmap()
@@ -265,10 +273,54 @@ def lollipop(mode):
 HYBRIDS = (('h1-keychart', keychart), ('h2-labelled', labelled), ('h3-stacked', stackedchart),
            ('h4-badge', badge), ('h5-axis', axiskeys), ('h6-lollipop', lollipop))
 
+H2_BARS = [22, 54, 36, 70]  # the bar heights of the logo (labelled()), reused by the icons
+
+
+# ---------- The tab icon of H2: its four keys and their bars, without letters (they would not read at 16 px) ----------
+def h2_mark():
+    # On a 32-unit grid with whole numbers only, so the icon stays crisp at 32 px (and 16 px) in a browser tab.
+    S, col_w, gap, key, bar_gap = 32, 6, 2, 6, 2
+    bars = [round(b * 14 / max(H2_BARS)) for b in H2_BARS]  # the logo's bars, scaled to 14 units: 4, 11, 7, 14
+    width = 4 * col_w + 3 * gap
+    height = max(bars) + bar_gap + key
+    x0, y0 = (S - width) // 2, (S - height) // 2
+    parts = []
+    for i, ((_, col), h) in enumerate(zip(TILES, bars)):
+        x = x0 + i * (col_w + gap)
+        parts.append(f'<rect x="{r(x)}" y="{r(y0 + height - key - bar_gap - h)}" width="{col_w}" height="{r(h)}" fill="{col}"/>')
+        parts.append(f'<rect x="{r(x)}" y="{r(y0 + height - key)}" width="{col_w}" height="{key}" fill="{col}"/>')
+    return svg((0, 0, S, S), '\n'.join(parts))
+
+
+# ---------- The home-screen icon: H2 (keys with their letters, bars) on an ink square ----------
+def h2_icon():
+    S, key, gap, bar_gap = 180, 30, 4, 4
+    k = 72 / max(H2_BARS)
+    width = 4 * key + 3 * gap
+    height = max(H2_BARS) * k + bar_gap + key
+    x0, y0 = (S - width) / 2, (S - height) / 2
+    parts = [f'<rect x="0" y="0" width="{S}" height="{S}" fill="{INK["light"]}"/>']
+    for i, ((ch, col), b) in enumerate(zip(TILES, H2_BARS)):
+        x = x0 + i * (key + gap)
+        h = b * k
+        top = y0 + height - key
+        parts.append(f'<rect x="{r(x)}" y="{r(top - bar_gap - h)}" width="{key}" height="{r(h)}" fill="{col}"/>')
+        parts += letter_key(ch, col, x, top, w=key, h=key, base=22, size=28)
+    return svg((0, 0, S, S), '\n'.join(parts))
+
 
 if __name__ == '__main__':
+    # the archive: every candidate of rounds 1 and 2, as they were shown to the owner
+    OUT.mkdir(parents=True, exist_ok=True)
     for name, make in (('tiles', tiles), ('bars', bars), ('keys', keys)) + HYBRIDS:
         for mode in ('light', 'dark'):
             (OUT / f'{name}-{mode}.svg').write_text(make(mode), encoding='utf8')
     (OUT / 'mark.svg').write_text(mark(), encoding='utf8')
-    print('written:', sorted(p.name for p in OUT.glob('*.svg')))
+    # the logo of the site: H2
+    for mode in ('light', 'dark'):
+        (HERE / f'statscool-logo-{mode}.svg').write_text(labelled(mode), encoding='utf8')
+        shutil.copyfile(HERE / f'statscool-logo-{mode}.svg', ROOT / f'src/assets/logo-{mode}.svg')
+    (HERE / 'statscool-mark.svg').write_text(h2_mark(), encoding='utf8')
+    (HERE / 'statscool-icon.svg').write_text(h2_icon(), encoding='utf8')
+    shutil.copyfile(HERE / 'statscool-mark.svg', ROOT / 'public/favicon.svg')
+    print('logo, mark and icon written; candidates in', OUT.relative_to(ROOT))

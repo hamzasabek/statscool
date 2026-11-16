@@ -3,13 +3,6 @@
 ## In progress
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
-- Logo v3 (Step 105, Claude, 2026-11-16): owner asked for a new logo that keeps the old one's fluorescent colours and fits the
-  rectangular site. Round 1: A tiles, B bars, C keys. Round 2 (owner: "combine the keys and bars logos, give me different logos"):
-  H1 key chart, H2 labelled bars, H3 stacked chart, H4 badge, H5 keys on an axis, H6 lollipop. All in `design/logo/v3/` (light +
-  dark SVGs built from IBM Plex Mono outlines by `make_logos.py`; `mark.svg` = tab icon; `preview.html` compares round 1) and on a
-  private comparison page for the owner. WAITING for the owner's choice. Then: copy the chosen SVGs to src/assets (logo-light.svg / logo-dark.svg) and use them in
-  Header.jsx (SVG instead of the PNGs; heights in index.css `.brand-logo`), add the mark as favicon (index.html, public/), check light,
-  dark, desktop, phone, log it as Step 105.
 - (Done, Step 104: merged into main; kept here one step for the record, remove next time.) Restyling with CSS frameworks (Carbon,
   Bootstrap, UIkit, HiQ), branch `redesign-frameworks`, worktree `.claude/worktrees/redesign3/`
   (Steps 98-100 in progress.md). Done: spike (layers, bridge, PurgeCSS plugin), the PILOT (switches, game steps, breadcrumb,

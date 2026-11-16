@@ -1857,3 +1857,34 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
 - After the merge: `npm install` in the main folder (new dependencies); full `npm run check` from main: 36 pages × 2 sizes × EN / FR, no
   problems; citations, search and licences checks pass. The licence files came out of git with CRLF line endings on this Windows
   checkout: the licences check ignores line endings (Step 102 fix), and it passed.
+
+## 2026-11-16 — Step 105: logo v3, "labelled bars", with tab and home-screen icons; every logo archived (Claude)
+- Owner: a new logo that keeps the originality of the old one, above all its fluorescent colours, adapted to the new design.
+- How it was chosen:
+  - Round 1 (A tiles, B bars, C keys) and round 2 (owner: "combine the keys and bars logos, give me different logos": H1 key
+    chart, H2 labelled bars, H3 stacked chart, H4 badge, H5 keys on an axis, H6 lollipop).
+  - Shown on a private comparison page: each logo large and in screenshots of the real header (desktop, phone, light, dark; logo
+    swapped in headless Chrome).
+  - Owner chose H2 and asked to keep all logos in an archive.
+- The logo (H2):
+  - The ink "Stats" key (a light key in dark mode), then the four letter keys of the old logo in the same colours and order (pink c
+    `#FF2D95`, lime o `#B6FF1A`, cyan o `#12E6FF`, yellow l `#FFF000`). Each is topped by a floating bar of its colour (22, 54, 36,
+    70 units), a 5-unit gap apart: a small histogram with its labels.
+  - Letters are IBM Plex Mono SemiBold outlines (no font needed); viewBox 576.72 × 155.
+  - `design/logo/make_logos.py` (Python + fontTools) writes it and copies it to `src/assets/logo-light.svg` / `logo-dark.svg`.
+  - Header.jsx uses the SVGs (5.4 KB each; the PNGs were 31 KB), 186 × 50 attributes; `.brand-logo` 50 px high (40 px ≤ 700 px,
+    36 px ≤ 480 px, 32 px ≤ 380 px).
+- Icons (the site had none):
+  - Tab icon `public/favicon.svg` = `design/logo/statscool-mark.svg`: H2's four keys and bars without letters, on a 32-unit grid with
+    whole numbers only, so it stays crisp at 32 and 16 px; transparent, readable on light and dark tabs.
+  - `public/favicon-32.png` (fallback) and `public/apple-touch-icon.png` (180 px, H2 with letters on an ink square), rendered from the
+    SVGs by `design/logo/rasterize.mjs` (headless Chrome). `index.html` links all three; Vite rewrites them to ./ for the site's base.
+- Archive `design/archive/logos/` (README.md tells the story):
+  - `v1/`: the owner's first logo (Step 29);
+  - `v2/`: Step 67, its SVG sources and the two PNGs the header used until now;
+  - `v3-candidates/`: all nine candidates, light + dark, the 2x2 mark of round 1 and its comparison page (links fixed after the move).
+- LICENSE-CONTENT.md: the reserved logo files are now the SVGs, the icons, design/logo/ and the archive.
+- Tested:
+  - `npm run build` (icons at the root of dist/, links rewritten);
+  - full `npm run check` (36 pages × 2 sizes × EN / FR: no problems);
+  - screenshots of the header (desktop + phone, light + dark, EN + FR); the icons looked at at 16, 32 and 180 px on light and dark.

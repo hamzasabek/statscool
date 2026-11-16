@@ -302,11 +302,11 @@ code {
   transition: transform var(--dur-1) var(--ease-out);
 }
 .brand:active { transform: scale(0.96); }
-/* Logo: the version for the current theme */
-.brand-logo { display: block; height: 62px; width: auto; }
+/* Logo: the version for the current theme. One row (v3, Step 105), so lower than the stacked v2 (62 px). */
+.brand-logo { display: block; height: 50px; width: auto; }
 @media (max-width: 700px) {
   :root { --header-h: 64px; --header-full: 64px; }
-  .brand-logo { height: 50px; }
+  .brand-logo { height: 40px; }
 }
 .brand-logo.is-dark,
 :root[data-theme='dark'] .brand-logo.is-light { display: none; }
@@ -354,7 +354,7 @@ code {
 @media (max-width: 480px) {
   :root { --gutter: 16px; }
   .header-inner { padding: 0 12px; gap: 8px; }
-  .brand-logo { height: 40px; }
+  .brand-logo { height: 36px; }
   .main-nav { margin-right: 2px; gap: 0; }
   .main-nav a { padding: 6px 7px; }
   .lang-switch button { padding: 0 9px; }
@@ -365,7 +365,7 @@ code {
   .main-nav a { padding: 6px 5px; }
 }
 @media (max-width: 380px) {
-  .brand-logo { height: 34px; }
+  .brand-logo { height: 32px; }
   .header-inner { padding: 0 8px; gap: 4px; }
 }
 
