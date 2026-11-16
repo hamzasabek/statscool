@@ -1925,3 +1925,17 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   - M1 targets under 24 px (header handle 56×18, footer and licences links 20-21 px, Normal plot knobs), M2 no skip link, M3-M7 focus
     cues, 1.2:1 field borders, `role="img"` around focusable knobs, an `<aside>` inside a landmark, one faded formula at 2.17:1.
 - `context/next.md`: the order of fixes added to Open items. Waiting for the owner to say which to do.
+
+## 2026-11-16 — Step 108: page title and focus on every page change (accessibility H1) (Claude)
+- Owner: "start with the page title and navigation" (finding H1 of the Step 107 audit).
+- New `src/hooks/usePageTitle.js`, called in `App.jsx` with the page that is shown:
+  - `document.title` = "<the page's h1> · StatsCool" (no repeat when the h1 already says StatsCool, e.g. About); Home keeps the site title,
+    now also in French ("StatsCool : les statistiques pour la psychologie et les neurosciences", in a dictionary in the hook file);
+    updated on every language change;
+  - after a move to another path, focus goes to the new page's h1 (`tabIndex = -1`, `preventScroll`), so a screen reader announces the
+    page and keyboard users start at its top. Not on the first load, not for a tab or #section link of the same page, and a language
+    change leaves the focus alone. `index.css`: `h1[tabindex="-1"]:focus { outline: none }` (a heading is not a control).
+- Tested in headless Chrome (scratch script): Home → Topics → topic → section link (same path: title and focus unchanged) → game → FR
+  switch → About → Home in French → unknown address → search palette ("quiz" + Enter): title and focus right each time, scroll at 0; a game
+  whose guided tour opens keeps the focus on the tour's button (the tour takes it after the h1). Full `npm run check`: no problems.
+- Not done from the audit (next in the list): the root font size, the skip link, small text and targets.

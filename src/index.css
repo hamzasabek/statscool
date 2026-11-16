@@ -237,6 +237,8 @@ a:hover { text-decoration-color: var(--logo-pink); text-decoration-thickness: 2p
 ::selection { background: color-mix(in srgb, var(--logo-pink) 32%, transparent); }
 
 h1, h2, h3 { letter-spacing: -0.01em; }
+/* A new page puts the focus on its h1 (usePageTitle.js): a heading is not a control, so no ring around it */
+h1[tabindex="-1"]:focus { outline: none; }
 
 code {
   font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;

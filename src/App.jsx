@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from 'react-router'
 import Footer from './components/Footer.jsx'
 import Header from './components/Header.jsx'
 import { SearchProvider } from './components/Search.jsx'
+import { usePageTitle } from './hooks/usePageTitle.js'
 import Home from './pages/Home.jsx'
 import Topics from './pages/Topics.jsx'
 import About from './pages/About.jsx'
@@ -46,6 +47,8 @@ function App() {
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
   }, [shown.pathname])
+
+  usePageTitle(shown.pathname)
 
   return (
     <SearchProvider>

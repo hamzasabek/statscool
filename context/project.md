@@ -112,6 +112,8 @@ src/
                            must match: whole word, beginning, part, one typo, light stem; titles > keywords > descriptions), keywords.js (synonyms and
                            concept words per topic / game / kind / About tab: ADD A LINE when adding a game), text.js (EN + FR texts)
   hooks/
+    usePageTitle.js        document.title = "<h1> · StatsCool" on every page and language change (Home: the site title, EN / FR) and focus
+                           on the new page's h1 after a move to another path (Step 108; WCAG 2.4.2); called in App.jsx
     useSprung.js           numbers / number arrays that follow a target like a spring (interruptible, keeps its
                            speed); usePrefersReducedMotion. Replaced useTweened.js (design refresh, Step 89)
   pages/

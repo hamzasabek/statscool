@@ -36,7 +36,7 @@ setting, Windows High Contrast, a colour-blindness simulation of the charts, and
 
 ### High
 
-**H1. The page title never changes, and nothing announces a new page** (WCAG 2.4.2, 4.1.3; WCAG technique for single-page apps)
+**H1. [FIXED in Step 108] The page title never changes, and nothing announces a new page** (WCAG 2.4.2, 4.1.3; WCAG technique for single-page apps)
 `document.title` is never set (no match in `src/`): every route is "StatsCool: statistics for psychology and neuroscience". The router
 only calls `window.scrollTo(0, 0)`; focus stays on the link that was clicked. A screen-reader user does not hear that the page changed,
 and browser history / tabs all read the same.
