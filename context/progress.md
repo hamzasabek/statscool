@@ -1844,3 +1844,16 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   - Full-page screenshots of Home, Topics, a topic page, the five About tabs, Licences and Privacy, in light and dark; phones (About,
     topic page, Home).
   - Full `npm run check` (36 pages × 2 sizes × EN / FR: no problems; citations, search and licences checks pass).
+
+## 2026-11-16 — Step 104: the framework redesign merged into main (Claude)
+- Owner: "then merge all to main". Branch `redesign-frameworks` (Steps 98-103) merged into `main` with a merge commit (`--no-ff`, as in
+  Step 91). Main had not moved since the branch started (5e12f75), so no conflict.
+- What main now has:
+  - IBM Carbon, Bootstrap, UIkit and HiQ in cascade layers, trimmed by PurgeCSS, fed by our tokens (src/styles/);
+  - the rectangular look (square corners, IBM Plex Mono headings, Carbon buttons and switches, UIkit cards, [1] [2] header links);
+  - the breadcrumb, the phone menu, the topic pages' section bar and tags;
+  - the /licences page with its generated notices;
+  - the graph paper background, with title blocks and sheets instead of lines across the page.
+- After the merge: `npm install` in the main folder (new dependencies); full `npm run check` from main: 36 pages × 2 sizes × EN / FR, no
+  problems; citations, search and licences checks pass. The licence files came out of git with CRLF line endings on this Windows
+  checkout: the licences check ignores line endings (Step 102 fix), and it passed.

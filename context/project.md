@@ -386,6 +386,7 @@ archive/                   code removed from the site in Step 24 (Home, About, d
                            lesson, "Shapes of distributions", DrawChart, Tex, their CSS) and
                            Step 37 (the "Are you psychic?" card game of topic 05).
                            Not built. See archive/README.md to restore a part.
+design/archive/backgrounds/  the five backgrounds not chosen in Step 102-103 (CSS, the test picker, screenshots, README: how to use one again)
 design/logo/               the owner's original logos (1280×720, white / black background).
                            The web versions were made from them: background made transparent
                            (edges un-mixed from white / black so no halo), cropped, resized.

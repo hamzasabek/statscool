@@ -3,7 +3,8 @@
 ## In progress
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
-- Restyling with CSS frameworks (Carbon, Bootstrap, UIkit, HiQ), branch `redesign-frameworks`, worktree `.claude/worktrees/redesign3/`
+- (Done, Step 104: merged into main; kept here one step for the record, remove next time.) Restyling with CSS frameworks (Carbon,
+  Bootstrap, UIkit, HiQ), branch `redesign-frameworks`, worktree `.claude/worktrees/redesign3/`
   (Steps 98-100 in progress.md). Done: spike (layers, bridge, PurgeCSS plugin), the PILOT (switches, game steps, breadcrumb,
   quiz, phone menu, topic page section bar and tags) and, at the owner's request, the RECTANGULAR LOOK on every page (Step 100:
   square corners, IBM Plex Mono headings, Carbon buttons, UIkit cards, [1] [2] header links), the third-party licences (Step 101:
@@ -15,8 +16,9 @@ what is left and which files; remove the item once it is committed. (AGENTS.md, 
   live calculations (Carbon tiles, Bootstrap range), Train shell (Carbon progress bar), tour and citation bubbles (Carbon popover),
   Privacy (HiQ prose in `.hiq`), icon tooltips (UIkit), Bootstrap-owned buttons, cleanup of dead rules in index.css (`.back-link`, ...).
   Never merge into main without the owner's word.
-- The design refresh (Steps 89-91) is merged into `main`. The old branches `redesign-lab-notebook` and `redesign-learning-sites` and the worktrees
-  `.claude/worktrees/redesign` and `redesign2` can be removed when the owner no longer wants to compare (`git worktree remove` then `git branch -D`).
+- The design refresh (Steps 89-91) and the framework redesign (Steps 98-104) are merged into `main`. The old branches `redesign-lab-notebook`,
+  `redesign-learning-sites` and `redesign-frameworks` and the worktrees `.claude/worktrees/redesign`, `redesign2` and `redesign3` can be removed
+  when the owner no longer wants to compare (`git worktree remove` then `git branch -D`).
 - Uncommitted change found 2026-11-15 in the main folder, not made by Claude: it put back the "What we do not claim" block that Step 87
   removed. Before the merge it was saved as a stash (`statscool-premerge-claim-block`) and a patch (`scratch/uncommitted-before-merge.patch`, gitignored);
   the About page was redesigned in the meantime, so it was NOT re-applied. If the owner wants the block back, re-add it by hand on the new About page.
