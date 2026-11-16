@@ -200,18 +200,44 @@ export default function Quiz({ questions, title, topic, guideId, count }) {
               else if (answered && k === pick) state = ' is-wrong'
               else if (answered) state = ' is-off'
               return (
-                <button key={k} type="button" className={`qz-opt${state}`} disabled={answered} aria-pressed={k === pick} onClick={() => choose(k)}>
+                <button
+                  key={k}
+                  type="button"
+                  className={`qz-opt cds--tile cds--tile--selectable${k === pick ? ' cds--tile--is-selected' : ''}${state}`}
+                  disabled={answered}
+                  aria-pressed={k === pick}
+                  onClick={() => choose(k)}
+                >
                   <span className="qz-letter" aria-hidden="true">
                     {answered && k === q.answer ? '✓' : answered && k === pick ? '✗' : LETTERS[k]}
                   </span>
                   {o}
+                  <span className="cds--tile__checkmark" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" width="16" height="16">
+                      <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM7 11.2 4.2 8.4l.9-.9L7 9.4l3.9-3.9.9.9z" />
+                    </svg>
+                  </span>
                 </button>
               )
             })}
           </div>
           {answered && (
-            <div className={`qz-why${right ? ' is-right' : ' is-wrong'}`} aria-live="polite">
-              <strong>{right ? tx.right : tx.wrong}</strong> {q.why}
+            // Carbon inline notification (low contrast): a coloured bar and an icon say right or wrong at a glance.
+            <div
+              className={`qz-why cds--inline-notification cds--inline-notification--low-contrast ${right ? 'cds--inline-notification--success is-right' : 'cds--inline-notification--error is-wrong'}`}
+              role="status"
+              aria-live="polite"
+            >
+              <div className="cds--inline-notification__details">
+                <svg className="cds--inline-notification__icon" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
+                  <circle cx="10" cy="10" r="9" />
+                  <path className="qz-why-mark" d={right ? 'M8.6 13.4 5.3 10.1l1.1-1.1 2.2 2.2 5-5 1.1 1.1z' : 'M13.5 7.6 12.4 6.5 10 8.9 7.6 6.5 6.5 7.6 8.9 10l-2.4 2.4 1.1 1.1 2.4-2.4 2.4 2.4 1.1-1.1-2.4-2.4z'} />
+                </svg>
+                <div className="cds--inline-notification__text-wrapper">
+                  <div className="cds--inline-notification__title">{right ? tx.right : tx.wrong}</div>
+                  <div className="cds--inline-notification__subtitle">{q.why}</div>
+                </div>
+              </div>
             </div>
           )}
         </section>

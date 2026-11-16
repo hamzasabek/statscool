@@ -1674,3 +1674,173 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   New variable `--header-full` (real header height) next to `--header-h`.
 - `sound.js`: bell-like notes (sine + two fast-decaying partials), master low-pass + short quiet echo. `tick` climbs a pentatonic ladder in quick runs (resets after 0.9 s); `right` bright rising fifth + sparkle; `wrong` soft falling two notes (no buzzer); `chime` four-note rising arpeggio. API and when sounds play are unchanged.
 - Not yet checked: the guided tour's `headerBottom()` while the header is hidden; the sounds were not heard by me (owner approved them). Tested: build; `npm run check` on quiz, normal-distribution, mean-median (EN/FR, desktop/phone): no problems.
+
+## 2026-11-15 — Step 98 (branch `redesign-frameworks`): CSS frameworks wired in, no visible change yet (Claude)
+- Owner: restyle the site with IBM Carbon, UIkit, HiQ and Bootstrap, keeping its colours (navy / blue / sky / sun yellow) and the fluorescent logo colours;
+  plan first, then a test branch. Plan approved: one StatsCool look, each kind of element owned by ONE framework, CSS only (no framework JavaScript),
+  frameworks in cascade layers so our unlayered CSS always wins, a token bridge, pilot on four pages before the rest.
+- Branch `redesign-frameworks`, worktree `.claude/worktrees/redesign3/` (own `npm install`). New exact dependencies: `@carbon/styles` 1.119.0,
+  `bootstrap` 5.3.9, `uikit` 3.25.31, `hiq` 4.2.11; dev `sass` 1.108.2, `purgecss` 9.1.0.
+- `src/styles/frameworks.scss` loads each framework inside `@layer hiq, bootstrap, uikit, carbon` (HiQ scoped to `.hiq`, controls inside it reverted);
+  `_carbon.scss` (no reset, no IBM Plex, no body styles; g10 / g100 tokens), `_bootstrap.scss` (core + buttons, breadcrumb, list group, badge, modal,
+  range, switch; no reboot / grid / utilities), `_uikit.scss` (card, off-canvas, subnav, accordion, to-top, tooltip; no base). `src/styles/bridge.css`
+  (unlayered) feeds `--bs-*`, `--cds-*`, `--hiq-*` from our tokens.
+- Size: the four compiled whole = 521 KB of CSS (Carbon alone 271 KB: each component drags its dependencies). So `tools/frameworks-css.mjs`, a Vite plugin
+  serving `virtual:frameworks.css`: Sass compile, then PurgeCSS against `index.html` + `src/**/*.{js,jsx}`, only on the framework CSS (never on ours).
+  Framework class names must therefore be written in full in the sources. Result now: 135.6 KB (was 130.6 KB), since almost no framework class is used yet.
+- Tested: build; `npm run check` on Home, a topic page, inner clock, quiz, playground, About (desktop + phone): no problems; screenshots compared with
+  `main` pixel by pixel: identical (the quiz differs only by its random question).
+
+## 2026-11-15 — Step 99 (branch `redesign-frameworks`): pilot of the framework restyle (Claude)
+- What changed for the student (shared pieces, so every page that uses them follows):
+  - Switches: every `.segmented` (EN | FR, game views and modes) is a Carbon content switcher. `_carbon.scss` maps our class onto
+    Carbon's with Sass @extend, so no game file changed. Drawn as a hairline pill track with a navy pill for the choice; Carbon's
+    ::after fill and dividers are off (they sat above plain-text labels). Old `.segmented` rules removed from index.css.
+  - Game steps (`Steps` in Stage.jsx): a Carbon progress indicator, with a line on top of each step (navy when done or current). Each
+    step has a ring: ✓ when done, a yellow core for "you are here", empty for what comes next. Phones show only the current label.
+  - Breadcrumb (new `components/Breadcrumb.jsx`, Bootstrap): "Topics › <topic>" replaces the "← <topic>" back link in every game and
+    the back link + eyebrow on topic pages ("Topics › Part 1 · Topic 01").
+  - Quiz (`components/Quiz.jsx`): options are Carbon selectable tiles (a check mark at the right marks your pick). The answer shows
+    as a Carbon inline notification: a coloured bar and an icon, sky for right, red for not quite. The ✓ / ✗ were taken out of the
+    "Right!" / "Juste !" texts (the icon says it). The quiz's coloured score dots are kept: they are the site's dots.
+  - Phone menu (new `components/Menu.jsx`): at 700 px or less the header shows logo, search and one menu button. A UIkit off-canvas
+    panel slides from the right with Topics / About, the language and two Bootstrap switches (sound, dark mode: yellow when on, navy
+    knob). It is rendered in a portal (the header's backdrop blur would trap it). Escape, a tap outside or a link closes it, and focus
+    goes into it and back. New COMMON texts (EN / FR): breadcrumb, menu, closeMenu, sound, darkMode, onThisPage.
+  - Topic pages (`pages/TopicPage.jsx`): a sticky "On this page" bar (UIkit subnav, pill) with Discover · Explore · Train your eye ·
+    Check yourself · References, each with its step colour. The section in view is marked by our own scroll-spy. Buttons, not
+    #anchors, because the site uses hash routes. The activity kind ("Game 1", "Free play", ...) is a Carbon tag in its step's colour.
+- Supporting changes:
+  - `theme.js` / `index.html` also set `data-bs-theme`. The theme hooks follow `<html data-theme>` (MutationObserver), so the header
+    and menu switches agree.
+  - `tools/check.mjs`: new `--theme=light|dark` option (the screenshot names get the theme).
+- Owner's earlier choices kept: cards without shadows (so UIkit cards were NOT applied), rounded corners and pills, Inter + Fraunces,
+  no capitals (UIkit subnav's uppercase turned off).
+- Size: CSS 170.5 KB (gzip 34.7 KB), was 130.6 KB on main; no framework JavaScript.
+- Tested:
+  - `npm run build`; full `npm run check`: 35 pages × 2 sizes × EN / FR = 140 views, no problems, every game still one screen on desktop.
+  - Screenshots in light and dark (topic page, live calculation, inner clock desktop + phone, quiz, menu).
+  - Interactions in headless Chrome (scratch script): the menu opens (bar at right: 0, focus on the close button); the dark switch sets
+    data-theme and data-bs-theme; Escape closes the menu; a link navigates and closes it; a quiz answer shows the notification and
+    the selected tile; the section bar marks "Train your eye" after a jump.
+
+## 2026-11-16 — Step 100 (branch `redesign-frameworks`): the rectangular look, Carbon + UIkit + a little OpenCode (Claude)
+- Owner, after the pilot: "I don't see a lot of changes; the most important thing is the rectangular simple style of Carbon and UIkit,
+  use it a lot, especially for cards, buttons...; a style a little like OpenCode".
+- Research: opencode.ai photographed in headless Chrome and its computed styles read (scratch script): near-black page, a monospace
+  for headings / nav / numbers ("[1] Docs", "01 02 03"), Inter for body text, 0 px corners everywhere, flat rectangles with 1 px
+  hairlines (#2e2e2e), solid rectangular buttons (light fill or dark grey with ›), sections split by full-width hairlines with a bold
+  monospace label in a left column, bordered grids with shared lines.
+- What changed (index.css tokens + `src/styles/bridge.css`, now loaded AFTER index.css so the framework look wins):
+  - Shapes: `--r-xs/sm/md/lg/pill` all 0. Cards, buttons, switches, tags, panels, tour and citation bubbles, the search field and the
+    phone menu are rectangles; SVG highlight bands and stimulus boxes too (CSS `rx: 0` on `.page svg rect`). Still round: the data
+    dots, the step rings, the games' big press buttons (Start, Tap to start), colour swatches, the quiz score dots, the switches' knob.
+  - Type: headings in IBM Plex Mono (Carbon's monospace, SIL OFL, self-hosted: `src/assets/fonts/ibm-plex-mono-400/600.woff2` + licence;
+    the complete files cover French and the arrows / maths signs). Page titles 400 with tight tracking (OpenCode), section and card titles
+    600, body text stays Inter. New token `--font-mono` for labels and numbers (eyebrows, "Part 1", counts, axis ticks, stat values, the
+    breadcrumb, tags, tabs). Fraunces is no longer used (its @font-face stays: one token switches back, see the comment on --font-display).
+  - Header: OpenCode's numbered links "[1] Topics  [2] About" in the monospace (the number takes the step colour when the page is
+    open; the brackets are hidden from screen readers with CSS alt text); the phone menu numbers its links the same way.
+  - Buttons (Bootstrap .btn drawn as Carbon buttons): 40 px rectangles (32 small, 48 large); primary = flat yellow with navy text and a
+    hairline; secondary = an ink rectangle (light in dark mode, as OpenCode); ghost = text in the link colour (Carbon's ghost button).
+  - Cards: UIkit cards (`_uikit.scss` maps `.rule-list > li`, `.qz-card`, `.pg-card`, `.cl-card`, `.rc`, `.hero-sheet` onto `.uk-card
+    .uk-card-default` with @extend), drawn flat and square on a hairline; the step tints of Step 90 are kept.
+  - Markers: the logo colours as small squares (steps, activities on the topics page, section bar, search results); the four steps on
+    Home / About numbered 01-04 in square tinted boxes.
+  - Sections split by full-width hairlines (topic page groups, topics page parts, Home sections, references).
+  - Switches: Carbon's own rectangular content switcher (hairline edge, hairline dividers, navy fill for the choice).
+  - "On this page" bar: Carbon line tabs (hairline under the bar, 2 px under the section in view). About tabs: Carbon vertical tabs
+    (a rail with 2 px on the open tab; a line under them on phones). Topics page search field: Carbon text input (filled, line under it).
+  - Grids with shared hairlines: the playground's three centres (Mode / Median / Mean), the recap table head (monospace, tinted).
+  - Breadcrumb as a path: "Topics / Mean, median and mode" in the monospace. Quiz letters and review marks square; answer keys of
+    "Pick a random number" square with monospace digits.
+- Texts kept true: About "built" line (EN / FR) now names IBM Carbon, Bootstrap and UIkit and the fonts IBM Plex Mono and Inter; the
+  privacy page names Inter and IBM Plex Mono as the self-hosted fonts.
+- Licences: `frameworks.scss` starts with a /*! */ notice (Carbon Apache-2.0, Bootstrap / UIkit / HiQ MIT); `vite.config.js` keeps legal
+  comments at the end of the built files (`esbuild.legalComments: 'eof'`), so the libraries' own notices ship too (JS +8 KB raw).
+- Size: CSS 176.7 KB (gzip 36.2 KB), main 130.6 KB; fonts +93 KB (two Plex Mono weights, loaded only when used).
+- Tested: `npm run build`; full `npm run check` (35 pages x 2 sizes x EN / FR: no problems, every game one screen on desktop); `--theme`
+  light and dark screenshots of every kind of page (Home, Topics, topic page, About, References, Privacy, 14 games and extras, quiz
+  answered, tour bubble, search palette, citation bubble, phone menu); the interaction script again (menu, Escape, dark switch, quiz
+  notification, section bar): all as before, no console errors.
+
+## 2026-11-16 — Step 101 (branch `redesign-frameworks`): licences of the frameworks and fonts, always shown (Claude)
+- Owner: "make what is necessary so our website always shows the copyright and licence obligations of the frameworks and fonts we recently added".
+- What the licences ask:
+  - MIT (Bootstrap, UIkit, HiQ, React, React Router, Motion, KaTeX) and ISC (D3): the copyright line and the permission notice travel with the code.
+  - Apache 2.0 (IBM Carbon): a copy of the licence, and a notice that we changed the files.
+  - SIL OFL 1.1 (Inter, IBM Plex Mono, Fraunces, KaTeX's math fonts): the licence travels with the font files. Before this step it did not:
+    the font licences sat in src/assets/fonts and were not part of the built site.
+- New `tools/licenses.mjs` (`npm run licenses`):
+  - It builds the site in memory and reads what really ships: npm packages in the JavaScript (React + scheduler, React Router, 7 d3-*
+    modules, Motion's 4 packages, KaTeX), the font files emitted, and the CSS frameworks whose cascade layer holds rules.
+  - It writes `public/licenses/<project>.txt` (served at ./licenses/…; name, packages and versions, licence, "Changes" for the CSS frameworks,
+    copyright lines, full licence texts), `public/licenses/THIRD-PARTY-NOTICES.txt` (all in one) and `src/licenses.js` (data of the page).
+  - A shipped package with no project in its list stops it. KaTeX ships no licence file for its fonts: their notice is rebuilt from the
+    font files' name table (Design Science 2009-2010, Khan Academy 2014-2018, Reserved Font Names KaTeX_*) + the OFL text.
+  - `npm run check` now runs `node tools/licenses.mjs --check` (fails if a notice is missing or out of date) and crawls /licences.
+- New page /licences (`pages/Licences.jsx`, texts `LICENCES_PAGE` in pages/text.js, EN / FR):
+  - Fonts / Styles / Code, one row per project: what it does here, packages and versions, licence, copyright, a link to the full text;
+    "Changed by StatsCool" on the CSS frameworks; a link to the file with every notice; StatsCool's own licences (About, Use and cite).
+  - It is linked from:
+    - the footer of every page except the games (Privacy · Licences · About);
+    - the foot of the phone menu (Privacy · Licences);
+    - About > Use and cite (new sentence);
+    - the privacy page's legal notice ("Licences" entry extended; "Last updated" now 16 November 2026);
+    - the search (`keywords.js` PAGES entry).
+- CSS: `frameworks.scss` starts with a /*! */ notice; `esbuild.legalComments: 'eof'` keeps it, and the JS libraries' own notices, in the built files.
+- HiQ is now really used: the bodies of /licences and /privacy are HiQ prose (class `hiq`). `tools/frameworks-css.mjs` removes HiQ's form,
+  meter, dialog and utility rules after PurgeCSS (they were 38 KB of its 49 KB), so HiQ costs 15 KB. `tools/cite-check.mjs` skips the
+  generated src/licenses.js (copyright lines looked like hand-typed citations).
+- Tested:
+  - `npm run licenses` then `--check`; full `npm run check` (36 pages × 2 sizes × EN / FR = 144 views, no problems).
+  - Screenshots of /licences, /privacy and About > Use and cite; dist/licenses/ holds the 14 text files.
+
+## 2026-11-16 — Step 102 (branch `redesign-frameworks`): background test for the rectangular look (Claude)
+- Owner: before merging, test background colours that fit the new design; search frameworks, repositories and sites and propose some.
+- Research:
+  - IBM Carbon's themes read from @carbon/themes: white #ffffff / g10 #f4f4f4 / g90 #262626 / g100 #161616, cards #ffffff in g10 and #262626 in g100.
+  - UIkit: #fff, muted #f8f8f8, secondary #222. Bootstrap: #fff, dark #212529.
+  - Vercel Geist, read from vercel.com/geist/colors in headless Chrome: #ffffff / #fafafa light, #0a0a0a / #000 dark.
+  - opencode.ai (measured in Step 100): #0c0c0c, panels #161616, lines #2e2e2e.
+  - Tokyo Night (folke/tokyonight.nvim): Night #1a1b26, Storm #24283b. Catppuccin: Latte #eff1f5, Mocha #1e1e2e. GitHub Primer: #0d1117 dark.
+- Six options, light and dark, only the neutral tokens change (palette, logo colours, step tints stay):
+  StatsCool (today), IBM Carbon (g10 / g100), OpenCode (Geist white / opencode black), Paper (warm), Night blue (Tokyo Night),
+  Graph paper (a 24 px grid on the page). File `src/styles/backgrounds.css` (`<html data-bg>`).
+- Contrast checked by script: text, muted text and the step colours ≥ 4.5:1, axes ≥ 3:1, on page and cards. The logo pink as text in dark
+  mode was 4.37:1 on the Carbon and Night cards: #ff47a2 there (4.8:1).
+- TEST picker `components/BgPicker.jsx`: a narrow vertical tab on the left edge, halfway down, on every page. It opens the six options with
+  swatches and one line each (EN / FR). The choice is kept in memory only (no new localStorage key, so the privacy page stays true); a
+  link can carry one (`#/topics?bg=paper`).
+- Tested:
+  - Screenshots of Home, a topic page and a game for the 6 options in light and dark (36).
+  - Picker in headless Chrome: opens, sets data-bg, body colour changes, Escape closes, kept across pages, back to default.
+  - Full `npm run check`: no problems.
+- To do once the owner chooses: put the chosen values in index.css (`:root` and `[data-theme='dark']`), delete backgrounds.css and
+  BgPicker.jsx (and their two imports), run the check, then merge only on the owner's word.
+
+## 2026-11-16 — Step 103 (branch `redesign-frameworks`): graph paper chosen, the other backgrounds archived, no more lines across the page (Claude)
+- Owner: chose the graph background; archive the other ones (they may be used another time); the lines that separate sections are not
+  beautiful on the graph background, find another solution; then merge everything into main.
+- Graph paper is the default (`src/index.css`): light page #f7f9fc, white sheets #ffffff; dark page #0d1117, sheets #161b22 (with the
+  dark greys of Step 102); `--paper-line` (navy 6.5 % light, periwinkle 7.5 % dark) drawn by `body` as a 24 px grid. The grain (`--grain`)
+  is gone from the tokens. The test picker and `src/styles/backgrounds.css` are out of the site.
+- Archive `design/archive/backgrounds/` (outside src, not built):
+  - `backgrounds.css`: StatsCool (the background before this step, written out with its grain), IBM Carbon, OpenCode, Paper (with its
+    grain), Night blue, plus the picker's styles and a rule that turns the grid off when an option is on;
+  - `BgPicker.jsx`: the picker, graph paper as its default;
+  - `README.md`: values, sources, contrast notes, how to make one the default or bring the picker back;
+  - `compare-*.jpg`: the Step 102 screenshots of the six options, light and dark.
+- Lines across the page replaced. On the grid, a full-width hairline read as a stray grid line. Now:
+  - Sections are set apart by space (56-88 px).
+  - Every section title is a title block, as on a technical drawing: a white label with a hairline, with its step colour when it has one.
+    This covers the topic page groups and references, the Topics page parts, the Home sections, Privacy, Licences and the About tabs.
+  - Every list with rows, or group of short texts, lies on an opaque sheet, so its lines are drawn on paper, never on the grid:
+    Home's four steps and three facts, About's four steps, teaching rows, three choices, experiments, Use-and-cite cards and its tab
+    rail, the Licences list, and the previous / next topic links (now two tiles).
+  - The "Start with …" link at the end of Home is a tile. Lines inside cards (recap sheet, search window, phone menu) stay: they sit on paper.
+- `postcss` 8.5.32 declared as an exact dev dependency (tools/frameworks-css.mjs imports it; it was only there through Vite and PurgeCSS).
+- Tested:
+  - Full-page screenshots of Home, Topics, a topic page, the five About tabs, Licences and Privacy, in light and dark; phones (About,
+    topic page, Home).
+  - Full `npm run check` (36 pages × 2 sizes × EN / FR: no problems; citations, search and licences checks pass).

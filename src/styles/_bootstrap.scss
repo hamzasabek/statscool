@@ -1,0 +1,30 @@
+// Bootstrap 5.3: the required core plus the components StatsCool uses. No reboot, no grid, no utilities,
+// no JavaScript. Loaded inside @layer bootstrap by frameworks.scss; the run-time colours come from
+// --bs-* custom properties set in bridge.css (so light / dark follow our tokens).
+@import 'bootstrap/scss/functions';
+
+$primary: #ffde42; // sun: the main button is the student's yellow dot
+$secondary: #111fa2; // navy
+$info: #53cbf3; // sky
+$danger: #c92a2a;
+$font-family-sans-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+$enable-shadows: false;
+$enable-gradients: false;
+$enable-smooth-scroll: false;
+$border-radius: 12px;
+$border-radius-sm: 6px;
+$border-radius-lg: 20px;
+$border-radius-pill: 999px;
+
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/breadcrumb';
+@import 'bootstrap/scss/list-group';
+@import 'bootstrap/scss/badge';
+@import 'bootstrap/scss/modal';
+@import 'bootstrap/scss/forms/form-range';
+@import 'bootstrap/scss/forms/form-check';

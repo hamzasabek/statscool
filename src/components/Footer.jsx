@@ -9,6 +9,8 @@ export default function Footer() {
     <footer className="site-foot">
       <Link to="/privacy">{tx.footPrivacy}</Link>
       <span aria-hidden="true">·</span>
+      <Link to="/licences">{tx.footLicences}</Link>
+      <span aria-hidden="true">·</span>
       <Link to="/about">{tx.footAbout}</Link>
     </footer>
   )

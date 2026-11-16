@@ -3,6 +3,18 @@
 ## In progress
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
+- Restyling with CSS frameworks (Carbon, Bootstrap, UIkit, HiQ), branch `redesign-frameworks`, worktree `.claude/worktrees/redesign3/`
+  (Steps 98-100 in progress.md). Done: spike (layers, bridge, PurgeCSS plugin), the PILOT (switches, game steps, breadcrumb,
+  quiz, phone menu, topic page section bar and tags) and, at the owner's request, the RECTANGULAR LOOK on every page (Step 100:
+  square corners, IBM Plex Mono headings, Carbon buttons, UIkit cards, [1] [2] header links), the third-party licences (Step 101:
+  /licences, public/licenses/, npm run licenses, checked by npm run check) and a BACKGROUND TEST (Step 102: six options in
+  src/styles/backgrounds.css, picker components/BgPicker.jsx on the left edge). Owner chose graph paper (Step 103): it is the
+  default, the five others are archived in design/archive/backgrounds/ (README there says how to use one again), and the lines
+  across the page became title blocks and sheets. Merging into main was asked by the owner (Step 104). If go, left: About (Carbon
+  vertical tabs, UIkit accordion), References (Bootstrap list group), search palette (Bootstrap modal + list group), playgrounds and
+  live calculations (Carbon tiles, Bootstrap range), Train shell (Carbon progress bar), tour and citation bubbles (Carbon popover),
+  Privacy (HiQ prose in `.hiq`), icon tooltips (UIkit), Bootstrap-owned buttons, cleanup of dead rules in index.css (`.back-link`, ...).
+  Never merge into main without the owner's word.
 - The design refresh (Steps 89-91) is merged into `main`. The old branches `redesign-lab-notebook` and `redesign-learning-sites` and the worktrees
   `.claude/worktrees/redesign` and `redesign2` can be removed when the owner no longer wants to compare (`git worktree remove` then `git branch -D`).
 - Uncommitted change found 2026-11-15 in the main folder, not made by Claude: it put back the "What we do not claim" block that Step 87

@@ -9,6 +9,7 @@ import Topics from './pages/Topics.jsx'
 import About from './pages/About.jsx'
 import NotFound from './pages/NotFound.jsx'
 import Privacy from './pages/Privacy.jsx'
+import Licences from './pages/Licences.jsx'
 import References from './pages/References.jsx'
 import { GamePage, TopicPage } from './pages/TopicPage.jsx'
 
@@ -56,6 +57,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/references" element={<References />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/licences" element={<Licences />} />
           <Route path="/topics/:slug" element={<TopicPage />} />
           <Route path="/topics/:slug/:game" element={<GamePage />} />
           <Route path="*" element={<NotFound />} />

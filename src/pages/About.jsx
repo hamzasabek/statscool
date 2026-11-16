@@ -160,6 +160,11 @@ function Use({ tx }) {
             {tx.ccAfter}
           </p>
           <p>{tx.reserved}</p>
+          <p>
+            {tx.thirdBefore}
+            <Link to="/licences">{tx.thirdLink}</Link>
+            {tx.thirdAfter}
+          </p>
         </section>
         <section className="about-card">
           <h3>{tx.privacyTitle}</h3>

@@ -11,6 +11,7 @@
 //   npm run check                                  every page (crawled from /topics)
 //   npm run check -- /topics/variance-sd/quiz      only these routes (hash routes, without "#")
 //   npm run check -- --sizes=1366x768,390x844 --lang=en,fr --shots --no-build
+//     --theme=light or dark   force the colour mode (default: the browser's setting)
 //     --shots    save a screenshot of each page in scratch/check/ (gitignored)
 //     --no-build use the existing dist/
 // Chrome: set CHROME=/path/to/chrome if it is not found. Needs Node 22+ (built-in WebSocket).
@@ -29,6 +30,7 @@ const sizes = opt('sizes', '1366x768,390x844')
   .map((s) => s.split('x').map(Number))
 const langs = opt('lang', 'en,fr').split(',')
 const shots = flag('shots')
+const theme = opt('theme', '')
 // A route can be written "topics/x/y", "/topics/x/y" or "#/topics/x/y" (Git Bash turns a leading
 // "/" into a Windows path: that is undone here too).
 const norm = (r) =>
@@ -78,6 +80,15 @@ if (!flag('no-build')) {
     process.exit(1)
   }
 }
+// Licences: every package, font and CSS framework the build ships has its notice (tools/licenses.mjs).
+{
+  const { spawnSync } = await import('node:child_process')
+  const r = spawnSync(process.execPath, ['tools/licenses.mjs', '--check'], { stdio: 'inherit' })
+  if (r.status) {
+    console.log('Fix the licences (npm run licenses).')
+    process.exit(1)
+  }
+}
 const server = await preview({ preview: { port: PORT, strictPort: true }, logLevel: 'error' })
 const base = `http://localhost:${PORT}/`
 
@@ -120,6 +131,7 @@ async function open(route, w, h, lang) {
   await send('Page.navigate', { url: base })
   await sleep(300)
   await ev(`localStorage.setItem('statscool-lang', '${lang}')`)
+  if (theme) await ev(`localStorage.setItem('statscool-theme', '${theme}')`)
   // A hash-only change does not reload the page (the app would keep the language it read at load
   // time), and a reload right after it can race and reload the previous route: go through a blank
   // page so the route is always a fresh load that reads the language just stored.
@@ -133,7 +145,7 @@ async function open(route, w, h, lang) {
 if (!routes.length) {
   await open('/topics', 1366, 768, 'en')
   const topics = await ev(`[...new Set([...document.querySelectorAll('a[href^="#/topics/"]')].map((a) => a.getAttribute('href').slice(1)))]`)
-  const all = new Set(['/', '/topics', '/about', '/references', '/privacy', ...topics])
+  const all = new Set(['/', '/topics', '/about', '/references', '/privacy', '/licences', ...topics])
   for (const t of topics) {
     await open(t, 1366, 768, 'en')
     const links = await ev(`[...document.querySelectorAll('a[href^="#/topics/"]')].map((a) => a.getAttribute('href').slice(1))`)
@@ -171,7 +183,7 @@ for (const route of routes) {
       console.log(parts.filter(Boolean).join('  '))
       if (shots) {
         const shot = await send('Page.captureScreenshot', { format: 'png' })
-        const name = `${route.replace(/\W+/g, '_').replace(/^_|_$/g, '') || 'home'}-${w}-${lang}.png`
+        const name = `${route.replace(/\W+/g, '_').replace(/^_|_$/g, '') || 'home'}-${w}-${lang}${theme ? `-${theme}` : ''}.png`
         writeFileSync(join('scratch/check', name), Buffer.from(shot.result.data, 'base64'))
       }
     }

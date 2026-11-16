@@ -18,7 +18,8 @@ const problems = []
 
 const used = new Set()
 for (const f of files(src)) {
-  if (/references\.js$|cite\.jsx$/.test(f)) continue
+  // src/licenses.js is generated (tools/licenses.mjs): its copyright notices ("Copyright 2016 …", "@carbon/styles") are not citations.
+  if (/references\.js$|cite\.jsx$|licenses\.js$/.test(f)) continue
   for (const k of keysInFile(f)) {
     used.add(k)
     if (!REFS[k]) problems.push(`${rel(root, f)}: unknown reference @${k}`)

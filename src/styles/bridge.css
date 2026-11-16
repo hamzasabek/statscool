@@ -1,0 +1,447 @@
+/* ==========================================================================================
+   Token bridge (redesign-frameworks branch): every framework reads StatsCool's tokens (src/index.css,
+   :root and [data-theme='dark']), so the frameworks follow our colours, fonts, corners and light / dark.
+   Unlayered: it wins over the framework layers (src/styles/frameworks.scss).
+   ========================================================================================== */
+
+/* ---------- Bootstrap (--bs-*) ---------- */
+:root {
+  --bs-body-font-family: var(--font-ui);
+  --bs-body-color: var(--text);
+  --bs-body-bg: var(--bg);
+  --bs-secondary-color: var(--muted);
+  --bs-tertiary-bg: var(--hover);
+  --bs-border-color: var(--border);
+  --bs-border-radius: var(--r-md);
+  --bs-border-radius-sm: var(--r-sm);
+  --bs-border-radius-lg: var(--r-lg);
+  --bs-border-radius-pill: var(--r-pill);
+  --bs-link-color: var(--accent);
+  --bs-link-hover-color: var(--accent);
+  --bs-emphasis-color: var(--text);
+  --bs-focus-ring-color: color-mix(in srgb, var(--focus) 40%, transparent);
+}
+
+/* ---------- IBM Carbon (--cds-*) ---------- */
+:root {
+  --cds-interactive: var(--accent);
+  --cds-focus: var(--focus);
+  --cds-text-primary: var(--text);
+  --cds-text-secondary: var(--muted);
+  --cds-text-helper: var(--muted);
+  --cds-background: var(--bg);
+  --cds-layer-01: var(--surface);
+  --cds-layer-02: var(--hover);
+  --cds-layer-hover-01: var(--hover);
+  --cds-border-subtle-01: var(--border);
+  --cds-border-strong-01: var(--border-strong);
+  --cds-link-primary: var(--accent);
+  --cds-support-success: var(--real);           /* right answers are sky-blue on this site, not green */
+  --cds-notification-background-success: color-mix(in srgb, var(--real) 11%, var(--surface));
+  --cds-notification-background-error: color-mix(in srgb, var(--danger) 9%, var(--surface));
+  --cds-layer-selected-inverse: var(--accent);
+  --cds-text-inverse: var(--on-accent);
+  --cds-icon-primary: var(--text);
+  --cds-icon-secondary: var(--muted);
+  --cds-support-error: var(--danger);
+  --cds-support-info: var(--cyan-text);
+  --cds-support-warning: var(--sun);
+}
+/* Carbon components use our text font, not IBM Plex. */
+:where([class^='cds--'], [class*=' cds--']) { font-family: var(--font-ui); }
+
+/* ---------- UIkit (uk-*) ---------- */
+:where([class^='uk-'], [class*=' uk-']) { font-family: var(--font-ui); }
+
+/* ---------- HiQ (--hiq-*), only inside .hiq ---------- */
+.hiq {
+  --hiq-font-family-base: var(--font-ui);
+  --hiq-text-color: var(--text);
+  --hiq-heading-font-weight: var(--fw-display);
+  --hiq-link-color: var(--accent);
+  --hiq-link-hover-color: var(--accent);
+  --hiq-color-primary: var(--navy);
+  --hiq-table-cell-border-color: var(--border);
+  --hiq-table-heading-background-color: var(--hover);
+  --hiq-table-heading-text-color: var(--muted);
+  --hiq-outline-color: var(--focus);
+}
+
+/* ==========================================================================================
+   Components: how each framework's piece looks on StatsCool (pilot, Step 99)
+   ========================================================================================== */
+
+/* ---------- Carbon content switcher = every .segmented switch (EN | FR, game views and modes) ----------
+   Carbon's own shape: a rectangle with a hairline edge, segments split by hairlines, the choice filled in navy. */
+.segmented {
+  --cds-border-inverse: var(--border-strong);
+  --cds-border-subtle: var(--border);
+  --cds-layer-hover: var(--hover);
+  --cds-focus-inset: var(--surface);
+  display: inline-flex;
+  inline-size: auto;
+  max-inline-size: 100%;
+  block-size: auto;
+  gap: 0;
+  padding: 0;
+  border-radius: 0;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
+}
+.segmented > button,
+.segmented > button:first-child,
+.segmented > button:last-child {
+  flex: 1 1 auto;
+  inline-size: auto;
+  block-size: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 14px;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--muted);
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.segmented > button + button { box-shadow: inset 1px 0 0 var(--border-strong); }
+.segmented > button:hover:not(:disabled) { background-color: var(--hover); color: var(--text); }
+.segmented > button.is-active,
+.segmented > button.is-active:hover { background-color: var(--accent); color: var(--on-accent); box-shadow: none; }
+.segmented > button.is-active + button { box-shadow: none; }
+/* Carbon draws the selected fill and the dividers with ::after / ::before above plain text: drawn here instead. */
+.segmented > button::after,
+.segmented > button::before { display: none; }
+.segmented > button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.segmented > button:disabled { opacity: 0.4; }
+.lang-switch > button,
+.lang-switch > button:first-child,
+.lang-switch > button:last-child { block-size: 30px; padding: 0 10px; font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.02em; }
+
+/* ---------- Carbon progress indicator = the steps of a game (Stage.jsx) ----------
+   A line on top of each step (navy when done or current), a ring per step: ✓ done, a yellow core for
+   "you are here" (the student's colour), an empty ring for what comes next. */
+.steps.cds--progress { gap: 0; margin: 0; padding: 0 0 2px; }
+.steps .cds--progress-step { inline-size: auto; min-inline-size: 6.5rem; padding-inline-end: 14px; }
+.steps .cds--progress-line { inline-size: 100%; }
+.steps .cds--progress-step-button { cursor: default; }
+.steps .cds--progress-step svg { margin-block-start: 0.6rem; fill: var(--accent); }
+.steps .cds--progress-step--incomplete svg { fill: var(--axis); }
+.steps .step-core { fill: var(--sun); stroke: var(--dot-stroke); stroke-width: 0.6; }
+.steps .cds--progress-label { max-inline-size: none; margin-block-start: 0.45rem; font-size: var(--fs-sm); line-height: 1.4; color: var(--muted); }
+.steps .cds--progress-step--current .cds--progress-label { color: var(--text); font-weight: var(--fw-medium); }
+.steps .cds--progress-step--incomplete .cds--progress-line { background-color: var(--border); }
+@media (max-width: 520px) {
+  .steps .cds--progress-step { min-inline-size: 0; padding-inline-end: 8px; }
+  .steps .cds--progress-step:not(.cds--progress-step--current) .cds--progress-label { display: none; }
+}
+
+/* ---------- Bootstrap breadcrumb = "Topics › Mean, median and mode" (Breadcrumb.jsx) ---------- */
+.breadcrumb {
+  --bs-breadcrumb-divider: '/';
+  font-family: var(--font-mono);
+  --bs-breadcrumb-margin-bottom: 0;
+  --bs-breadcrumb-item-padding-x: 0.45rem;
+  --bs-breadcrumb-divider-color: var(--axis);
+  --bs-breadcrumb-item-active-color: var(--text);
+  font-size: var(--fs-sm);
+}
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); text-decoration: underline; text-decoration-color: var(--logo-pink); }
+.breadcrumb-item.active { font-weight: var(--fw-medium); }
+
+/* ---------- Carbon selectable tiles = the quiz options (Quiz.jsx) ---------- */
+.qz-opt.cds--tile { min-block-size: 0; min-inline-size: 0; padding-inline-end: 44px; font-size: var(--fs-md); line-height: 1.45; letter-spacing: 0; }
+.qz-opt .cds--tile__checkmark { inset-block-start: 50%; inset-inline-end: 14px; translate: 0 -50%; block-size: 16px; }
+.qz-opt.cds--tile--is-selected { border-color: transparent; }
+.qz-opt.cds--tile--is-selected .cds--tile__checkmark svg { fill: currentColor; }
+
+/* ---------- Carbon inline notification = the quiz's "right / not quite" and its explanation ---------- */
+.qz-why.cds--inline-notification { max-inline-size: none; min-inline-size: 0; min-block-size: 0; border-radius: 0 var(--r-md) var(--r-md) 0; color: var(--text); }
+.qz-why.cds--inline-notification::before { border-radius: 0 var(--r-md) var(--r-md) 0; }
+.qz-why .cds--inline-notification__details { margin-inline: 14px 16px; }
+.qz-why .cds--inline-notification__icon { margin-block-start: 0.8rem; margin-inline-end: 12px; }
+.qz-why .cds--inline-notification__text-wrapper { display: block; padding: 0.75rem 0; }
+.qz-why .cds--inline-notification__title { display: inline; margin-inline-end: 0.35rem; font-size: var(--fs-md); font-weight: var(--fw-bold); letter-spacing: 0; }
+.qz-why .cds--inline-notification__subtitle { display: inline; font-size: var(--fs-md); line-height: 1.5; letter-spacing: 0; }
+.qz-why.is-right .cds--inline-notification__title { color: var(--real); }
+.qz-why.is-wrong .cds--inline-notification__title { color: var(--danger); }
+.qz-why .qz-why-mark { fill: var(--surface); }
+
+/* ---------- UIkit off-canvas = the phone menu (Menu.jsx), Bootstrap switches inside ---------- */
+.btn.menu-btn { display: none; width: 36px; height: 36px; padding: 0; flex: none; color: var(--text); }
+.menu-btn svg, .menu-close svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; }
+@media (max-width: 700px) {
+  .header-desk { display: none !important; }
+  .btn.menu-btn { display: inline-flex; }
+}
+.menu-root .uk-offcanvas { display: block; z-index: 1000; }
+.menu-root .uk-offcanvas-overlay::before { background: color-mix(in srgb, var(--navy) 22%, rgb(0 0 0 / 0.25)); }
+.menu-bar.uk-offcanvas-bar {
+  width: min(300px, 86vw);
+  padding: 64px 22px 24px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-pop);
+  border-radius: var(--r-lg) 0 0 var(--r-lg);
+}
+.uk-offcanvas-flip .menu-bar.uk-offcanvas-bar { right: min(-300px, -86vw); }
+.uk-offcanvas-flip .uk-open > .menu-bar.uk-offcanvas-bar { right: 0; }
+.uk-offcanvas-bar-animation { transition: right 0.3s var(--ease-out), left 0.3s var(--ease-out); }
+@media (prefers-reduced-motion: reduce) { .uk-offcanvas-bar-animation, .uk-offcanvas-overlay::before { transition: none; } }
+.btn.menu-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; padding: 0; }
+.menu-nav { display: grid; gap: 4px; margin-bottom: 26px; }
+.menu-nav a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: var(--r-md);
+  color: var(--text); font-family: var(--font-display); font-weight: var(--fw-display); font-size: var(--fs-xl);
+  text-decoration: none;
+}
+.menu-nav a::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); }
+.menu-nav a.active::before { background: var(--logo-pink); }
+.menu-nav a:nth-child(2).active::before { background: var(--logo-cyan); }
+.menu-nav a:hover, .menu-nav a.active { background: var(--hover); }
+.menu-settings { display: grid; gap: 14px; padding-top: 20px; border-top: 1px solid var(--border); }
+.menu-label { margin: 0 0 -6px; font-size: var(--fs-sm); color: var(--muted); }
+.menu-settings .segmented { inline-size: 100%; }
+
+/* Bootstrap form-switch: yellow when on (the student's colour), navy knob. */
+.form-check.form-switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 0; margin: 0; padding: 0; font-weight: var(--fw-medium); }
+.form-switch .form-check-input { order: 2; float: none; width: 2.6em; height: 1.4em; margin: 0; cursor: pointer; background-color: var(--hover-strong); border-color: var(--border-strong); }
+.form-switch .form-check-input:checked {
+  background-color: var(--sun);
+  border-color: var(--dot-stroke);
+  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23111fa2'/%3e%3c/svg%3e");
+}
+.form-switch .form-check-input:focus { border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 30%, transparent); }
+.form-check-label { cursor: pointer; }
+
+/* ---------- UIkit subnav (pill) = the "On this page" bar of a topic page ---------- */
+.topic-sections {
+  position: sticky; top: 24px; z-index: 5; /* below the header's small grey tab */
+  margin: 0 0 28px; padding: 6px;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  box-shadow: 0 0 0 1px var(--border);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  overflow-x: auto; scrollbar-width: none;
+}
+.topic-sections .uk-subnav { display: flex; flex-wrap: nowrap; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.topic-sections .uk-subnav-pill > * { padding-left: 0; flex: none; }
+.topic-sections .uk-subnav-pill > * > :first-child {
+  text-transform: none; /* plain words, not capitals (owner's taste) */
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border: 0; border-radius: var(--r-pill);
+  background: transparent; color: var(--muted);
+  font: inherit; font-size: var(--fs-sm); font-weight: var(--fw-medium); white-space: nowrap; cursor: pointer;
+  transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.topic-sections .uk-subnav-pill > [class*='is-'] > :first-child::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--step); box-shadow: 0 0 0 1px color-mix(in srgb, var(--step-text) 55%, transparent);
+}
+.topic-sections .uk-subnav-pill > * > :first-child:hover { background: var(--hover); color: var(--text); }
+.topic-sections .uk-subnav-pill > .uk-active > :first-child { background: var(--accent); color: var(--on-accent); }
+.topic-sections button:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+@media (max-width: 900px) { .topic-sections { top: 22px; margin-bottom: 20px; } }
+
+/* ---------- Carbon tag = the kind of an activity (Game 1, Free play, …) in its step's colour ---------- */
+.topic-tag.cds--tag {
+  margin: 0; min-block-size: 1.5rem; padding-inline: 10px; border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--step, var(--hue-neutral)) 24%, var(--surface));
+  color: var(--step-text, var(--text));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--step-text, var(--border)) 25%, transparent);
+  font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.01em; white-space: nowrap;
+}
+.topic-crumbs { margin-bottom: 16px; }
+
+
+/* ==========================================================================================
+   Step 100: the rectangular look (IBM Carbon + UIkit, a little OpenCode)
+   Owner: "the rectangular simple style of Carbon and UIkit, for cards, buttons..., a little like OpenCode".
+   Square corners come from the radius tokens (index.css, all 0). Here: type, buttons, cards, markers, tabs,
+   grids. Kept: the palette, the logo's fluorescent colours, round data dots and the games' round press buttons.
+   ========================================================================================== */
+
+/* ---------- Type: page titles light and tight in the monospace (OpenCode), titles of sections and cards semi-bold ---------- */
+.page h1 { font-weight: 400; letter-spacing: -0.035em; }
+.page .home-hero h1 { font-size: clamp(2.3rem, 1.1rem + 3vw, 3.6rem); line-height: 1.05; letter-spacing: -0.045em; max-width: 17ch; }
+.eyebrow, .tl-part-label, .topic-role-extra, .home-topic-game, .sr-kind, .site-foot, .hero-tick-label, .tick-label, .control-count,
+.pg-stats dd, .qz-score-num, .qz-letter, .tl-node, .home-topic-num { font-family: var(--font-mono); }
+.eyebrow, .tl-part-label { font-weight: 400; letter-spacing: 0; }
+.tick-label, .hero-tick-label { font-size: 0.74rem; }
+
+/* ---------- Header: OpenCode's numbered links "[1] Topics  [2] About", square edges ---------- */
+.main-nav { counter-reset: nav; gap: 2px; }
+.main-nav a { counter-increment: nav; padding: 6px 10px; font-family: var(--font-mono); font-size: var(--fs-sm); font-weight: 400; color: var(--muted); }
+.main-nav a::before { content: '[' counter(nav) ']\00a0' / ''; color: var(--axis); }
+.main-nav a.active { color: var(--text); }
+.main-nav a.active::before { color: var(--pink-text); }
+.main-nav a:nth-child(2).active::before { color: var(--cyan-text); }
+.main-nav a.active::after { display: none; }
+.header .btn-ghost { color: var(--muted); }
+.header-handle, .header-handle::after { border-radius: 0; }
+
+/* ---------- Buttons (Bootstrap .btn drawn as Carbon buttons): flat rectangles, three kinds ----------
+   primary   = the student's yellow, navy text (the main action of a screen)
+   secondary = an ink rectangle (light text on ink; in dark mode a light rectangle, as OpenCode's)
+   ghost     = text in the link colour, a tint on hover (Carbon's ghost button) */
+.btn { height: 40px; padding: 0 16px; gap: 8px; border-radius: 0; font-weight: 500; letter-spacing: 0; }
+.btn-sm { height: 32px; padding: 0 12px; }
+.btn-lg { height: 48px; padding: 0 22px; font-size: var(--fs-md); }
+.btn-primary { font-weight: 600; box-shadow: inset 0 0 0 1px var(--dot-stroke); }
+.btn-primary:hover:not(:disabled) { background: color-mix(in oklab, var(--sun) 88%, #000); box-shadow: inset 0 0 0 1px var(--on-cta); }
+.btn:not(.btn-primary):not(.btn-ghost):not(.btn-danger):not(.nr-choice) { background: var(--text); color: var(--bg); }
+.btn:not(.btn-primary):not(.btn-ghost):not(.btn-danger):not(.nr-choice):hover:not(:disabled) { background: color-mix(in oklab, var(--text) 82%, var(--bg)); }
+.btn-ghost { color: var(--accent); }
+.btn-ghost:hover:not(:disabled) { color: var(--accent); background: var(--hover); }
+.btn:active:not(:disabled) { transform: none; filter: brightness(0.94); }
+.btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.guide-icon { border-radius: 0; font-family: var(--font-mono); }
+
+/* ---------- Cards (UIkit cards, src/styles/_uikit.scss): flat squares on a hairline, ink text ---------- */
+.rule-list > li, .qz-card, .pg-card, .cl-card, .rc, .hero-sheet { color: var(--text); }
+.rule-list { gap: 8px; }
+.chart-fill { box-shadow: 0 0 0 1px var(--border); }
+a.row:hover .tl-cta { transform: translateX(4px); }
+.tl-cta { font-family: var(--font-mono); font-weight: 400; }
+
+/* ---------- Markers: the logo colours as small squares (steps, links of the topics page, tabs) ---------- */
+.step-dot::before { border-radius: 0; width: 9px; height: 9px; }
+.sr-dot { border-radius: 0; }
+.topic-sections .uk-subnav-pill > [class*='is-'] > :first-child::before { border-radius: 0; }
+.home-path h3::before,
+.about-step-card::before {
+  content: counter(step, decimal-leading-zero);
+  border-radius: 0;
+  width: 30px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+}
+
+/* ---------- Sections on graph paper (Step 103) ----------
+   No rule across the page any more: on the grid it read as a stray grid line. Sections are set apart by
+   space, and each section title is a title block, as on a technical drawing: a white label with a hairline,
+   laid on the grid (with its step colour, when it has one). Lists with rows, and groups of short texts, are
+   laid on sheets (opaque tiles), so their lines are drawn on paper, never on the grid. */
+.topic-role-group + .topic-role-group,
+.topic-refs { margin-top: 56px; padding-top: 0; border-top: 0; }
+.tl-part + .tl-part { margin-top: 64px; padding-top: 0; border-top: 0; }
+.home-section { margin-top: 88px; padding-top: 0; border-top: 0; }
+.privacy-body section + section,
+.licences-body section + section { margin-top: 44px; padding-top: 0; border-top: 0; }
+
+/* the title blocks */
+.page .topic-games-title,
+.page .tl-part h2,
+.page .home-section h2,
+.page .privacy-body h2,
+.page .licences-body h2,
+.page .about-panel > h2 {
+  display: flex; /* a block of its own (what follows goes under it), as wide as its text */
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 10px;
+  padding: 8px 14px;
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--border-strong);
+}
+.page .topic-refs .topic-games-title { margin-bottom: 16px; }
+
+/* the sheets: Home */
+.home-path { gap: 12px; }
+.home-path li { padding: 18px 20px 20px; border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.home-why { margin-top: 12px; padding: 0; border-top: 0; gap: 12px; }
+.home-why li { padding: 14px 16px 16px; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.home-end { padding-top: 0; border-top: 0; }
+.home-end a { display: inline-flex; padding: 12px 18px; background: var(--surface); box-shadow: 0 0 0 1px var(--border-strong); }
+.home-end a:hover { box-shadow: 0 0 0 1px var(--accent); text-decoration: none; }
+
+/* the sheets: About (the tab rail too: a Carbon vertical tab list on a sheet, not a line on the grid) */
+.about-steps { gap: 12px; }
+.about-step-card { padding: 16px 18px 18px; border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.about-foot { margin-top: 16px; padding-top: 0; border-top: 0; }
+.about-teach { padding: 0 16px; border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.about-teach-row:last-child { border-bottom: 0; }
+.about-grid { gap: 12px; }
+.about-card { padding: 16px 18px 18px; border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.about-exps { gap: 8px 12px; }
+.about-exp { padding: 0 12px; border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.about-exp summary { border-radius: 0; }
+
+/* the sheets: the Licences list, the previous / next topic */
+.licences-list { border-top: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.licences-item { padding: 14px 18px 16px; }
+.licences-item:last-child { border-bottom: 0; }
+.topic-nav { padding-top: 0; border-top: 0; gap: 12px; }
+.topic-nav-link { min-width: min(260px, 100%); padding: 12px 16px; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.topic-nav-link:hover { box-shadow: 0 0 0 1px var(--accent); }
+@media (max-width: 760px) {
+  .about-steps { gap: 10px; }
+}
+
+/* ---------- Tags: square, monospace ---------- */
+.topic-tag.cds--tag { border-radius: 0; font-family: var(--font-mono); font-weight: 600; font-size: 0.72rem; letter-spacing: 0; }
+
+/* ---------- "On this page" bar: Carbon line tabs (a hairline under the bar, 2 px under the section in view) ---------- */
+.topic-sections {
+  padding: 0;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--bg) 95%, transparent);
+  box-shadow: inset 0 -1px 0 var(--border);
+}
+.topic-sections .uk-subnav { gap: 0; }
+.topic-sections .uk-subnav-pill > * > :first-child { padding: 12px 16px; border-radius: 0; font-family: var(--font-mono); font-weight: 400; }
+.topic-sections .uk-subnav-pill > * > :first-child:hover { background: var(--hover); }
+.topic-sections .uk-subnav-pill > .uk-active > :first-child { background: transparent; color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); }
+
+/* ---------- Grids with shared hairlines (OpenCode's grid, Carbon's structured list) ---------- */
+.pg-stats { gap: 1px; padding: 1px; background: var(--border); }
+.pg-stats div { border-radius: 0; background: var(--surface); padding: 8px 6px; }
+.rc-table thead th { background: var(--hover); font-family: var(--font-mono); font-weight: 600; }
+
+/* ---------- Quiz: square letters and marks (the score dots stay round: they are dots) ---------- */
+.qz-letter, .qz-review-mark { border-radius: 0; }
+
+/* ---------- About: Carbon vertical tabs in the margin (a rail, 2 px on the open tab) ---------- */
+.about-tabs { gap: 0; background: var(--surface); box-shadow: 0 0 0 1px var(--border); }
+.about-tabs button { margin: 0; border-radius: 0; padding: 10px 16px; font-family: var(--font-mono); font-weight: 400; }
+.about-tabs button::before { display: none; }
+.about-tabs button[aria-selected='true'] { background: var(--hover); box-shadow: inset 2px 0 0 var(--accent); }
+@media (max-width: 900px) {
+  .about-tabs button[aria-selected='true'] { box-shadow: inset 0 -2px 0 var(--accent); }
+}
+
+/* ---------- Search field of the topics page: Carbon text input (a filled field with a line under it) ---------- */
+.sr-fieldrow { border-radius: 0; background: var(--hover); box-shadow: inset 0 -1px 0 var(--axis); }
+.sr-fieldrow:focus-within { box-shadow: inset 0 0 0 2px var(--focus); }
+
+/* ---------- Phone menu: square panel, numbered links ---------- */
+.menu-bar.uk-offcanvas-bar { border-radius: 0; }
+.menu-nav { counter-reset: nav; }
+.menu-nav a { counter-increment: nav; border-radius: 0; font-family: var(--font-mono); font-weight: 400; }
+.menu-nav a::before { content: '[' counter(nav) ']' / ''; width: auto; height: auto; border-radius: 0; background: none; color: var(--axis); font-size: var(--fs-md); }
+.menu-nav a.active::before { background: none; color: var(--pink-text); }
+.menu-nav a:nth-child(2).active::before { background: none; color: var(--cyan-text); }
+
+/* ---------- Charts: their highlight bands, stimulus boxes and bars are square too (CSS rx overrides the SVG attribute) ---------- */
+.page svg rect { rx: 0; ry: 0; }
+
+/* ---------- Answer keys are keys, not dots: square, with monospace digits (Pick a random number) ---------- */
+.bs-num { border-radius: 0; font-family: var(--font-mono); font-weight: 600; }
+
+/* ---------- Phone menu: the legal links at the foot of the panel ---------- */
+.menu-legal { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 24px 0 0; padding-top: 16px; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: var(--fs-xs); }
+.menu-legal a { color: var(--muted); }
+.menu-legal a:hover, .menu-legal a.active { color: var(--text); }

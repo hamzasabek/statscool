@@ -4,6 +4,7 @@ import logoDark from '../assets/logo-dark.png'
 import logoLight from '../assets/logo-light.png'
 import { LANGS, useLang, useText } from '../i18n.jsx'
 import { SearchButton } from './Search.jsx'
+import Menu from './Menu.jsx'
 import { COMMON } from '../text.js'
 import { useSoundOn } from '../sound.js'
 import { useTheme } from '../theme.js'
@@ -100,12 +101,12 @@ export default function Header() {
         </Link>
         <div className="header-tools">
           {/* "Topics" stays active inside a game too (/topics/…) */}
-          <nav className="main-nav" aria-label={tx.nav}>
+          <nav className="main-nav header-desk" aria-label={tx.nav}>
             <NavLink to="/topics">{tx.navTopics}</NavLink>
             <NavLink to="/about">{tx.navAbout}</NavLink>
           </nav>
           <SearchButton />
-          <div className="segmented lang-switch" role="group" aria-label={tx.language}>
+          <div className="segmented lang-switch header-desk" role="group" aria-label={tx.language}>
             {LANGS.map((l) => (
               <button
                 key={l}
@@ -121,7 +122,7 @@ export default function Header() {
           </div>
           <button
             type="button"
-            className="btn btn-ghost theme-toggle sound-toggle"
+            className="btn btn-ghost theme-toggle sound-toggle header-desk"
             aria-pressed={sound}
             aria-label={sound ? tx.soundOff : tx.soundOn}
             title={sound ? tx.soundOff : tx.soundOn}
@@ -131,13 +132,14 @@ export default function Header() {
           </button>
           <button
             type="button"
-            className="btn btn-ghost theme-toggle"
+            className="btn btn-ghost theme-toggle header-desk"
             aria-label={dark ? tx.toLight : tx.toDark}
             title={dark ? tx.toLight : tx.toDark}
             onClick={toggleTheme}
           >
             {dark ? <Sun /> : <Moon />}
           </button>
+          <Menu />
         </div>
       </div>
     </header>
