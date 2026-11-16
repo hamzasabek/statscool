@@ -43,7 +43,7 @@ and browser history / tabs all read the same.
 Fix: a small hook in `App.jsx` that sets `document.title = "<h1> · StatsCool"` after each route and moves focus to the `<h1>`
 (`tabIndex={-1}`) or to a polite live region; also on language change.
 
-**H2. The root font size is a fixed `15.5px`** (`src/index.css:168`; WCAG 1.4.4 and the user's own setting)
+**H2. [FIXED in Step 109] The root font size is a fixed `15.5px`** (`src/index.css:168`; WCAG 1.4.4 and the user's own setting)
 Everything is in `rem`, but `rem` is multiplied by 15.5 px, not by the browser's default size. A reader who set "Large" or 20 px in
 Chrome / Firefox / Edge, or the text-size setting of Android and iOS, gets **no change**. (Page zoom still works.) It also puts the body
 below the usual 16 px.

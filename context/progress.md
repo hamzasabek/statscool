@@ -1939,3 +1939,16 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   switch → About → Home in French → unknown address → search palette ("quiz" + Enter): title and focus right each time, scroll at 0; a game
   whose guided tour opens keeps the focus on the tour's button (the tour takes it after the h1). Full `npm run check`: no problems.
 - Not done from the audit (next in the list): the root font size, the skip link, small text and targets.
+
+## 2026-11-16 — Step 109: the root font size follows the reader's text-size setting (accessibility H2) (Claude)
+- Owner: "fix the root font size" (finding H2 of the Step 107 audit).
+- `src/index.css`, `:root`: `font-size: 15.5px` → `font-size: 96.875%` (= 15.5 / 16). At the browser's default of 16 px the page is
+  exactly as before (root still 15.5 px, same layout, every game still one screen at 1366×768); a reader who chose a larger default text
+  size in the browser, or the text size of Android / iOS, now gets everything bigger (all sizes are in `rem`). Nothing else changed.
+- Tested in headless Chrome with the browser's default font set to 16, 20 and 24 px (`Page.setFontSizes`, scratch script): root 15.5 /
+  19.4 / 23.3 px; 11 pages (Home, Topics, a topic, 6 games and the quiz, About) at 1366 and 390 px wide: no horizontal scroll; most games
+  still one screen at 20 px, the rest (playgrounds, dots, calculation) scroll a little, which is fine at a size the reader chose. Full
+  `npm run check`: no problems. Screenshots at 24 px: text, header and the game screen scale.
+- Known limit, left for the small-text step: at the largest sizes (24 px default) the SVG charts' text grows but its place is fixed in px
+  coordinates, so an axis title can touch the tick numbers (Müller-Lyer chart: "How much too long you made the plain line" over the
+  ticks) and the outer tick ("−40%") is clipped. The charts need a little more room under the axis, or labels measured from the text size.

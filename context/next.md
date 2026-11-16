@@ -25,7 +25,7 @@ what is left and which files; remove the item once it is committed. (AGENTS.md, 
 
 ## Open items
 - Accessibility fixes (audit of Step 107, `docs/accessibility-audit.md`, owner has not chosen yet). Order: (1) [`document.title` per route + focus
-  on the h1 after navigation: DONE, Step 108], root font-size `96.875%` instead of `15.5px`, a skip link; (2) font floor 13 px, KaTeX scale, "Game N" tag
+  on the h1 after navigation: DONE, Step 108], [root font-size `96.875%` instead of `15.5px`: DONE, Step 109], a skip link; (2) font floor 13 px, KaTeX scale, "Game N" tag
   contrast (4.29:1), axis ticks, targets under 24 px; (3) focus cues, field borders, `role="img"` around the Normal knobs, the playground
   `<aside>`; (4) text-size control, `forced-colors`; (5) a manual pass with NVDA / VoiceOver and a phone.
 - "Tap with the beat" (Step 64) was only tested with synthetic taps in headless Chrome: check the

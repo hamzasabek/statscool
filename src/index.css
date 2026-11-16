@@ -165,7 +165,7 @@
 
   color-scheme: light;
   font-family: var(--font-ui);
-  font-size: 15.5px;
+  font-size: 96.875%; /* = 15.5px at the browser default of 16px, but follows the reader's own text-size setting (Step 109) */
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   font-optical-sizing: auto;
