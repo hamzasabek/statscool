@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>StatsCool logo v3 · candidates</title>
+<style>
+  :root { --paper: #f7f9fc; --line: rgb(17 31 162 / 0.065); --ink: #101a30; --muted: #565c6b; }
+  .dark { --paper: #0d1117; --line: rgb(142 164 255 / 0.075); --ink: #e6edf3; --muted: #a3abb8; }
+  body { margin: 0; font: 14px/1.5 'IBM Plex Mono', ui-monospace, Consolas, monospace; color: #101a30; background: #fff; }
+  h1 { margin: 16px 20px 4px; font-size: 18px; font-weight: 600; }
+  p.lead { margin: 0 20px 14px; color: #565c6b; }
+  .row { display: grid; grid-template-columns: 150px 1fr 1fr; border-top: 1px solid #dfe4ee; }
+  .name { padding: 14px 20px; font-weight: 600; }
+  .name small { display: block; font-weight: 400; color: #565c6b; }
+  .cell { padding: 18px 20px; color: var(--ink); background-color: var(--paper);
+    background-image: linear-gradient(to right, var(--line) 1px, transparent 1px), linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 24px 24px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .bar { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 64px; padding: 0 12px; box-sizing: border-box;
+    background: color-mix(in srgb, var(--paper) 70%, #fff); box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--ink) 12%, transparent); }
+  .dark .bar { background: #090c10; }
+  .nav { font-size: 12px; color: var(--muted); }
+  .big { height: 120px; }
+  .marks img { image-rendering: auto; }
+  .marks span { font-size: 11px; color: var(--muted); }
+</style>
+</head>
+<body>
+<h1>StatsCool logo, version 3 · three directions</h1>
+<p class="lead">Each one in the header (light, dark) and large; the mark (tab icon) at 16, 32, 64 and 180 px.</p>
+
+<div class="row"><div class="name">A · Tiles<small>the old logo on a strict grid</small></div>
+  <div class="cell"><div class="bar"><img src="tiles-light.svg" height="52" alt="" /><span class="nav">[1] Topics &nbsp; [2] About</span></div><img class="big" src="tiles-light.svg" alt="" /></div>
+  <div class="cell dark"><div class="bar"><img src="tiles-dark.svg" height="52" alt="" /><span class="nav">[1] Topics &nbsp; [2] About</span></div><img class="big" src="tiles-dark.svg" alt="" /></div>
+</div>
+<div class="row"><div class="name">B · Bars<small>"cool" as a bar chart</small></div>
+  <div class="cell"><div class="bar"><img src="bars-light.svg" height="52" alt="" /><span class="nav">[1] Topics &nbsp; [2] About</span></div><img class="big" src="bars-light.svg" alt="" /></div>
+  <div class="cell dark"><div class="bar"><img src="bars-dark.svg" height="52" alt="" /><span class="nav">[1] Topics &nbsp; [2] About</span></div><img class="big" src="bars-dark.svg" alt="" /></div>
+</div>
+<div class="row"><div class="name">C · Keys<small>one row of keys</small></div>
+  <div class="cell"><div class="bar"><img src="keys-light.svg" height="34" alt="" /><span class="nav">[1] Topics &nbsp; [2] About</span></div><img class="big" src="keys-light.svg" style="height: 70px" alt="" /></div>
+  <div class="cell dark"><div class="bar"><img src="keys-dark.svg" height="34" alt="" /><span class="nav">[1] Topics &nbsp; [2] About</span></div><img class="big" src="keys-dark.svg" style="height: 70px" alt="" /></div>
+</div>
+<div class="row"><div class="name">Mark<small>tab icon, app icon</small></div>
+  <div class="cell marks"><img src="mark.svg" width="16" alt="" /><img src="mark.svg" width="32" alt="" /><img src="mark.svg" width="64" alt="" /><img src="mark.svg" width="180" alt="" /></div>
+  <div class="cell dark marks"><img src="mark.svg" width="16" alt="" /><img src="mark.svg" width="32" alt="" /><img src="mark.svg" width="64" alt="" /><img src="mark.svg" width="180" alt="" /></div>
+</div>
+<div class="row"><div class="name">Before<small>logo v2 (today)</small></div>
+  <div class="cell"><div class="bar"><img src="../../../src/assets/logo-light.png" height="52" alt="" /><span class="nav">[1] Topics &nbsp; [2] About</span></div></div>
+  <div class="cell dark"><div class="bar"><img src="../../../src/assets/logo-dark.png" height="52" alt="" /><span class="nav">[1] Topics &nbsp; [2] About</span></div></div>
+</div>
+</body>
+</html>
