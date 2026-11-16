@@ -3,13 +3,16 @@
 ## In progress
 Work started but not finished, for whichever AI tool (Claude or Gemini) comes next. Say what is done,
 what is left and which files; remove the item once it is committed. (AGENTS.md, section 2.)
-- Repository plan (Step 110; report, plan and decisions in `private/repo-audit-2026-11-16.md`, local only). Done: phase A (Step 111,
-  the rationale moved to `private/`), phase B (Step 112, history rewritten, old branches deleted, commit e-mail = GitHub noreply) and
-  phase C (Step 113, dependencies: npm audit 22 → 1 low) and phase D (Step 114, code splitting: main file 444 → 131 KB gzip). Left,
-  one step each: (D, optional) pages/text.js split per page; E CSS and fonts (dead classes, Fraunces, split index.css), F docs and
-  organisation (README, progress archive, doc inconsistencies, CI runs npm run check), G optional (unit tests, lint).
+- Repository plan (Step 110; report, plan and decisions in `private/repo-audit-2026-11-16.md`, local only). Done: A (Step 111,
+  rationale moved to `private/`), B (Step 112, history rewritten, old branches deleted, commit e-mail = GitHub noreply), C (Step 113,
+  dependencies: npm audit 22 → 1 low), D (Step 114, code splitting: main JS 444 → 131 KB gzip), E (Step 115, dead CSS and Fraunces
+  removed). Left: F docs and organisation (README, progress archive, doc inconsistencies, CI runs npm run check), G optional (unit
+  tests, lint).
 
 ## Open items
+- Optional, not done on purpose (Step 115): split `src/index.css` into one CSS file per page / game. With lazy pages their CSS would
+  load later and in another order, so rules of equal specificity could start winning differently; the gain is small (main CSS 28 KB
+  gzip, cached). Also optional: split `src/pages/text.js` (43 KB, every page's texts) per page.
 - Framework restyle (Steps 98-104) not applied yet to: About (Carbon vertical tabs, UIkit accordion), References (Bootstrap list group),
   search palette (Bootstrap modal + list group), playgrounds and live calculations (Carbon tiles, Bootstrap range), Train shell (Carbon
   progress bar), tour and citation bubbles (Carbon popover), icon tooltips (UIkit), Bootstrap-owned buttons.

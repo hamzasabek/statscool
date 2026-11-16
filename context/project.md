@@ -518,7 +518,7 @@ A new game: tick when a trial becomes a dot, `useChime(n, MIN_TRIALS, TRIALS)` a
   text. Round only for data dots, step rings and the games' big press buttons. (Before Step 100: "elegant, no boxed/rectangle panels,
   pills".)
 - Visual style (owner's wish before Step 100): elegant, no boxed/rectangle panels. Use soft lifted cards,
-  pill buttons, segmented pills, whitespace. Fonts: Fraunces (headings), Inter (UI), both self-hosted (Latin + Latin-ext variable woff2 in src/assets/fonts; no Google Fonts).
+  pill buttons, segmented pills, whitespace. Fonts then: Fraunces (headings; removed in Step 115), Inter (UI), both self-hosted (Latin + Latin-ext variable woff2 in src/assets/fonts; no Google Fonts).
 
 - Topics are games: the student makes the data, each action is a dot. Psychology themes.
 - Plain JavaScript (`.jsx` / `.js`), function components and hooks.

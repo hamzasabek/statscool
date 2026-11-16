@@ -260,7 +260,7 @@
 /* ---------- Type: page titles light and tight in the monospace (OpenCode), titles of sections and cards semi-bold ---------- */
 .page h1 { font-weight: 400; letter-spacing: -0.035em; }
 .page .home-hero h1 { font-size: clamp(2.3rem, 1.1rem + 3vw, 3.6rem); line-height: 1.05; letter-spacing: -0.045em; max-width: 17ch; }
-.eyebrow, .tl-part-label, .topic-role-extra, .home-topic-game, .sr-kind, .site-foot, .hero-tick-label, .tick-label, .control-count,
+.eyebrow, .tl-part-label, .topic-role-extra, .home-topic-game, .sr-kind, .site-foot, .hero-tick-label, .tick-label,
 .pg-stats dd, .qz-score-num, .qz-letter, .tl-node, .home-topic-num { font-family: var(--font-mono); }
 .eyebrow, .tl-part-label { font-weight: 400; letter-spacing: 0; }
 .tick-label, .hero-tick-label { font-size: 0.74rem; }

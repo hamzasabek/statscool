@@ -121,7 +121,7 @@ meant to read as inactive, it is exempt; if students must read it, use `--muted`
 - **L6. The logo is at 86 % opacity** (Step 106). The logo is exempt from contrast rules and has `alt="StatsCool"`.
 - **L7. Headings in mono at large sizes with negative tracking (`-0.028em`)** read fine to most people, but it is one of the first things to
   lift for dyslexic readers; if L2 is built, the "readable font" option should also reset `letter-spacing` on headings.
-- **L8. Two small unused things:** the Fraunces font files (127 KB) are still in the build but unused, so visitors do not download them (the Step 100 comment says they are kept to
+- **L8. [Fraunces removed in Step 115] Two small unused things:** the Fraunces font files (127 KB) are still in the build but unused, so visitors do not download them (the Step 100 comment says they are kept to
   switch back), and `document.title` could carry the language ("StatsCool (français)").
 
 ## Suggested order

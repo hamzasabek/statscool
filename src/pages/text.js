@@ -438,7 +438,6 @@ export const LICENCES_PAGE = {
     uses: {
       inter: 'The text of the site.',
       'ibm-plex-mono': 'Headings, numbers and labels.',
-      fraunces: 'The former headings, kept in the site so they can come back.',
       'katex-fonts': 'The mathematical formulas.',
       carbon: 'The switches, the steps of a game, the quiz answers and their feedback, the tags and the tabs.',
       bootstrap: 'The buttons, the breadcrumb and the switches of the phone menu.',
@@ -470,7 +469,6 @@ export const LICENCES_PAGE = {
     uses: {
       inter: 'Le texte du site.',
       'ibm-plex-mono': 'Les titres, les nombres et les étiquettes.',
-      fraunces: 'Les anciens titres, gardés dans le site pour pouvoir revenir.',
       'katex-fonts': 'Les formules mathématiques.',
       carbon: 'Les sélecteurs, les étapes d’un jeu, les réponses du quiz et leur retour, les étiquettes et les onglets.',
       bootstrap: 'Les boutons, le fil d’Ariane et les interrupteurs du menu sur téléphone.',

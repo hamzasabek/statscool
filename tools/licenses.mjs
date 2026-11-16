@@ -27,8 +27,6 @@ const PROJECTS = [
     text: 'src/assets/fonts/LICENSE-Inter-OFL.txt', copyright: ['Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)'] },
   { id: 'ibm-plex-mono', kind: 'font', name: 'IBM Plex Mono', url: 'https://github.com/IBM/plex', spdx: 'OFL-1.1', fonts: /\/src\/assets\/fonts\/ibm-plex-mono-/,
     text: 'src/assets/fonts/LICENSE-IBM-Plex-Mono-OFL.txt', copyright: ['Copyright © 2017 IBM Corp. with Reserved Font Name "Plex"'] },
-  { id: 'fraunces', kind: 'font', name: 'Fraunces', url: 'https://github.com/undercasetype/Fraunces', spdx: 'OFL-1.1', fonts: /\/src\/assets\/fonts\/fraunces-/,
-    text: 'src/assets/fonts/LICENSE-Fraunces-OFL.txt', copyright: ['Copyright 2020 The Fraunces Project Authors (github.com/undercasetype/Fraunces)'] },
   { id: 'katex-fonts', kind: 'font', name: 'KaTeX fonts', url: 'https://katex.org', spdx: 'OFL-1.1', fonts: /\/node_modules\/katex\/dist\/fonts\//,
     copyright: ['Copyright (c) 2009-2010, Design Science, Inc. (www.mathjax.org)', 'Copyright (c) 2014-2018 Khan Academy (www.khanacademy.org)'] },
   { id: 'carbon', kind: 'style', name: 'IBM Carbon Design System', url: 'https://carbondesignsystem.com', layer: 'carbon', packages: ['@carbon/styles'],

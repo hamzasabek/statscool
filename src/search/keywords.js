@@ -212,8 +212,8 @@ export const PAGES = [
       fr: 'Les polices, styles et code d’autres auteurs utilisés par StatsCool, avec leur copyright et leur licence.',
     },
     kw: {
-      en: 'licences licenses credits copyright open source third party notices attribution fonts Inter IBM Plex Mono Fraunces KaTeX Carbon Bootstrap UIkit HiQ React D3 Motion MIT Apache ISC OFL',
-      fr: 'licences crédits droits d’auteur copyright open source tiers mentions attribution polices Inter IBM Plex Mono Fraunces KaTeX Carbon Bootstrap UIkit HiQ React D3 Motion MIT Apache ISC OFL',
+      en: 'licences licenses credits copyright open source third party notices attribution fonts Inter IBM Plex Mono KaTeX Carbon Bootstrap UIkit React D3 Motion MIT Apache ISC OFL',
+      fr: 'licences crédits droits d’auteur copyright open source tiers mentions attribution polices Inter IBM Plex Mono KaTeX Carbon Bootstrap UIkit React D3 Motion MIT Apache ISC OFL',
     },
   },
 ]

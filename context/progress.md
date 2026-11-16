@@ -2018,3 +2018,16 @@ Newest entries at the bottom. Each step = one commit pushed to `main`.
   Topics, topic, game, FR, About, 404, search palette: titles and focus right; direct visit to a lazy page: title set, formulas rendered;
   navigation to a game not yet loaded: no placeholder ever shown; chunk blocked (`Network.setBlockedURLs`): the message and Reload button,
   and the next navigation works; guided tours open on lazy games with the focus on their button.
+
+## 2026-11-16 — Step 115: unused CSS and the Fraunces font removed (phase E) (Claude)
+- Owner: "go ahead" with the Step 110 plan.
+- Unused CSS removed from `src/index.css` after checking each name in the JS / JSX sources and in the class names built in code
+  (`is-${…}`, `tint-${…}`): `.back-link` (+ `.topic-head .back-link`), `.btn-icon`, `.btn-danger`, `.btn-row`, `.btn-wrap` (+ `.btn-sm`
+  inside it), `.control-count` (also from a selector list in bridge.css), `.legend-item.fit / .real`, and the tokens `--bar`, `--bar-mode`,
+  `--mode`, `--miss-soft` (light and dark). The audit's other candidates (`is-center`, `is-spot`, `tint-1`…) are built in code: kept.
+  `:not(.btn-danger)` in bridge.css kept (removing it would lower the rules' specificity).
+- Fraunces (headings until Step 100) removed: its two `@font-face`, the two woff2 files and its licence, its entry in tools/licenses.mjs
+  (`npm run licenses`: 11 projects), its line on the Licences page (EN, FR) and in the search keywords of that page (with HiQ's).
+- Not done, on purpose: splitting index.css per page (see next.md: CSS order risk with lazy pages, small gain).
+- Result: main CSS 152 → 150 KB (28 KB gzip); dist/ has no Fraunces file.
+- Tested: full `npm run check` (36 pages × 2 sizes × EN/FR, citations, search, licences: no problems).

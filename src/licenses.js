@@ -30,20 +30,6 @@ export const LICENSES = [
     "file": "licenses/ibm-plex-mono.txt"
   },
   {
-    "id": "fraunces",
-    "kind": "font",
-    "name": "Fraunces",
-    "url": "https://github.com/undercasetype/Fraunces",
-    "licence": "SIL Open Font License 1.1",
-    "packages": [],
-    "files": 2,
-    "copyright": [
-      "Copyright 2020 The Fraunces Project Authors (github.com/undercasetype/Fraunces)"
-    ],
-    "changed": false,
-    "file": "licenses/fraunces.txt"
-  },
-  {
     "id": "katex-fonts",
     "kind": "font",
     "name": "KaTeX fonts",
